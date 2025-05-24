@@ -1,0 +1,13 @@
+{
+  "name": "com.eggcentric.datacontainers",
+  "version": "1.0.0",
+  "displayName": "EggCentric Data Containers",
+  "description": "Pack of custom data containers for improved workflow",
+  "unity": "2022.3",
+  "dependencies": {},
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}
