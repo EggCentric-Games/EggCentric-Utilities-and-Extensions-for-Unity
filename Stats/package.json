@@ -5,7 +5,7 @@
   "description": "Collection of stats (ranged properties) used for fast prototyping and unified implementation",
   "unity": "2022.3",
   "dependencies": {
-    "com.eggcentric.evaluators": "https://github.com/HummeL-AL/EggCentric-Utilities-and-Extensions-for-Unity.git?path=/Evaluators"
+    "com.eggcentric.evaluators": "1.0.0"
   },
   "author": {
     "name": "HummeL",
