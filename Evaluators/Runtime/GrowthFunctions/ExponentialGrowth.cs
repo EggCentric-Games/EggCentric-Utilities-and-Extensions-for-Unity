@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace EggCentric.Utilities.Evaluators
+namespace EggCentric.Evaluators
 {
     public class ExponentialGrowth : IGrowth
     {

@@ -1,4 +1,4 @@
-﻿namespace EggCentric.Utilities.Evaluators
+﻿namespace EggCentric.Evaluators
 {
     public interface IShapeFunction
     {

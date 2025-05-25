@@ -1,5 +1,5 @@
 ﻿
-namespace EggCentric.Utilities.Evaluators
+namespace EggCentric.Evaluators
 {
     public class OneSideShaping : DotShaping
     {
