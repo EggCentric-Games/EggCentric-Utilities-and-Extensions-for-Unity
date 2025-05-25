@@ -1,4 +1,4 @@
-﻿namespace EggCentric.Utilities.DataContainers
+﻿namespace EggCentric.DataContainers
 {
     public interface IDataCache<T>
     {

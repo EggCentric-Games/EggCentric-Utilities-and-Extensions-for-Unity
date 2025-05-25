@@ -5,7 +5,7 @@ namespace System.Runtime.CompilerServices
     internal static class IsExternalInit { }
 }
 
-namespace EggCentric.Utilities.DataContainers
+namespace EggCentric.DataContainers
 {
     public record DataCache<T>(T Data, float Timestamp, float TimeToLive)
     {

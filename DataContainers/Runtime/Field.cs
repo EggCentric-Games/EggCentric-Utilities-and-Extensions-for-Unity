@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EggCentric.Utilities.DataContainers
+namespace EggCentric.DataContainers
 {
     public class Field<T>
     {

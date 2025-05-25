@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EggCentric.Utilities.DataContainers
+namespace EggCentric.DataContainers
 {
     public interface IRegister<T>
     {
