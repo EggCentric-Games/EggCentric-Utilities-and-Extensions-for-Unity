@@ -1,6 +1,6 @@
 {
-    "name": "EggCentric.DataContainers ",
-    "rootNamespace": "EggCentric.DataContainers ",
+    "name": "EggCentric.DataContainers",
+    "rootNamespace": "EggCentric.DataContainers",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
