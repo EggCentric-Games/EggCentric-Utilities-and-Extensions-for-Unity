@@ -7,7 +7,7 @@ namespace System.Runtime.CompilerServices
 
 namespace EggCentric.DataContainers
 {
-    public record DataCache<T>(T Data, float Timestamp, float TimeToLive)
+    public record DataCache<T>(T Data, float Timestamp, float TimeToLive) : IDataCache<T>
     {
         public bool IsValid => Time.time <= Timestamp + TimeToLive;
 
