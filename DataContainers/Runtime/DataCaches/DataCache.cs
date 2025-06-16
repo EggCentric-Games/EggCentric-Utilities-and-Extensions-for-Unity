@@ -13,6 +13,12 @@ namespace EggCentric.DataContainers
 
         public DataCache(T data, float timeToLive = 0f) : this(data, Time.time, timeToLive)
         {
+
+        }
+
+        public static implicit operator T(DataCache<T> obj)
+        {
+            return obj.Data;
         }
     }
 }

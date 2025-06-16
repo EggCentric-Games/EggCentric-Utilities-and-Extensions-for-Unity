@@ -21,6 +21,11 @@ namespace EggCentric.DataContainers
             SetValue(initialValue);
         }
 
+        public static implicit operator T(CachedValue<T> obj)
+        {
+            return obj.GetValue();
+        }
+
         public T GetValue()
         {
             if (_hasValue)
