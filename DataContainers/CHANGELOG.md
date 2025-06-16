@@ -1,3 +1,9 @@
+## [1.1.0] - 2025-06-16
+
+### Cached Value Implementation
+
+- Implemented CachedValue class that should reduce unnecessary data recalculations
+
 ## [1.0.0] - 2025-05-24
 
 ### First Release
