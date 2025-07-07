@@ -1,24 +1,38 @@
-﻿using UnityEngine;
-
-namespace System.Runtime.CompilerServices
+﻿namespace EggCentric.DataContainers
 {
-    internal static class IsExternalInit { }
-}
-
-namespace EggCentric.DataContainers
-{
-    public record DataCache<T>(T Data, float Timestamp, float TimeToLive) : IDataCache<T>
+    public class DataCache<TValue> : ManualDataCache<TValue>
     {
-        public bool IsValid => Time.time <= Timestamp + TimeToLive;
+        public override TValue Data => _value;
+        public override bool IsValid => _hasValue;
 
-        public DataCache(T data, float timeToLive = 0f) : this(data, Time.time, timeToLive)
+        private bool _hasValue;
+        private TValue _value;
+
+        public DataCache()
         {
 
         }
 
-        public static implicit operator T(DataCache<T> obj)
+        public DataCache(TValue initialValue) : this()
+        {
+            SetValue(initialValue);
+        }
+
+        public static implicit operator TValue(DataCache<TValue> obj)
         {
             return obj.Data;
+        }
+
+        public override void SetValue(TValue value)
+        {
+            _value = value;
+            _hasValue = true;
+        }
+
+        public void Clear()
+        {
+            _hasValue = false;
+            _value = default;
         }
     }
 }

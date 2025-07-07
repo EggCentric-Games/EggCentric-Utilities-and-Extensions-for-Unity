@@ -1,6 +1,6 @@
 {
   "name": "com.eggcentric.datacontainers",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "displayName": "EggCentric Data Containers",
   "description": "Pack of custom data containers for improved workflow",
   "unity": "2022.3",

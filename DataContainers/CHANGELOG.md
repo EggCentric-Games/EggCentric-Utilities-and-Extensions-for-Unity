@@ -1,3 +1,12 @@
+## [1.2.0] - 2025-07-07
+
+### Caching System Revamp
+
+- **Removed** CachedValue class - use AutomatedDataCache instead
+- **Revamped** DataCache functionality. Old functionality moved into DataRecord
+- Added AutomatedDataCache decorator that supports lazy initialization of other caches
+- Added TimeDependentCache that invalidates itself after some time
+
 ## [1.2.0] - 2025-06-16
 
 ### Implicit Conversion Implementation
