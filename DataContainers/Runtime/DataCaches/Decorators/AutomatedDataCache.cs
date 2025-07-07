@@ -37,5 +37,10 @@ namespace EggCentric.DataContainers
                 return cache;
             }
         }
+
+        public void Invalidate()
+        {
+            cache.Invalidate();
+        }
     }
 }

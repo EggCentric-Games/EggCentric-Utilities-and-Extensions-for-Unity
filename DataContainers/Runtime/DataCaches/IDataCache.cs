@@ -4,5 +4,7 @@
     {
         public T Data { get; }
         public bool IsValid { get; }
+
+        public void Invalidate();
     }
 }

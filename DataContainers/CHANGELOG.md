@@ -1,4 +1,10 @@
-## [1.2.0] - 2025-07-07
+## [1.3.1] - 2025-07-07
+
+### Cache Invalidation
+
+- Implemented cache invalidation methods
+
+## [1.3.0] - 2025-07-07
 
 ### Caching System Revamp
 

@@ -30,5 +30,10 @@
         {
             _lastRecord = new DataRecord<TValue>(value, _defaultRecordLifetime);
         }
+
+        public override void Invalidate()
+        {
+            _lastRecord = null;
+        }
     }
 }

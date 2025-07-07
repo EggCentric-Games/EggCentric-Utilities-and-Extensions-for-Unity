@@ -6,6 +6,7 @@
         public abstract bool IsValid { get; }
 
         public abstract void SetValue(TValue newValue);
+        public abstract void Invalidate();
 
         public static implicit operator TValue(ManualDataCache<TValue> obj)
         {

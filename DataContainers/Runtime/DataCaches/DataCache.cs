@@ -29,7 +29,7 @@
             _hasValue = true;
         }
 
-        public void Clear()
+        public override void Invalidate()
         {
             _hasValue = false;
             _value = default;
