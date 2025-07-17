@@ -1,0 +1,13 @@
+{
+  "name": "com.eggcentric.state_machines",
+  "version": "1.0.0",
+  "displayName": "EggCentric State Machines",
+  "description": "Tools for easier state managment and transition implementation",
+  "unity": "2022.3",
+  "dependencies": {},
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}
