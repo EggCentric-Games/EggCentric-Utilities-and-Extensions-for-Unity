@@ -2,7 +2,7 @@
 
 namespace EggCentric.DataContainers
 {
-    public class Field<T>
+    public class Field<T> : IReadOnlyField<T>
     {
         public T Value
         {

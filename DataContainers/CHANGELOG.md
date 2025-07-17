@@ -1,3 +1,9 @@
+## [1.4.0] - 2025-07-17
+
+### Read only access
+
+- Implemented IReadOnlyField
+
 ## [1.3.1] - 2025-07-07
 
 ### Cache Invalidation
