@@ -1,0 +1,14 @@
+{
+    "name": "EggCentric.EventHandling",
+    "rootNamespace": "EggCentric.EventHandling",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
