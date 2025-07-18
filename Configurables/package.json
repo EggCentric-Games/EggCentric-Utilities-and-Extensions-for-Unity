@@ -1,0 +1,13 @@
+{
+  "name": "com.eggcentric.configurables",
+  "version": "1.0.0",
+  "displayName": "EggCentric Configurables",
+  "description": "Small set of tools for fast and unified implementation of configurable classes",
+  "unity": "2022.3",
+  "dependencies": {},
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}
