@@ -1,0 +1,13 @@
+{
+  "name": "com.eggcentric.reflection",
+  "version": "1.0.0",
+  "displayName": "EggCentric Reflection",
+  "description": "Tools that extend and simplify work with reflection",
+  "unity": "2022.3",
+  "dependencies": {},
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}
