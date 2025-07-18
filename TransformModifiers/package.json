@@ -1,0 +1,13 @@
+{
+  "name": "com.eggcentric.transform_modifiers",
+  "version": "1.0.0",
+  "displayName": "EggCentric Transform Modifiers",
+  "description": "Tools for easier transform linking and modification",
+  "unity": "2022.3",
+  "dependencies": {},
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}
