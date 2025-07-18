@@ -1,29 +1,32 @@
 using UnityEngine;
 
-public class RotationLink : TransformLink<RotationLinkSettings>
+namespace EggCentric.TransformModifiers.Linking
 {
-    private Quaternion offset => Quaternion.Euler(linkSettings.Offset);
-
-    private void Update() => UpdateRotation();
-
-    private void UpdateRotation()
+    public class RotationLink : TransformLink<RotationLinkSettings>
     {
-        if (!linkedObject)
-            return;
+        private Quaternion offset => Quaternion.Euler(linkSettings.Offset);
 
-        ApplyOffset(offset);
+        private void Update() => UpdateRotation();
+
+        private void UpdateRotation()
+        {
+            if (!linkedObject)
+                return;
+
+            ApplyOffset(offset);
+        }
+
+        private void ApplyOffset(Quaternion offset)
+        {
+            if (linkSettings.ApplicationSpace == Space.Self)
+                transform.localRotation = GetTargetRotation(offset);
+            else
+                transform.rotation = GetTargetRotation(offset);
+        }
+
+        private Quaternion GetTargetRotation(Quaternion offset) =>
+            linkSettings.TargetSpace == Space.Self
+            ? linkedObject.localRotation * offset
+            : linkedObject.rotation * offset;
     }
-
-    private void ApplyOffset(Quaternion offset)
-    {
-        if (linkSettings.ApplicationSpace == Space.Self)
-            transform.localRotation = GetTargetRotation(offset);
-        else
-            transform.rotation = GetTargetRotation(offset);
-    }
-
-    private Quaternion GetTargetRotation(Quaternion offset) =>
-        linkSettings.TargetSpace == Space.Self
-        ? linkedObject.localRotation * offset
-        : linkedObject.rotation * offset;
 }

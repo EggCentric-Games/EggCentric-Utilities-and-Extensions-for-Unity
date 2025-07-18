@@ -1,17 +1,20 @@
 ﻿using System;
 using UnityEngine;
 
-[Serializable]
-public class PositionLinkSettings : TransformLinkSettings
+namespace EggCentric.TransformModifiers.Linking
 {
-    public Vector3 StaticOffset { get; set; }
-    public float FollowDistance { get; set; }
-
-    public PositionLinkSettings(Vector3 staticOffset = default, float followDistance = 0f, Space targetSpace = Space.World, Space applicationSpace = Space.World)
+    [Serializable]
+    public class PositionLinkSettings : TransformLinkSettings
     {
-        StaticOffset = staticOffset;
-        FollowDistance = followDistance;
-        TargetSpace = targetSpace;
-        ApplicationSpace = applicationSpace;
+        public Vector3 StaticOffset { get; set; }
+        public float FollowDistance { get; set; }
+
+        public PositionLinkSettings(Vector3 staticOffset = default, float followDistance = 0f, Space targetSpace = Space.World, Space applicationSpace = Space.World)
+        {
+            StaticOffset = staticOffset;
+            FollowDistance = followDistance;
+            TargetSpace = targetSpace;
+            ApplicationSpace = applicationSpace;
+        }
     }
 }

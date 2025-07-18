@@ -1,11 +1,14 @@
 using UnityEngine;
 
-public abstract class TransformLink<TSettings> : MonoBehaviour where TSettings : TransformLinkSettings
+namespace EggCentric.TransformModifiers.Linking
 {
-    public TSettings FollowParameters => linkSettings;
+    public abstract class TransformLink<TSettings> : MonoBehaviour where TSettings : TransformLinkSettings
+    {
+        public TSettings FollowParameters => linkSettings;
 
-    [SerializeField] protected TSettings linkSettings;
-    [SerializeField] protected Transform linkedObject;
+        [SerializeField] protected TSettings linkSettings;
+        [SerializeField] protected Transform linkedObject;
 
-    public void Follow(Transform target) => linkedObject = target;
+        public void Follow(Transform target) => linkedObject = target;
+    }
 }
