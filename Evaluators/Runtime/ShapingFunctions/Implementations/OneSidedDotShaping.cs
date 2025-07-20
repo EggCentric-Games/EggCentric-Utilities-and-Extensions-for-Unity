@@ -1,7 +1,7 @@
 ﻿
 namespace EggCentric.Evaluators
 {
-    public class OneSideShaping : DotShaping
+    public class OneSidedDotShaping : DotShaping
     {
         public override float GetMultiplier(float angle)
         {
