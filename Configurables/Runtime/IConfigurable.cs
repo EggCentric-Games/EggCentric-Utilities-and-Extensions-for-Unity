@@ -1,7 +1,9 @@
-﻿namespace EggCentric.Configurables
+﻿using EggCentric.Configurators;
+
+namespace EggCentric.Configurables
 {
-    public interface IConfigurable<TConfig> where TConfig : IConfig
+    public interface IConfigurable<TConfigurator> where TConfigurator : IConfigurator
     {
-        public void ApplyConfig(TConfig config);
+        public void ApplyConfig(TConfigurator config);
     }
 }

@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
+using EggCentric.Configurators;
 
 namespace EggCentric.Configurables
 {
-    public abstract class ConfigurableComponent<TConfig> : MonoBehaviour, IConfigurable<TConfig> where TConfig : IConfig
+    public abstract class ConfigurableComponent<TConfigurator> : MonoBehaviour, IConfigurable<TConfigurator> where TConfigurator : IConfigurator
     {
-        [SerializeField] protected TConfig _config;
+        [SerializeField] protected TConfigurator _configurator;
 
-        public void ApplyConfig(TConfig config)
+        public void ApplyConfig(TConfigurator configurator)
         {
-            bool isRebuildNeeded = IsRebuildNeeded(config);
-            _config = ValidateConfig(config);
+            bool isRebuildNeeded = IsRebuildNeeded(configurator);
+            _configurator = ValidateConfigurator(configurator);
 
             if (isRebuildNeeded)
                 Reconstruct();
@@ -20,20 +21,20 @@ namespace EggCentric.Configurables
         private void Reconstruct()
         {
             Deconstruct();
-            Construct(_config);
+            Construct(_configurator);
         }
 
-        private TConfig ValidateConfig(TConfig config)
+        private TConfigurator ValidateConfigurator(TConfigurator configurator)
         {
-            if (config == null)
+            if (configurator == null)
                 Debug.LogError($"Invalid config!");
 
-            return config;
+            return configurator;
         }
 
         public abstract void Deconstruct();
-        protected abstract void Construct(TConfig config);
+        protected abstract void Construct(TConfigurator configurator);
         protected abstract void UpdateValues();
-        protected abstract bool IsRebuildNeeded(TConfig config);
+        protected abstract bool IsRebuildNeeded(TConfigurator configurator);
     }
 }
