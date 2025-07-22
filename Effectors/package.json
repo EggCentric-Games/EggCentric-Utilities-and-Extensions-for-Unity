@@ -1,0 +1,18 @@
+{
+  "name": "com.eggcentric.effectors",
+  "version": "1.0.0",
+  "displayName": "EggCentric Effectors",
+  "description": "Tools for weighting total influence on a certain point in space",
+  "unity": "2022.3",
+  "dependencies": {
+    "com.eggcentric.data_containers": "1.2.0",
+    "com.eggcentric.configurators": "1.0.0",
+    "com.eggcentric.evaluators": "1.0.0",
+    "com.eggcentric.sensors": "1.0.0"
+  },
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}
