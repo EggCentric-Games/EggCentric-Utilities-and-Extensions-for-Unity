@@ -1,5 +1,5 @@
 {
-  "name": "com.eggcentric.datacontainers",
+  "name": "com.eggcentric.data_containers",
   "version": "1.4.0",
   "displayName": "EggCentric Data Containers",
   "description": "Pack of custom data containers for improved workflow",
