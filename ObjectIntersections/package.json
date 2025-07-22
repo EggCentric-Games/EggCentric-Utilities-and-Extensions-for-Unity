@@ -1,0 +1,16 @@
+{
+  "name": "com.eggcentric.object_intersections",
+  "version": "1.0.0",
+  "displayName": "EggCentric Object Intersections",
+  "description": "Pack of utilities for shape-shape intersection calculations",
+  "unity": "2022.3",
+  "dependencies": {
+    "com.eggcentric.collider_extensions": "1.0.0",
+    "com.eggcentric.geometry": "1.0.0"
+  },
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}

@@ -1,0 +1,17 @@
+{
+    "name": "EggCentric.ObjectIntersection",
+    "rootNamespace": "EggCentric.ObjectIntersection",
+    "references": [
+        "GUID:a8a08419381c4b9438fba76dc00c3661",
+        "GUID:1bde08b571070014d80a450a5a94b848"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
