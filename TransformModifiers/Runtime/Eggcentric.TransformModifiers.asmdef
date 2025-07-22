@@ -1,7 +1,11 @@
 {
     "name": "Eggcentric.TransformModifiers",
     "rootNamespace": "Eggcentric.TransformModifiers",
-    "references": [],
+    "references": [
+        "GUID:5d7f8f5e9f0b2e84ca217cd8245efced",
+        "GUID:52e6e3a8ae38ae44bbc6c84df756f4a6",
+        "GUID:10aa19b3ccaebd0448a130b68568b4ad"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

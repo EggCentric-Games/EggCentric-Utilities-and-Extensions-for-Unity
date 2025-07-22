@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace EggCentric.TransformModifiers.Linking
 {
-    public class RotationLink : TransformLink<RotationLinkSettings>
+    public class RotationLink : TransformLink<RotationLinkParameters>
     {
         private Quaternion offset => Quaternion.Euler(linkSettings.Offset);
 

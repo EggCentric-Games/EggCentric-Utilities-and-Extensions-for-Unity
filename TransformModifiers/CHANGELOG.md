@@ -1,3 +1,12 @@
+## [1.1.0] - 2025-07-18
+
+### Revamping for unification
+
+- Renamed TransformLinkSettings to TransformLinkParameters
+- Revamped TransformLinkParameters to be inherited from Configarators.Parameters
+- Revamped TransformLink to be inherited from Configarables.IConfigurable
+- Implemented TransformLinkParameters serialization
+
 ## [1.0.0] - 2025-07-18
 
 ### First Release

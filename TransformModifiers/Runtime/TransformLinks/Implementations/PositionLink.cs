@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace EggCentric.TransformModifiers.Linking
 {
-    public class PositionLink : TransformLink<PositionLinkSettings>
+    public class PositionLink : TransformLink<PositionLinkParameters>
     {
         private Vector3 totalOffset => linkSettings.StaticOffset - transform.forward * linkSettings.FollowDistance;
 
