@@ -1,0 +1,16 @@
+{
+    "name": "EggCentric.Sensors",
+    "rootNamespace": "EggCentric.Sensors",
+    "references": [
+        "GUID:95925a822c2d4ca41b86881355127f84"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
