@@ -1,0 +1,15 @@
+{
+  "name": "com.eggcentric.configurables",
+  "version": "1.1.0",
+  "displayName": "EggCentric Configurables",
+  "description": "Package that contains presets for easier and faster implementation of configurable classes",
+  "unity": "2022.3",
+  "dependencies": {
+    "com.eggcentric.configurators": "1.0.0"
+  },
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}

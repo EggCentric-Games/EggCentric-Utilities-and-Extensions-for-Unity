@@ -1,0 +1,13 @@
+{
+  "name": "com.eggcentric.singletons",
+  "version": "1.0.0",
+  "displayName": "EggCentric Singletons",
+  "description": "Pack of singleton implementations",
+  "unity": "2022.3",
+  "dependencies": {},
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}

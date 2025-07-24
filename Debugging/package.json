@@ -1,0 +1,15 @@
+{
+  "name": "com.eggcentric.debugging",
+  "version": "1.0.0",
+  "displayName": "EggCentric Debugging",
+  "description": "Pack of debugging utilities",
+  "unity": "2022.3",
+  "dependencies": {
+    "com.eggcentric.geometry": "1.0.0"
+  },
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}

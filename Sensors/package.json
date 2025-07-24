@@ -1,0 +1,15 @@
+{
+  "name": "com.eggcentric.sensors",
+  "version": "1.0.0",
+  "displayName": "EggCentric Sensors",
+  "description": "Tools for object detection and information receiving",
+  "unity": "2022.3",
+  "dependencies": {
+    "com.eggcentric.qol": "1.0.0"
+  },
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}

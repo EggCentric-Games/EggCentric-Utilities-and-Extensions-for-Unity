@@ -1,0 +1,14 @@
+{
+    "name": "EggCentric.DataContainers",
+    "rootNamespace": "EggCentric.DataContainers",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

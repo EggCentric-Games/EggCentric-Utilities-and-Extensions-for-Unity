@@ -1,0 +1,14 @@
+{
+    "name": "EggCentric.Evaluators",
+    "rootNamespace": "EggCentric.Evaluators",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

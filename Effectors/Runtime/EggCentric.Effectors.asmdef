@@ -1,0 +1,19 @@
+{
+    "name": "EggCentric.Effectors",
+    "rootNamespace": "EggCentric.Effectors",
+    "references": [
+        "GUID:5d7f8f5e9f0b2e84ca217cd8245efced",
+        "GUID:52e6e3a8ae38ae44bbc6c84df756f4a6",
+        "GUID:b05df94ed7a200448a529b3e18bc67a7",
+        "GUID:0576d2b7fe110e5488ad715cb15ee1e0"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

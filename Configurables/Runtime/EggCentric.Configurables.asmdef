@@ -1,0 +1,16 @@
+{
+    "name": "EggCentric.Configurables",
+    "rootNamespace": "EggCentric.Configurables",
+    "references": [
+        "GUID:52e6e3a8ae38ae44bbc6c84df756f4a6"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

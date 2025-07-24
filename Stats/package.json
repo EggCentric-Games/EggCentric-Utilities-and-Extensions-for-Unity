@@ -1,0 +1,15 @@
+{
+  "name": "com.eggcentric.stats",
+  "version": "1.0.0",
+  "displayName": "EggCentric Stats",
+  "description": "Collection of stats (ranged properties) used for fast prototyping and unified implementation",
+  "unity": "2022.3",
+  "dependencies": {
+    "com.eggcentric.evaluators": "1.0.0"
+  },
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}

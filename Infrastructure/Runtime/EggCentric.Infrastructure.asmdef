@@ -1,0 +1,16 @@
+{
+    "name": "EggCentric.Infrastructure",
+    "rootNamespace": "EggCentric.Infrastructure",
+    "references": [
+        "GUID:1f423c5aac8f932459825caadccb79e3"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,13 @@
+{
+  "name": "com.eggcentric.evaluators",
+  "version": "1.1.0",
+  "displayName": "EggCentric Evaluators",
+  "description": "Pack of utilities designed to simplify value conversions",
+  "unity": "2022.3",
+  "dependencies": {},
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}
