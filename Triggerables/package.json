@@ -1,0 +1,16 @@
+{
+  "name": "com.eggcentric.triggerables",
+  "version": "1.0.0",
+  "displayName": "EggCentric Triggerables",
+  "description": "Set of tools for easier implementation of various triggering patterns",
+  "unity": "2022.3",
+  "dependencies": {
+    "com.eggcentric.data_containers": "1.2.0",
+    "com.eggcentric.qol": "1.0.0"
+  },
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}
