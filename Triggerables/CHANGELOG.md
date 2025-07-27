@@ -1,3 +1,10 @@
+## [1.1.0] - 2025-07-27
+
+### Revamped Single strategy implementation
+
+- Revamped Single strategy functionality
+- Moved old Single strategy functionality to LeastUsed strategy
+
 ## [1.0.0] - 2025-07-27
 
 ### First Release

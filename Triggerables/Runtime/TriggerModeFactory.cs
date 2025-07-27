@@ -9,6 +9,9 @@ namespace EggCentric.Triggerables
                 case TriggerMode.Single:
                     return new SingleStrategy(owner);
 
+                case TriggerMode.LeastUsed:
+                    return new LeastUsedStrategy(owner);
+
                 case TriggerMode.Querry:
                     return new QueryStrategy(owner);
 
