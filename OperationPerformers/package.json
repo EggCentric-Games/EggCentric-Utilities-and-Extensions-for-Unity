@@ -1,0 +1,13 @@
+{
+  "name": "com.eggcentric.operation_performers",
+  "version": "1.0.0",
+  "displayName": "EggCentric Operation Performers",
+  "description": "Pack of tools for better control of operation execution workflow",
+  "unity": "2022.3",
+  "dependencies": {},
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}

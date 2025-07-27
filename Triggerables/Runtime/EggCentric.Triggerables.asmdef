@@ -1,0 +1,17 @@
+{
+    "name": "EggCentric.Triggerables",
+    "rootNamespace": "EggCentric.Triggerables",
+    "references": [
+        "GUID:5d7f8f5e9f0b2e84ca217cd8245efced",
+        "GUID:95925a822c2d4ca41b86881355127f84"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
