@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace EggCentric.Triggerables
 {
     public class SingleStrategy : TriggerStrategy
@@ -11,7 +13,10 @@ namespace EggCentric.Triggerables
             if (attachedTrigger.Triggerables.Count <= 0)
                 return;
 
-            attachedTrigger.ReadyTriggerables[0].TryToRelease();
+            ITriggerable selectedTriggerable = attachedTrigger.Triggerables.FirstOrDefault(x => x.IsReady);
+            
+            if(selectedTriggerable != null)
+                selectedTriggerable.TryToRelease();
         }
 
         public override bool EvaluateReadiness() => attachedTrigger.ReadyTriggerables.Count > 0;
