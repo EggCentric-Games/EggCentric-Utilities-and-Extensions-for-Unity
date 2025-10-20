@@ -4,7 +4,9 @@
   "displayName": "EggCentric Infrastructure",
   "description": "Set of code snippets and architectural elements",
   "unity": "2022.3",
-  "dependencies": {},
+  "dependencies": {
+    "com.eggcentric.singletons": "1.0.0"
+  },
   "author": {
     "name": "HummeL",
     "email": "arian.lukianiuk@gmail.com",
