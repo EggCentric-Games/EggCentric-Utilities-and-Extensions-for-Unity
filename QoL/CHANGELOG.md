@@ -1,3 +1,6 @@
+## [1.1.0] - 2025-11-07
+- Implemented fast rounding extensions
+
 ## [1.0.0] - 2025-07-22
 
 ### First Release

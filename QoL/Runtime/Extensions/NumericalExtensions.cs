@@ -28,5 +28,15 @@ namespace EggCentric.QoL
 
             return wrappedNumber;
         }
+
+        public static int Ceil(this float number)
+        {
+            return Mathf.CeilToInt(number);
+        }
+
+        public static int Floor(this float number)
+        {
+            return Mathf.FloorToInt(number);
+        }
     }
 }
