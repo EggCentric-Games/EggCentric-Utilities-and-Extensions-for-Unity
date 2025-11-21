@@ -1,14 +1,17 @@
-public class NotCondition : ICondition
+namespace EggCentric.Conditions
 {
-    ICondition _source;
-
-    public NotCondition(ICondition source)
+    public class NotCondition : ICondition
     {
-        _source = source;
-    }
+        ICondition _source;
 
-    public bool Check()
-    {
-        return !_source.Check();
+        public NotCondition(ICondition source)
+        {
+            _source = source;
+        }
+
+        public bool Check()
+        {
+            return !_source.Check();
+        }
     }
 }

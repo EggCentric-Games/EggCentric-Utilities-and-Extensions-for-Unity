@@ -1,18 +1,21 @@
 using System;
 
-public class Condition<TKey> : ICondition
+namespace EggCentric.Conditions
 {
-    private Func<TKey> _getter;
-    private Func<TKey, bool> _comparer;
-
-    public Condition(Func<TKey> getter, Func<TKey, bool> comparer)
+    public class Condition<TKey> : ICondition
     {
-        _getter = getter;
-        _comparer = comparer;
-    }
+        private Func<TKey> _getter;
+        private Func<TKey, bool> _comparer;
 
-    public bool Check()
-    {
-        return _comparer.Invoke(_getter.Invoke());
+        public Condition(Func<TKey> getter, Func<TKey, bool> comparer)
+        {
+            _getter = getter;
+            _comparer = comparer;
+        }
+
+        public bool Check()
+        {
+            return _comparer.Invoke(_getter.Invoke());
+        }
     }
 }

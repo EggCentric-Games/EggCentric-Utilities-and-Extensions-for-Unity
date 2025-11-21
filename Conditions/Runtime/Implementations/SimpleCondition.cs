@@ -1,16 +1,19 @@
 using System;
 
-public class SimpleCondition : ICondition
+namespace EggCentric.Conditions
 {
-    private Func<bool> _checker;
-
-    public SimpleCondition(Func<bool> checker)
+    public class SimpleCondition : ICondition
     {
-        _checker = checker;
-    }
+        private Func<bool> _checker;
 
-    public bool Check()
-    {
-        return _checker.Invoke();
+        public SimpleCondition(Func<bool> checker)
+        {
+            _checker = checker;
+        }
+
+        public bool Check()
+        {
+            return _checker.Invoke();
+        }
     }
 }

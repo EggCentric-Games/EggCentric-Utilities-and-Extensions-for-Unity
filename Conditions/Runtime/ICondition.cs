@@ -1,4 +1,7 @@
-public interface ICondition
+namespace EggCentric.Conditions
 {
-    public bool Check();
+    public interface ICondition
+    {
+        public bool Check();
+    }
 }

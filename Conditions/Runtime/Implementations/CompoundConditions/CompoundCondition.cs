@@ -1,13 +1,16 @@
-public abstract class CompoundCondition : ICondition
+namespace EggCentric.Conditions
 {
-    protected ICondition lhs;
-    protected ICondition rhs;
-
-    public CompoundCondition(ICondition lhs, ICondition rhs)
+    public abstract class CompoundCondition : ICondition
     {
-        this.lhs = lhs;
-        this.rhs = rhs;
-    }
+        protected ICondition lhs;
+        protected ICondition rhs;
 
-    public abstract bool Check();
+        public CompoundCondition(ICondition lhs, ICondition rhs)
+        {
+            this.lhs = lhs;
+            this.rhs = rhs;
+        }
+
+        public abstract bool Check();
+    }
 }

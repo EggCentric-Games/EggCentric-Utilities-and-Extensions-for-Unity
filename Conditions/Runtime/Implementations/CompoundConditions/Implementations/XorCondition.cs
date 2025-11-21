@@ -1,14 +1,17 @@
-public class XorCondition : CompoundCondition
+namespace EggCentric.Conditions
 {
-    public XorCondition(ICondition lhs, ICondition rhs) : base(lhs, rhs)
+    public class XorCondition : CompoundCondition
     {
-    }
+        public XorCondition(ICondition lhs, ICondition rhs) : base(lhs, rhs)
+        {
+        }
 
-    public override bool Check()
-    {
-        bool lhsResult = lhs.Check();
-        bool rhsResult = rhs.Check();
+        public override bool Check()
+        {
+            bool lhsResult = lhs.Check();
+            bool rhsResult = rhs.Check();
 
-        return lhsResult != rhsResult;
+            return lhsResult != rhsResult;
+        }
     }
 }
