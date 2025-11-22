@@ -2,13 +2,10 @@ namespace EggCentric.Conditions
 {
     public class AndCondition : CompoundCondition
     {
+        public override bool IsSatisfied => lhs.IsSatisfied && rhs.IsSatisfied;
+
         public AndCondition(ICondition lhs, ICondition rhs) : base(lhs, rhs)
         {
-        }
-
-        public override bool Check()
-        {
-            return lhs.Check() && rhs.Check();
         }
     }
 }

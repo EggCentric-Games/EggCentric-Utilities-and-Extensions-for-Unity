@@ -2,6 +2,8 @@ namespace EggCentric.Conditions
 {
     public abstract class CompoundCondition : ICondition
     {
+        public abstract bool IsSatisfied { get; }
+
         protected ICondition lhs;
         protected ICondition rhs;
 
@@ -10,7 +12,5 @@ namespace EggCentric.Conditions
             this.lhs = lhs;
             this.rhs = rhs;
         }
-
-        public abstract bool Check();
     }
 }

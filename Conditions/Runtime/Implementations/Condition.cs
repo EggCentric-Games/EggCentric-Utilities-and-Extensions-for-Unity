@@ -4,6 +4,8 @@ namespace EggCentric.Conditions
 {
     public class Condition<TKey> : ICondition
     {
+        public bool IsSatisfied => _comparer(_getter());
+
         private Func<TKey> _getter;
         private Func<TKey, bool> _comparer;
 
@@ -11,11 +13,6 @@ namespace EggCentric.Conditions
         {
             _getter = getter;
             _comparer = comparer;
-        }
-
-        public bool Check()
-        {
-            return _comparer.Invoke(_getter.Invoke());
         }
     }
 }

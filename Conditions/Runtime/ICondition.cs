@@ -2,6 +2,6 @@ namespace EggCentric.Conditions
 {
     public interface ICondition
     {
-        public bool Check();
+        public bool IsSatisfied { get; }
     }
 }
