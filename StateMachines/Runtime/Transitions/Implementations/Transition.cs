@@ -4,14 +4,19 @@ using System.Collections.Generic;
 
 namespace EggCentric.StateMachines
 {
-    public class Transition
+    public class Transition : ITransition
     {
         public Type TargetState { get; private set; }
         public bool IsSatisfied => CheckConditions();
 
-        private List<ICondition> _conditions = new List<ICondition>();
+        private List<ICondition> _conditions;
 
-        public Transition To<TState>() where TState : IState
+        public Transition()
+        {
+            _conditions = new List<ICondition>();
+        }
+
+        public Transition To<TState>() where TState : class, IState
         {
             TargetState = typeof(TState);
 
@@ -33,6 +38,9 @@ namespace EggCentric.StateMachines
 
         private bool CheckConditions()
         {
+            if (_conditions.Count <= 0)
+                return true;
+
             foreach (var condition in _conditions)
             {
                 if (!condition.IsSatisfied)
