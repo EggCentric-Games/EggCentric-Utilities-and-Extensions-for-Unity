@@ -1,7 +1,9 @@
 {
     "name": "EggCentric.StateMachines",
     "rootNamespace": "EggCentric.StateMachines",
-    "references": [],
+    "references": [
+        "GUID:aa4bfb81f074c4640bef749ceb9444d3"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
