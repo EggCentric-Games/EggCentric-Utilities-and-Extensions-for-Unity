@@ -1,8 +1,11 @@
 ﻿namespace EggCentric.StateMachines
 {
-    public interface IStateMachine<TStateType>
+    public interface IStateMachine<TStateType> where TStateType : IState
     {
-        void Enter<TState>() where TState : class, TStateType, ICommonState;
-        void Enter<TState, TPayload>(TPayload payload) where TState : class, TStateType, IPayloadedState<TPayload>;
+        public TStateType CurrentState { get; }
+
+        public void ExecuteTransition<TTarget>(ITransition<TTarget> transition) where TTarget : class, IState, TStateType;
+        //void Enter<TState>() where TState : class, TStateType, ICommonState;
+        //void Enter<TState, TPayload>(TPayload payload) where TState : class, TStateType, IPayloadedState<TPayload>;
     }
 }

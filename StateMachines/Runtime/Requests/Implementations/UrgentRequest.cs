@@ -1,11 +1,13 @@
+using System;
+
 namespace EggCentric.StateMachines
 {
     public class UrgentRequest : TransitionRequest
     {
-        public override bool IsValid => meantTransition.IsSatisfied;
+        public override bool IsValid => true;
         public bool IsForced { get; private set; }
 
-        public UrgentRequest(Transition meantTransition, bool isForced = false) : base(meantTransition)
+        public UrgentRequest(Type targetState, bool isForced = false) : base(targetState)
         {
             IsForced = isForced;
         }

@@ -1,66 +1,99 @@
 using EggCentric.StateMachines;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace EggCentric.StateMachines
 {
-    public abstract class StateMachine<TStateType> : IStateMachine<TStateType>
+    public abstract class StateMachine<TStateType> : IStateMachine<TStateType> where TStateType : IState
     {
-        protected Dictionary<Type, IState> registeredStates;
-        protected Dictionary<Type, List<ITransition>> transitions;
+        public TStateType CurrentState => _currentState;
 
-        protected IState currentState;
+        private Dictionary<Type, IState> _registeredStates;
+        private TStateType _currentState;
+
+        private TransitionEvaluator<TStateType> _transitionEvaluator;
+        private RequestHandler<TStateType> _requestHandler;
 
         public StateMachine()
         {
-            registeredStates = new Dictionary<Type, IState>();
-            transitions = new Dictionary<Type, List<ITransition>>();
+            _transitionEvaluator = new TransitionEvaluator<TStateType>(this);
+            _requestHandler = new RequestHandler<TStateType>(this, _transitionEvaluator);
+
+            _registeredStates = new Dictionary<Type, IState>();
         }
 
-        public void Enter<TState>() where TState : class, TStateType, ICommonState
+        public void ExecuteTransition<TTarget>(ITransition<TTarget> transition) where TTarget : class, IState, TStateType
+        {
+
+        }
+
+        protected void Enter<TState>() where TState : class, TStateType, ICommonState
         {
             ChangeState<TState>().Enter();
         }
 
-        public void Enter<TState, TPayload>(TPayload payload) where TState : class, TStateType, IPayloadedState<TPayload>
+        protected void Enter<TState, TPayload>(TPayload payload) where TState : class, TStateType, IPayloadedState<TPayload>
         {
             ChangeState<TState>().Enter(payload);
         }
 
-        protected void RegisterState<TState>(TState state) where TState : IState
+        protected void RegisterState<TState>(TState state) where TState : class, IState, TStateType
         { 
-            registeredStates.Add(typeof(TState), state);
-            transitions.Add(typeof(TState), new List<ITransition>());
+            _registeredStates.Add(typeof(TState), state);
+            _transitionEvaluator.RegisterState<TState>();
         }
 
-
-        protected Transition AddTransition<TSource>() where TSource : class, IState
+        protected Transition<TTarget> AddTransition<TSource, TTarget>() where TSource : class, IState, TStateType where TTarget : class, IState, TStateType
         {
-            if(!transitions.TryGetValue(typeof(TSource), out List<ITransition> availableTransitions))
-            {
-                Debug.LogError($"There is no registered states of type {typeof(TSource)}!");
-                return null;
-            }
-
-            Transition newTransition = new Transition();
-            availableTransitions.Add(newTransition);
-
-            return newTransition;
+            return _transitionEvaluator.AddTransition<TSource, TTarget>();
         }
 
-        protected TState ChangeState<TState>() where TState : class, IState
+        private TState ChangeState<TState>() where TState : class, IState, TStateType
         {
             TState state = GetState<TState>();
-            currentState?.Exit();
-            currentState = state;
+            _currentState?.Exit();
+            _currentState = state;
 
             return state;
         }
 
-        protected TState GetState<TState>() where TState : class, IState
+        private TState GetState<TState>() where TState : class, IState
         {
-            return registeredStates[typeof(TState)] as TState;
+            return _registeredStates[typeof(TState)] as TState;
         }
+    }
+}
+
+public class TestContext
+{
+    public float Stamina;
+
+    public event Action OnJumpPressed;
+}
+
+public class TestMachine : StateMachine<IState>
+{
+    public TestMachine(TestContext context)
+    {
+        RegisterState(new IdleState());
+        RegisterState(new RunState());
+
+        AddTransition<IdleState, RunState>().WithCondition(() => context.Stamina > 10);
+    }
+}
+
+public class IdleState : IState
+{
+    public void Exit()
+    {
+        throw new NotImplementedException();
+    }
+}
+
+public class RunState : IState
+{
+    public void Exit()
+    {
+        throw new NotImplementedException();
     }
 }

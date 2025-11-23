@@ -1,14 +1,15 @@
+using System;
+
 namespace EggCentric.StateMachines
 {
     public abstract class TransitionRequest
     {
+        public Type TargetState { get; private set; }
         public abstract bool IsValid { get; }
 
-        protected Transition meantTransition;
-
-        public TransitionRequest(Transition meantTransition)
+        public TransitionRequest(Type targetState)
         {
-            this.meantTransition = meantTransition;
+            TargetState = targetState;
         }
     }
 }

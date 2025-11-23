@@ -4,9 +4,8 @@ using System.Collections.Generic;
 
 namespace EggCentric.StateMachines
 {
-    public class Transition : ITransition
+    public class Transition<TTarget> : ITransition<TTarget> where TTarget : class, IState
     {
-        public Type TargetState { get; private set; }
         public bool IsSatisfied => CheckConditions();
 
         private List<ICondition> _conditions;
@@ -16,21 +15,14 @@ namespace EggCentric.StateMachines
             _conditions = new List<ICondition>();
         }
 
-        public Transition To<TState>() where TState : class, IState
-        {
-            TargetState = typeof(TState);
-
-            return this;
-        }
-
-        public Transition WithCondition(ICondition condition)
+        public Transition<TTarget> WithCondition(ICondition condition)
         {
             _conditions.Add(condition);
 
             return this;
         }
 
-        public Transition WithCondition(Func<bool> _checker)
+        public Transition<TTarget> WithCondition(Func<bool> _checker)
         {
             ICondition condition = new SimpleCondition(_checker);
             return WithCondition(condition);
