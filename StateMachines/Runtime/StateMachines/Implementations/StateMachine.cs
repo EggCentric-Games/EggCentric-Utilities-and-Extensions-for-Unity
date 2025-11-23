@@ -22,9 +22,14 @@ namespace EggCentric.StateMachines
             _registeredStates = new Dictionary<Type, IState>();
         }
 
-        public void ExecuteTransition<TTarget>(ITransition<TTarget> transition) where TTarget : class, IState, TStateType
+        public void ExecuteTransition<TTarget>(ITransition<TTarget> transition) where TTarget : class, ICommonState, TStateType
         {
+            Enter<TTarget>();
+        }
 
+        public void ExecuteTransition<TTarget, TPayload>(ITransition<TTarget> transition, TPayload payload) where TTarget : class, IPayloadedState<TPayload>, TStateType
+        {
+            Enter<TTarget, TPayload>(payload);
         }
 
         protected void Enter<TState>() where TState : class, TStateType, ICommonState
@@ -61,39 +66,5 @@ namespace EggCentric.StateMachines
         {
             return _registeredStates[typeof(TState)] as TState;
         }
-    }
-}
-
-public class TestContext
-{
-    public float Stamina;
-
-    public event Action OnJumpPressed;
-}
-
-public class TestMachine : StateMachine<IState>
-{
-    public TestMachine(TestContext context)
-    {
-        RegisterState(new IdleState());
-        RegisterState(new RunState());
-
-        AddTransition<IdleState, RunState>().WithCondition(() => context.Stamina > 10);
-    }
-}
-
-public class IdleState : IState
-{
-    public void Exit()
-    {
-        throw new NotImplementedException();
-    }
-}
-
-public class RunState : IState
-{
-    public void Exit()
-    {
-        throw new NotImplementedException();
     }
 }
