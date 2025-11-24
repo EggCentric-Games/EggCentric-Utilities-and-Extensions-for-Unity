@@ -39,7 +39,7 @@ namespace EggCentric.StateMachines
         {
             result = null;
 
-            var source = _stateMachine.CurrentState.GetType();
+            var source = _stateMachine.CurrentState?.GetType();
             var target = request.TargetState;
             var transitionAvailable = request.Flags.HasFlag(TransitionFlags.Forced) || _stateMachine.IsFreeFor(request.Priority);
 
@@ -49,9 +49,9 @@ namespace EggCentric.StateMachines
                 return false;
             }
 
-            if (!transitions.TryGetValue(_stateMachine.CurrentState.GetType(), out List<ITransition> stateTransitions))
             {
-                Debug.LogWarning($"There's is no registered state of type {target}. Rejecting.");
+            if (!transitions.TryGetValue(source, out List<ITransition> stateTransitions))
+                Debug.LogWarning($"There's is no registered state of type {source}. Rejecting.");
                 return false;
             }
 
