@@ -127,26 +127,19 @@ namespace EggCentric.StateMachines
             return executor;
         }
 
-        private abstract class TransitionBuilder : ITransitionBuilder
+        private abstract class TransitionBuilderBase<TTarget> : ITransitionBuilder where TTarget : class, IState, TStateType
         {
-            public abstract Type Target { get; }
-
+            public Type Target => typeof(TTarget);
             protected readonly RequestHandler<TStateType> requestHandler;
 
-            public TransitionBuilder(RequestHandler<TStateType> requestHandler) => this.requestHandler = requestHandler;
+            public TransitionBuilderBase(RequestHandler<TStateType> requestHandler)
+            {
+                this.requestHandler = requestHandler;
+            }
 
             public abstract void Now();
             public abstract void Forced();
             public abstract void AwaitFor(float lifetime);
-        }
-
-        private abstract class TransitionBuilderBase<TTarget> : TransitionBuilder where TTarget : class, IState, TStateType
-        {
-            public override Type Target => typeof(TTarget);
-
-            public TransitionBuilderBase(RequestHandler<TStateType> requestHandler) : base(requestHandler)
-            {
-            }
         }
 
         private class TransitionBuilder<TTarget> : TransitionBuilderBase<TTarget> where TTarget : class, ICommonState, TStateType
