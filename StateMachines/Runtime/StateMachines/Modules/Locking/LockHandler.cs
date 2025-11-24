@@ -35,7 +35,7 @@ namespace EggCentric.StateMachines
             _activeLocks.Remove(lockID);
         }
 
-        public bool IsLockedFor(int priority) => _activeLocks.All(x => x.Value.priority < priority);
+        public bool IsLockedFor(int priority) => _activeLocks.Any(x => x.Value.priority >= priority);
 
         public void ClearAllLocks() => _activeLocks.Clear();
 
