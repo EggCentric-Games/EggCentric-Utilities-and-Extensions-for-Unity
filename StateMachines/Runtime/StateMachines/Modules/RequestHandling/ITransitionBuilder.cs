@@ -4,8 +4,8 @@ namespace EggCentric.StateMachines
     {
         public ITransitionBuilder WithPriority(int priority);
 
-        public void Now();
-        public void Forced();
-        public void AwaitFor(float lifetime);
+        public TransitionRequest Now();
+        public TransitionRequest Forced();
+        public TransitionRequest AwaitFor(float lifetime);
     }
 }

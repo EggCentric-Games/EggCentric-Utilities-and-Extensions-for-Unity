@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace EggCentric.StateMachines
@@ -21,52 +22,61 @@ namespace EggCentric.StateMachines
             _transitionEvaluator = transitionEvaluator;
         }
 
-        public ITransitionBuilder To<TTarget>() where TTarget : class, ICommonState, TStateType
+        public ITransitionBuilder To<TTarget>(object source) where TTarget : class, ICommonState, TStateType
         {
-            return new TransitionBuilder<TTarget>(this);
+            return new TransitionBuilder<TTarget>(this, source);
         }
 
-        public ITransitionBuilder To<TTarget, TPayload>(TPayload payload) where TTarget : class, IPayloadedState<TPayload>, TStateType
+        public ITransitionBuilder To<TTarget, TPayload>(object source, TPayload payload) where TTarget : class, IPayloadedState<TPayload>, TStateType
         {
-            return new PayloadTransitionBuilder<TTarget, TPayload>(this, payload);
+            return new PayloadTransitionBuilder<TTarget, TPayload>(this, source, payload);
         }
 
-        private void AddRequest<TTarget>(bool isForced = false) where TTarget : class, ICommonState, TStateType
-        {
-            UrgentRequest newRequest = new UrgentRequest(typeof(TTarget), isForced);
-            var executor = CreateExecutor<TTarget>();
-
-            EnqueueRequest(newRequest, executor);
-        }
-
-        private void AddRequest<TTarget, TPayload>(TPayload payload, bool isForced = false) where TTarget : class, IPayloadedState<TPayload>, TStateType
-        {
-            UrgentRequest newRequest = new UrgentRequest(typeof(TTarget), isForced);
-            var executor = CreateExecutor<TTarget, TPayload>(payload);
-
-            EnqueueRequest(newRequest, executor);
-        }
-
-        private void AddRequest<TTarget>(float lifetime = -1f) where TTarget : class, ICommonState, TStateType
-        {
-            DelayedRequest newRequest = new DelayedRequest(typeof(TTarget), lifetime);
-            var executor = CreateExecutor<TTarget>();
-
-            EnqueueRequest(newRequest, executor);
-        }
-
-        private void AddRequest<TTarget, TPayload>(TPayload payload, float lifetime = -1f) where TTarget : class, IPayloadedState<TPayload>, TStateType
-        {
-            DelayedRequest newRequest = new DelayedRequest(typeof(TTarget), lifetime);
-            var executor = CreateExecutor<TTarget, TPayload>(payload);
-
-            EnqueueRequest(newRequest, executor);
-        }
 
         public void HandleRequests()
         {
             ProcessRequestsInQueue();
             CleanUpQueue();
+        }
+
+        private TransitionRequest AddRequest<TTarget>(object source, bool isForced = false) where TTarget : class, ICommonState, TStateType
+        {
+            UrgentRequest newRequest = new UrgentRequest(typeof(TTarget), source, isForced);
+            var executor = CreateExecutor<TTarget>();
+
+            EnqueueRequest(newRequest, executor);
+
+            return newRequest;
+        }
+
+        private TransitionRequest AddRequest<TTarget, TPayload>(object source, TPayload payload, bool isForced = false) where TTarget : class, IPayloadedState<TPayload>, TStateType
+        {
+            UrgentRequest newRequest = new UrgentRequest(typeof(TTarget), source, isForced);
+            var executor = CreateExecutor<TTarget, TPayload>(payload);
+
+            EnqueueRequest(newRequest, executor);
+
+            return newRequest;
+        }
+
+        private TransitionRequest AddRequest<TTarget>(object source, float lifetime = -1f) where TTarget : class, ICommonState, TStateType
+        {
+            DelayedRequest newRequest = new DelayedRequest(typeof(TTarget), source, lifetime);
+            var executor = CreateExecutor<TTarget>();
+
+            EnqueueRequest(newRequest, executor);
+
+            return newRequest;
+        }
+
+        private TransitionRequest AddRequest<TTarget, TPayload>(object source, TPayload payload, float lifetime = -1f) where TTarget : class, IPayloadedState<TPayload>, TStateType
+        {
+            DelayedRequest newRequest = new DelayedRequest(typeof(TTarget), source, lifetime);
+            var executor = CreateExecutor<TTarget, TPayload>(payload);
+
+            EnqueueRequest(newRequest, executor);
+
+            return newRequest;
         }
 
         private void EnqueueRequest(TransitionRequest request, Action<ITransition> executor)
@@ -76,7 +86,7 @@ namespace EggCentric.StateMachines
 
         private void ProcessRequestsInQueue()
         {
-            foreach (var requestPair in _pendingRequests)
+            foreach (var requestPair in _pendingRequests.ToList())
             {
                 if (!requestPair.request.IsValid)
                 {
@@ -84,9 +94,11 @@ namespace EggCentric.StateMachines
                     continue;
                 }
 
-                _transitionEvaluator.ResolveTransition(requestPair.request, out ITransition performedTransition);
-                requestPair.executor(performedTransition);
-                RemoveRequest(requestPair);
+                if (_transitionEvaluator.ResolveTransition(requestPair.request, out ITransition performedTransition))
+                {
+                    requestPair.executor(performedTransition);
+                    RemoveRequest(requestPair);
+                }
             }
         }
 
@@ -114,7 +126,7 @@ namespace EggCentric.StateMachines
                 if (x is ITransition<TTarget> typedTransition)
                     _stateMachine.ExecuteTransition(typedTransition);
                 else
-                    Debug.LogError($"{x.GetType()} isn't a valid type!");
+                    Debug.LogError($"{x?.GetType()} isn't a valid type!");
             };
 
             return executor;
@@ -126,7 +138,7 @@ namespace EggCentric.StateMachines
                 if (x is ITransition<TTarget> typedTransition)
                     _stateMachine.ExecuteTransition(typedTransition, payload);
                 else
-                    Debug.LogError($"{x.GetType()} isn't a valid type!");
+                    Debug.LogError($"{x?.GetType()} isn't a valid type!");
             };
 
             return executor;
@@ -134,14 +146,16 @@ namespace EggCentric.StateMachines
 
         private abstract class TransitionBuilderBase<TTarget> : ITransitionBuilder where TTarget : class, IState, TStateType
         {
+            public object Source { get; private set; }
             public int Priority { get; private set; }
             public Type Target => typeof(TTarget);
 
             protected readonly RequestHandler<TStateType> requestHandler;
 
-            public TransitionBuilderBase(RequestHandler<TStateType> requestHandler)
+            public TransitionBuilderBase(RequestHandler<TStateType> requestHandler, object source)
             {
                 this.requestHandler = requestHandler;
+                Source = source;
             }
 
             public ITransitionBuilder WithPriority(int priority)
@@ -151,38 +165,38 @@ namespace EggCentric.StateMachines
                 return this;
             }
 
-            public abstract void Now();
-            public abstract void Forced();
-            public abstract void AwaitFor(float lifetime);
+            public abstract TransitionRequest Now();
+            public abstract TransitionRequest Forced();
+            public abstract TransitionRequest AwaitFor(float lifetime);
         }
 
         private class TransitionBuilder<TTarget> : TransitionBuilderBase<TTarget> where TTarget : class, ICommonState, TStateType
         {
-            public TransitionBuilder(RequestHandler<TStateType> requestHandler) : base(requestHandler)
+            public TransitionBuilder(RequestHandler<TStateType> requestHandler, object source) : base(requestHandler, source)
             {
             }
 
-            public override void Now() => requestHandler.AddRequest<TTarget>(false);
+            public override TransitionRequest Now() => requestHandler.AddRequest<TTarget>(Source, false);
 
-            public override void Forced() => requestHandler.AddRequest<TTarget>(true);
+            public override TransitionRequest Forced() => requestHandler.AddRequest<TTarget>(Source, true);
 
-            public override void AwaitFor(float lifetime) => requestHandler.AddRequest<TTarget>(lifetime);
+            public override TransitionRequest AwaitFor(float lifetime) => requestHandler.AddRequest<TTarget>(Source, lifetime);
         }
 
         private class PayloadTransitionBuilder<TTarget, TPayload> : TransitionBuilderBase<TTarget> where TTarget : class, IPayloadedState<TPayload>, TStateType
         {
             private readonly TPayload _payload;
 
-            public PayloadTransitionBuilder(RequestHandler<TStateType> requestHandler, TPayload payload) : base(requestHandler)
+            public PayloadTransitionBuilder(RequestHandler<TStateType> requestHandler, object source, TPayload payload) : base(requestHandler, source)
             {
                 _payload = payload;
             }
 
-            public override void Now() => requestHandler.AddRequest<TTarget, TPayload>(_payload, false);
+            public override TransitionRequest Now() => requestHandler.AddRequest<TTarget, TPayload>(Source, _payload, false);
             
-            public override void Forced() => requestHandler.AddRequest<TTarget, TPayload>(_payload, true);
+            public override TransitionRequest Forced() => requestHandler.AddRequest<TTarget, TPayload>(Source, _payload, true);
 
-            public override void AwaitFor(float lifetime) => requestHandler.AddRequest<TTarget, TPayload>(_payload, lifetime);
+            public override TransitionRequest AwaitFor(float lifetime) => requestHandler.AddRequest<TTarget, TPayload>(Source, _payload, lifetime);
         }
     }
 }

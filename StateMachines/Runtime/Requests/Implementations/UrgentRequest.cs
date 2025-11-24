@@ -15,7 +15,7 @@ namespace EggCentric.StateMachines
 
         private bool _isConsumed = false;
 
-        public UrgentRequest(Type targetState, bool isForced = false, int priority = 0) : base(targetState, priority)
+        public UrgentRequest(Type targetState, object source, bool isForced = false, int priority = 0) : base(targetState, source, priority)
         {
             if(isForced)
                 _flags = TransitionFlags.Forced;

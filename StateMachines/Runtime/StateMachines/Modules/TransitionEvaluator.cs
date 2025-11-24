@@ -49,8 +49,14 @@ namespace EggCentric.StateMachines
                 return false;
             }
 
+            if (source == null)
             {
+                Debug.LogError($"State machine must be initialized first.");
+                return false;
+            }
+
             if (!transitions.TryGetValue(source, out List<ITransition> stateTransitions))
+            {
                 Debug.LogWarning($"There's is no registered state of type {source}. Rejecting.");
                 return false;
             }

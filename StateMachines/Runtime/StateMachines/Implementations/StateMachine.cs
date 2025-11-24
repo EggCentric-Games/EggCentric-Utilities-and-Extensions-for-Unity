@@ -20,9 +20,9 @@ namespace EggCentric.StateMachines
 
         public StateMachine() => CreateFields();
 
-        public ITransitionBuilder To<TTarget>() where TTarget : class, ICommonState, TStateType => _requestHandler.To<TTarget>();
+        public ITransitionBuilder To<TTarget>(object source) where TTarget : class, ICommonState, TStateType => _requestHandler.To<TTarget>(source);
         
-        public ITransitionBuilder To<TTarget, TPayload>(TPayload payload) where TTarget : class, IPayloadedState<TPayload>, TStateType => _requestHandler.To<TTarget, TPayload>(payload);
+        public ITransitionBuilder To<TTarget, TPayload>(object source, TPayload payload) where TTarget : class, IPayloadedState<TPayload>, TStateType => _requestHandler.To<TTarget, TPayload>(source, payload);
 
 
         public Guid RequestLock(object source, int priority = 0) => _lockHandler.RequestLock(source, priority);

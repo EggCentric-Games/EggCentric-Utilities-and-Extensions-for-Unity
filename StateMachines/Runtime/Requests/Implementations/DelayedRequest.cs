@@ -12,7 +12,7 @@ namespace EggCentric.StateMachines
 
         private bool isExpired => _lifetime < 0 ? false : (Time.time - _creationTime) > _lifetime;
 
-        public DelayedRequest(Type targetState, float lifetime = -1f, int priority = 0) : base(targetState, priority)
+        public DelayedRequest(Type targetState, object source, float lifetime = -1f, int priority = 0) : base(targetState, source, priority)
         {
             _lifetime = lifetime;
             _creationTime = Time.time;
