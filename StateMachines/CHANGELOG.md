@@ -1,3 +1,17 @@
+## [2.0.0] - 2025-11-24
+
+### Global system update
+
+- Implemented DefaultState support
+- Implemented conditional transitions support
+- Implemented state change requests support
+- Implemented StateMachine locking support
+- Implemented request priority support
+- Implemented UrgentRequests
+- Implemented DelayedRequests
+
+- Improved initialization pipeline
+
 ## [1.0.0] - 2025-07-17
 
 ### First Release
