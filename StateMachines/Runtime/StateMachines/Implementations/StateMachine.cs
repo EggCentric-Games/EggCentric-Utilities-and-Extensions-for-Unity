@@ -7,22 +7,26 @@ namespace EggCentric.StateMachines
     {
         public TStateType CurrentState => _currentState;
 
-        private Dictionary<Type, IState> _registeredStates;
-        private TStateType _currentState;
-
         private TransitionEvaluator<TStateType> _transitionEvaluator;
         private RequestHandler<TStateType> _requestHandler;
 
-        public StateMachine()
-        {
-            _transitionEvaluator = new TransitionEvaluator<TStateType>(this);
-            _requestHandler = new RequestHandler<TStateType>(this, _transitionEvaluator);
+        private Dictionary<Type, IState> _registeredStates;
+        private TStateType _currentState;
+        private bool _isInitialized;
 
-            _registeredStates = new Dictionary<Type, IState>();
+
+        public StateMachine() => CreateFields();
+        
+        public void Initialize()
+        {
+            if (_isInitialized)
+                return;
 
             RegisterStates();
             RegisterTransitions();
             SetDefaultState();
+
+            _isInitialized = true;
         }
 
         public ITransitionBuilder To<TTarget>() where TTarget : class, ICommonState, TStateType => _requestHandler.To<TTarget>();
@@ -33,11 +37,19 @@ namespace EggCentric.StateMachines
 
         public void ExecuteTransition<TTarget, TPayload>(ITransition<TTarget> transition, TPayload payload) where TTarget : class, IPayloadedState<TPayload>, TStateType => Enter<TTarget, TPayload>(payload);
 
+        protected virtual void CreateFields()
+        {
+            _transitionEvaluator = new TransitionEvaluator<TStateType>(this);
+            _requestHandler = new RequestHandler<TStateType>(this, _transitionEvaluator);
+
+            _registeredStates = new Dictionary<Type, IState>();
+        }
+
+        protected virtual void Tick() => _requestHandler.HandleRequests();
+
         protected void Enter<TState>() where TState : class, TStateType, ICommonState => ChangeState<TState>().Enter();
 
         protected void Enter<TState, TPayload>(TPayload payload) where TState : class, TStateType, IPayloadedState<TPayload> => ChangeState<TState>().Enter(payload);
-
-        protected virtual void Tick() => _requestHandler.HandleRequests();
 
         protected void RegisterState<TState>(TState state) where TState : class, IState, TStateType
         {
