@@ -32,6 +32,9 @@ namespace EggCentric.StateMachines
             return new PayloadTransitionBuilder<TTarget, TPayload>(this, source, payload);
         }
 
+        public void DisposeRequest(TransitionRequest requestToDispose) => _pendingRequests.RemoveAll(x => x.request == requestToDispose);
+
+        public void DisposeRequests(object source) => _pendingRequests.RemoveAll(x => x.request.Source == source);
 
         public void HandleRequests()
         {

@@ -24,6 +24,9 @@ namespace EggCentric.StateMachines
         
         public ITransitionBuilder To<TTarget, TPayload>(object source, TPayload payload) where TTarget : class, IPayloadedState<TPayload>, TStateType => _requestHandler.To<TTarget, TPayload>(source, payload);
 
+        public void DisposeRequest(TransitionRequest requestToDispose) => _requestHandler.DisposeRequest(requestToDispose);
+
+        public void DisposeRequests(object source) => _requestHandler.DisposeRequests(source);
 
         public Guid RequestLock(object source, int priority = 0) => _lockHandler.RequestLock(source, priority);
 

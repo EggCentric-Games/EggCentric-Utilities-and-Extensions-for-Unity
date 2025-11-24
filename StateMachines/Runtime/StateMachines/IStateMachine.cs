@@ -10,6 +10,8 @@ namespace EggCentric.StateMachines
 
         public ITransitionBuilder To<TTarget>(object source) where TTarget : class, ICommonState, TStateType;
         public ITransitionBuilder To<TTarget, TPayload>(object source, TPayload payload) where TTarget : class, IPayloadedState<TPayload>, TStateType;
+        public void DisposeRequest(TransitionRequest requestToDispose);
+        public void DisposeRequests(object source);
 
         public Guid RequestLock(object source, int priority = 0);
         public void DisposeLock(Guid lockId);
