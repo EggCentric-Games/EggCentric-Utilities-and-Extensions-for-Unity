@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace EggCentric.StateMachines
 {
@@ -112,6 +113,8 @@ namespace EggCentric.StateMachines
             Action<ITransition> executor = x => {
                 if (x is ITransition<TTarget> typedTransition)
                     _stateMachine.ExecuteTransition(typedTransition);
+                else
+                    Debug.LogError($"{x.GetType()} isn't a valid type!");
             };
 
             return executor;
@@ -122,6 +125,8 @@ namespace EggCentric.StateMachines
             Action<ITransition> executor = x => {
                 if (x is ITransition<TTarget> typedTransition)
                     _stateMachine.ExecuteTransition(typedTransition, payload);
+                else
+                    Debug.LogError($"{x.GetType()} isn't a valid type!");
             };
 
             return executor;
