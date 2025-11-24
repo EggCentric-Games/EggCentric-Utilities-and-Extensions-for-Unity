@@ -25,28 +25,22 @@ namespace EggCentric.StateMachines
             SetDefaultState();
         }
 
-        public void ExecuteTransition<TTarget>(ITransition<TTarget> transition) where TTarget : class, ICommonState, TStateType
-        {
-            Enter<TTarget>();
-        }
+        public ITransitionBuilder To<TTarget>() where TTarget : class, ICommonState, TStateType => _requestHandler.To<TTarget>();
+        
+        public ITransitionBuilder To<TTarget, TPayload>(TPayload payload) where TTarget : class, IPayloadedState<TPayload>, TStateType => _requestHandler.To<TTarget, TPayload>(payload);
+        
+        public void ExecuteTransition<TTarget>(ITransition<TTarget> transition) where TTarget : class, ICommonState, TStateType => Enter<TTarget>();
 
-        public void ExecuteTransition<TTarget, TPayload>(ITransition<TTarget> transition, TPayload payload) where TTarget : class, IPayloadedState<TPayload>, TStateType
-        {
-            Enter<TTarget, TPayload>(payload);
-        }
+        public void ExecuteTransition<TTarget, TPayload>(ITransition<TTarget> transition, TPayload payload) where TTarget : class, IPayloadedState<TPayload>, TStateType => Enter<TTarget, TPayload>(payload);
 
-        protected void Enter<TState>() where TState : class, TStateType, ICommonState
-        {
-            ChangeState<TState>().Enter();
-        }
+        protected void Enter<TState>() where TState : class, TStateType, ICommonState => ChangeState<TState>().Enter();
 
-        protected void Enter<TState, TPayload>(TPayload payload) where TState : class, TStateType, IPayloadedState<TPayload>
-        {
-            ChangeState<TState>().Enter(payload);
-        }
+        protected void Enter<TState, TPayload>(TPayload payload) where TState : class, TStateType, IPayloadedState<TPayload> => ChangeState<TState>().Enter(payload);
+
+        protected virtual void Tick() => _requestHandler.HandleRequests();
 
         protected void RegisterState<TState>(TState state) where TState : class, IState, TStateType
-        { 
+        {
             _registeredStates.Add(typeof(TState), state);
             _transitionEvaluator.RegisterState<TState>();
         }
