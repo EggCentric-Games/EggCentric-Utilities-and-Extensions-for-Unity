@@ -1,10 +1,15 @@
-﻿namespace EggCentric.StateMachines
+﻿using System;
+
+namespace EggCentric.StateMachines
 {
     public interface IStateMachine<TStateType> where TStateType : IState
     {
         public TStateType CurrentState { get; }
         public bool IsLocked { get; }
 
+        public Guid RequestLock(object source, int priority = 0);
+        public void DisposeLock(Guid lockId);
+        public void DisposeLocks(object source);
         public ITransitionBuilder To<TTarget>() where TTarget : class, ICommonState, TStateType;
         public ITransitionBuilder To<TTarget, TPayload>(TPayload payload) where TTarget : class, IPayloadedState<TPayload>, TStateType;
         public void ExecuteTransition<TTarget>(ITransition<TTarget> transition) where TTarget : class, ICommonState, TStateType;

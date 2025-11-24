@@ -16,7 +16,6 @@ namespace EggCentric.StateMachines
         private TStateType _currentState;
         private bool _isInitialized;
 
-
         public StateMachine() => CreateFields();
         
         public void Initialize()
@@ -34,7 +33,13 @@ namespace EggCentric.StateMachines
         public ITransitionBuilder To<TTarget>() where TTarget : class, ICommonState, TStateType => _requestHandler.To<TTarget>();
         
         public ITransitionBuilder To<TTarget, TPayload>(TPayload payload) where TTarget : class, IPayloadedState<TPayload>, TStateType => _requestHandler.To<TTarget, TPayload>(payload);
-        
+
+        public Guid RequestLock(object source, int priority = 0) => _lockHandler.RequestLock(source, priority);
+
+        public void DisposeLock(Guid lockId) => _lockHandler.DisposeLock(lockId);
+
+        public void DisposeLocks(object source) => _lockHandler.DisposeLocks(source);
+
         public void ExecuteTransition<TTarget>(ITransition<TTarget> transition) where TTarget : class, ICommonState, TStateType => Enter<TTarget>();
 
         public void ExecuteTransition<TTarget, TPayload>(ITransition<TTarget> transition, TPayload payload) where TTarget : class, IPayloadedState<TPayload>, TStateType => Enter<TTarget, TPayload>(payload);
