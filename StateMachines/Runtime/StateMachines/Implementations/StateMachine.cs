@@ -1,4 +1,3 @@
-using EggCentric.StateMachines;
 using System;
 using System.Collections.Generic;
 
@@ -20,6 +19,10 @@ namespace EggCentric.StateMachines
             _requestHandler = new RequestHandler<TStateType>(this, _transitionEvaluator);
 
             _registeredStates = new Dictionary<Type, IState>();
+
+            RegisterStates();
+            RegisterTransitions();
+            SetDefaultState();
         }
 
         public void ExecuteTransition<TTarget>(ITransition<TTarget> transition) where TTarget : class, ICommonState, TStateType
@@ -52,6 +55,10 @@ namespace EggCentric.StateMachines
         {
             return _transitionEvaluator.AddTransition<TSource, TTarget>();
         }
+
+        protected abstract void RegisterStates();
+        protected abstract void RegisterTransitions();
+        protected abstract void SetDefaultState();
 
         private TState ChangeState<TState>() where TState : class, IState, TStateType
         {
