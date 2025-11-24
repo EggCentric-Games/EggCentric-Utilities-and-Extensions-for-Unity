@@ -41,7 +41,13 @@ namespace EggCentric.StateMachines
 
             var source = _stateMachine.CurrentState.GetType();
             var target = request.TargetState;
-            var isLocked = _stateMachine.IsFreeFor(request.Priority);
+            var transitionAvailable = request.Flags.HasFlag(TransitionFlags.Forced) || _stateMachine.IsFreeFor(request.Priority);
+
+            if(!transitionAvailable)
+            {
+                Debug.LogWarning($"State machine is locked for {request.Priority}. Rejecting.");
+                return false;
+            }
 
             if (!transitions.TryGetValue(_stateMachine.CurrentState.GetType(), out List<ITransition> stateTransitions))
             {

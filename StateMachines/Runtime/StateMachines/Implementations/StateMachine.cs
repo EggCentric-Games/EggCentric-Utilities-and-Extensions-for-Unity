@@ -6,7 +6,6 @@ namespace EggCentric.StateMachines
     public abstract class StateMachine<TStateType> : IStateMachine<TStateType> where TStateType : IState
     {
         public TStateType CurrentState => _currentState;
-
         public bool IsLocked => _lockHandler.IsLocked;
 
         private TransitionEvaluator<TStateType> _transitionEvaluator;
