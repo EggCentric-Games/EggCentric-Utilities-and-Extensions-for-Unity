@@ -17,18 +17,6 @@ namespace EggCentric.StateMachines
         private bool _isInitialized;
 
         public StateMachine() => CreateFields();
-        
-        public void Initialize()
-        {
-            if (_isInitialized)
-                return;
-
-            RegisterStates();
-            RegisterTransitions();
-            SetDefaultState();
-
-            _isInitialized = true;
-        }
 
         public ITransitionBuilder To<TTarget>() where TTarget : class, ICommonState, TStateType => _requestHandler.To<TTarget>();
         
@@ -57,9 +45,17 @@ namespace EggCentric.StateMachines
 
         protected virtual void Tick() => _requestHandler.HandleRequests();
 
-        protected void Enter<TState>() where TState : class, TStateType, ICommonState => ChangeState<TState>().Enter();
+        protected void Initialize()
+        {
+            if (_isInitialized)
+                return;
 
-        protected void Enter<TState, TPayload>(TPayload payload) where TState : class, TStateType, IPayloadedState<TPayload> => ChangeState<TState>().Enter(payload);
+            RegisterStates();
+            RegisterTransitions();
+            SetDefaultState();
+
+            _isInitialized = true;
+        }
 
         protected void RegisterState<TState>(TState state) where TState : class, IState, TStateType
         {
@@ -71,6 +67,11 @@ namespace EggCentric.StateMachines
         {
             return _transitionEvaluator.AddTransition<TSource, TTarget>();
         }
+
+        protected void Enter<TState>() where TState : class, TStateType, ICommonState => ChangeState<TState>().Enter();
+
+        protected void Enter<TState, TPayload>(TPayload payload) where TState : class, TStateType, IPayloadedState<TPayload> => ChangeState<TState>().Enter(payload);
+
 
         protected abstract void RegisterStates();
         protected abstract void RegisterTransitions();
