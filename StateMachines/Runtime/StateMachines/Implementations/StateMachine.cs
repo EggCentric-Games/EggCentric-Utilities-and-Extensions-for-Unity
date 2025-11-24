@@ -5,6 +5,7 @@ namespace EggCentric.StateMachines
 {
     public abstract class StateMachine<TStateType> : IStateMachine<TStateType> where TStateType : IState
     {
+        public Type DefaultState => _defaultState;
         public TStateType CurrentState => _currentState;
         public bool IsLocked => _lockHandler.IsLocked;
 
@@ -13,14 +14,16 @@ namespace EggCentric.StateMachines
         private LockHandler _lockHandler;
 
         private Dictionary<Type, IState> _registeredStates;
-        private TStateType _currentState;
+        private Type _defaultState;
         private bool _isInitialized;
+        private TStateType _currentState;
 
         public StateMachine() => CreateFields();
 
         public ITransitionBuilder To<TTarget>() where TTarget : class, ICommonState, TStateType => _requestHandler.To<TTarget>();
         
         public ITransitionBuilder To<TTarget, TPayload>(TPayload payload) where TTarget : class, IPayloadedState<TPayload>, TStateType => _requestHandler.To<TTarget, TPayload>(payload);
+
 
         public Guid RequestLock(object source, int priority = 0) => _lockHandler.RequestLock(source, priority);
 
@@ -45,14 +48,26 @@ namespace EggCentric.StateMachines
 
         protected virtual void Tick() => _requestHandler.HandleRequests();
 
-        protected void Initialize()
+        protected void Initialize<TDefaultState>() where TDefaultState : class, ICommonState, TStateType
         {
             if (_isInitialized)
                 return;
 
             RegisterStates();
             RegisterTransitions();
-            SetDefaultState();
+            SetDefaultState<TDefaultState>();
+
+            _isInitialized = true;
+        }
+
+        protected void Initialize<TDefaultState, TPayload>(TPayload payload) where TDefaultState : class, IPayloadedState<TPayload>, TStateType
+        {
+            if (_isInitialized)
+                return;
+
+            RegisterStates();
+            RegisterTransitions();
+            SetDefaultState<TDefaultState, TPayload>(payload);
 
             _isInitialized = true;
         }
@@ -68,14 +83,24 @@ namespace EggCentric.StateMachines
             return _transitionEvaluator.AddTransition<TSource, TTarget>();
         }
 
-        protected void Enter<TState>() where TState : class, TStateType, ICommonState => ChangeState<TState>().Enter();
-
-        protected void Enter<TState, TPayload>(TPayload payload) where TState : class, TStateType, IPayloadedState<TPayload> => ChangeState<TState>().Enter(payload);
-
-
         protected abstract void RegisterStates();
         protected abstract void RegisterTransitions();
-        protected abstract void SetDefaultState();
+
+        private void SetDefaultState<TDefaultState>() where TDefaultState : class, ICommonState, TStateType
+        {
+            _defaultState = typeof(TDefaultState);
+            Enter<TDefaultState>();
+        }
+
+        private void SetDefaultState<TDefaultState, TPayload>(TPayload payload) where TDefaultState : class, IPayloadedState<TPayload>, TStateType
+        {
+            _defaultState = typeof(TDefaultState);
+            Enter<TDefaultState, TPayload>(payload);
+        }
+
+        private void Enter<TState>() where TState : class, TStateType, ICommonState => ChangeState<TState>().Enter();
+
+        private void Enter<TState, TPayload>(TPayload payload) where TState : class, TStateType, IPayloadedState<TPayload> => ChangeState<TState>().Enter(payload);
 
         private TState ChangeState<TState>() where TState : class, IState, TStateType
         {

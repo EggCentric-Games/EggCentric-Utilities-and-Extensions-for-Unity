@@ -5,6 +5,7 @@ namespace EggCentric.StateMachines
     public interface IStateMachine<TStateType> where TStateType : IState
     {
         public TStateType CurrentState { get; }
+        public Type DefaultState { get; }
         public bool IsLocked { get; }
 
         public Guid RequestLock(object source, int priority = 0);
