@@ -41,6 +41,7 @@ namespace EggCentric.StateMachines
 
             var source = _stateMachine.CurrentState.GetType();
             var target = request.TargetState;
+            var isLocked = _stateMachine.IsFreeFor(request.Priority);
 
             if (!transitions.TryGetValue(_stateMachine.CurrentState.GetType(), out List<ITransition> stateTransitions))
             {

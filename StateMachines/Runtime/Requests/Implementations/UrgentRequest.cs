@@ -7,7 +7,7 @@ namespace EggCentric.StateMachines
         public override bool IsValid => true;
         public bool IsForced { get; private set; }
 
-        public UrgentRequest(Type targetState, bool isForced = false) : base(targetState)
+        public UrgentRequest(Type targetState, bool isForced = false, int priority = 0) : base(targetState, priority)
         {
             IsForced = isForced;
         }

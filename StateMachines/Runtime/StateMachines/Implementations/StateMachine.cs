@@ -7,8 +7,11 @@ namespace EggCentric.StateMachines
     {
         public TStateType CurrentState => _currentState;
 
+        public bool IsLocked => _lockHandler.IsLocked;
+
         private TransitionEvaluator<TStateType> _transitionEvaluator;
         private RequestHandler<TStateType> _requestHandler;
+        private LockHandler _lockHandler;
 
         private Dictionary<Type, IState> _registeredStates;
         private TStateType _currentState;
@@ -37,10 +40,13 @@ namespace EggCentric.StateMachines
 
         public void ExecuteTransition<TTarget, TPayload>(ITransition<TTarget> transition, TPayload payload) where TTarget : class, IPayloadedState<TPayload>, TStateType => Enter<TTarget, TPayload>(payload);
 
+        public bool IsFreeFor(int priority) => !_lockHandler.IsLockedFor(priority);
+
         protected virtual void CreateFields()
         {
             _transitionEvaluator = new TransitionEvaluator<TStateType>(this);
             _requestHandler = new RequestHandler<TStateType>(this, _transitionEvaluator);
+            _lockHandler = new LockHandler();
 
             _registeredStates = new Dictionary<Type, IState>();
         }

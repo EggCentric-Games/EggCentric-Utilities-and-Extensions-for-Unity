@@ -134,12 +134,21 @@ namespace EggCentric.StateMachines
 
         private abstract class TransitionBuilderBase<TTarget> : ITransitionBuilder where TTarget : class, IState, TStateType
         {
+            public int Priority { get; private set; }
             public Type Target => typeof(TTarget);
+
             protected readonly RequestHandler<TStateType> requestHandler;
 
             public TransitionBuilderBase(RequestHandler<TStateType> requestHandler)
             {
                 this.requestHandler = requestHandler;
+            }
+
+            public ITransitionBuilder WithPriority(int priority)
+            {
+                Priority = priority;
+
+                return this;
             }
 
             public abstract void Now();
@@ -153,20 +162,11 @@ namespace EggCentric.StateMachines
             {
             }
 
-            public override void Now()
-            {
-                requestHandler.AddRequest<TTarget>(false);
-            }
+            public override void Now() => requestHandler.AddRequest<TTarget>(false);
 
-            public override void Forced()
-            {
-                requestHandler.AddRequest<TTarget>(true);
-            }
+            public override void Forced() => requestHandler.AddRequest<TTarget>(true);
 
-            public override void AwaitFor(float lifetime)
-            {
-                requestHandler.AddRequest<TTarget>(lifetime);
-            }
+            public override void AwaitFor(float lifetime) => requestHandler.AddRequest<TTarget>(lifetime);
         }
 
         private class PayloadTransitionBuilder<TTarget, TPayload> : TransitionBuilderBase<TTarget> where TTarget : class, IPayloadedState<TPayload>, TStateType
@@ -178,20 +178,11 @@ namespace EggCentric.StateMachines
                 _payload = payload;
             }
 
-            public override void Now()
-            {
-                requestHandler.AddRequest<TTarget, TPayload>(_payload, false);
-            }
+            public override void Now() => requestHandler.AddRequest<TTarget, TPayload>(_payload, false);
+            
+            public override void Forced() => requestHandler.AddRequest<TTarget, TPayload>(_payload, true);
 
-            public override void Forced()
-            {
-                requestHandler.AddRequest<TTarget, TPayload>(_payload, true);
-            }
-
-            public override void AwaitFor(float lifetime)
-            {
-                requestHandler.AddRequest<TTarget, TPayload>(_payload, lifetime);
-            }
+            public override void AwaitFor(float lifetime) => requestHandler.AddRequest<TTarget, TPayload>(_payload, lifetime);
         }
     }
 }

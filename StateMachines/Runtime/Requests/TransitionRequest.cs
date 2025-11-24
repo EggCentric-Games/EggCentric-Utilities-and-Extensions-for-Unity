@@ -4,12 +4,18 @@ namespace EggCentric.StateMachines
 {
     public abstract class TransitionRequest
     {
-        public Type TargetState { get; private set; }
+        public Type TargetState => _targetState;
+        public int Priority => _priority;
+
         public abstract bool IsValid { get; }
 
-        public TransitionRequest(Type targetState)
+        private readonly Type _targetState;
+        private readonly int _priority;
+
+        public TransitionRequest(Type targetState, int priority = 0)
         {
-            TargetState = targetState;
+            _targetState = targetState;
+            _priority = priority;
         }
     }
 }
