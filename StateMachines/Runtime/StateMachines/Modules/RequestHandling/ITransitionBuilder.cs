@@ -6,6 +6,6 @@ namespace EggCentric.StateMachines
 
         public TransitionRequest Now();
         public TransitionRequest Forced();
-        public TransitionRequest AwaitFor(float lifetime);
+        public TransitionRequest AwaitFor(float lifetime = -1f);
     }
 }
