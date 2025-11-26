@@ -1,3 +1,10 @@
+## [1.1.0] - 2025-11-26
+
+### LifeCycleProvider extension
+
+- LifeCycleProvider is now inherited from ICoroutineRunner, since it is MonoBehaviour by definition
+- Implemented StopCoroutine support for ICoroutineRunner
+
 ## [1.0.0] - 2025-07-24
 
 ### First Release
