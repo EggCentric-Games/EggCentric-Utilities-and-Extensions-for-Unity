@@ -5,6 +5,8 @@
   "description": "Set of tools for easy and robust input handling implementation",
   "unity": "2022.3",
   "dependencies": {
+    "com.unity.inputsystem": "1.0.0",
+    "com.eggcentric.infrastructure": "1.1.0",
     "com.eggcentric.singletons": "1.0.0"
   },
   "author": {
