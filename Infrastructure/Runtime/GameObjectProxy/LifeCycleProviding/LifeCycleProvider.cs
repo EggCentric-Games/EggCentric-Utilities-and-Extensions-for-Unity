@@ -20,34 +20,11 @@ namespace EggCentric.Infrastructure
             OnAwakePerformed?.Invoke();
         }
 
-        private void OnEnable()
-        {
-            OnEnablePerformed?.Invoke();
-        }
-
-        private void Start()
-        {
-            OnStartPerformed?.Invoke();
-        }
-
-        private void Update()
-        {
-            OnUpdatePerformed?.Invoke();
-        }
-
-        private void FixedUpdate()
-        {
-            OnFixedUpdatePerformed?.Invoke();
-        }
-
-        private void LateUpdate()
-        {
-            OnLateUpdatePerformed?.Invoke();
-        }
-
-        private void OnDisable()
-        {
-            OnDisablePerformed?.Invoke();
-        }
+        private void OnEnable() => OnEnablePerformed?.Invoke();
+        private void Start() => OnStartPerformed?.Invoke();
+        private void Update() => OnUpdatePerformed?.Invoke();
+        private void FixedUpdate() => OnFixedUpdatePerformed?.Invoke();
+        private void LateUpdate() => OnLateUpdatePerformed?.Invoke();
+        private void OnDisable() => OnDisablePerformed?.Invoke();
     }
 }
