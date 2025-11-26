@@ -1,0 +1,15 @@
+{
+  "name": "com.eggcentric.input_handling",
+  "version": "0.0.0",
+  "displayName": "EggCentric Input Handling",
+  "description": "Set of tools for easy and robust input handling implementation",
+  "unity": "2022.3",
+  "dependencies": {
+    "com.eggcentric.singletons": "1.0.0"
+  },
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}
