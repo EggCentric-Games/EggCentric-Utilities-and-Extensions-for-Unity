@@ -3,7 +3,7 @@ using System;
 
 namespace EggCentric.Infrastructure
 {
-    public class LifeCycleProvider : MonoSingleton<LifeCycleProvider>, ILifeCycleProvider
+    public class LifeCycleProvider : MonoSingleton<LifeCycleProvider>, ILifeCycleProvider, ICoroutineRunner
     {
         public event Action OnAwakePerformed;
         public event Action OnEnablePerformed;
