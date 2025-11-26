@@ -1,15 +1,8 @@
 using System;
+using UnityEngine;
 
 namespace EggCentric.PID
 {
-    public interface IPidController<TValue>
-    {
-        public float Output { get; }
-
-        public void SetCoefficients(PidCoefficients coefficients);
-        public void SetTarget(TValue target);
-    }
-
     public abstract class PidController<TValue> : IPidController<TValue>
     {
         public float Output { get; private set; }
@@ -42,6 +35,7 @@ namespace EggCentric.PID
             _error = GetError(_getter());
             float proportional = _coefficients.Kp * _error;
             _integral += _coefficients.Ki * (_error * timeStep);
+            _integral = _coefficients.Ki != 0 ? Mathf.Clamp(_integral, -1f * _coefficients.Ki, 1f * _coefficients.Ki) : 0f;
             float derivative = _coefficients.Kd * ((_error - _previousError) / timeStep);
 
             Output = proportional + _integral + derivative;

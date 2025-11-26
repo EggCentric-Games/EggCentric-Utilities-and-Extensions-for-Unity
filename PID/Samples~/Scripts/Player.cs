@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
     {
         _controller = new TrainController(() => _controlledTrain.transform.position.x);
         UpdateValues();
+
+        Time.fixedDeltaTime = 0.1f;
     }
 
     private void Update()

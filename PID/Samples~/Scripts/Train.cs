@@ -1,5 +1,3 @@
-using EggCentric.PID;
-using System;
 using UnityEngine;
 
 public class Train : MonoBehaviour
@@ -18,13 +16,4 @@ public class Train : MonoBehaviour
     {
         _body.AddForce(Vector2.right * _accelerationForce * _throttle, ForceMode.Force);
     }
-}
-
-public class TrainController : PidController<float>
-{
-    public TrainController(Func<float> getter) : base(getter)
-    {
-    }
-
-    protected override float GetError(float value) => target - value;
 }
