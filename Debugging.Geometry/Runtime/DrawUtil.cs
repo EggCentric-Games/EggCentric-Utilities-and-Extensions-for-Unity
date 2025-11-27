@@ -1,7 +1,7 @@
 using UnityEngine;
 using EggCentric.Geometry;
 
-namespace EggCentric.Debugging
+namespace EggCentric.Debugging.Geometry
 {
     public static class DrawUtil
     {

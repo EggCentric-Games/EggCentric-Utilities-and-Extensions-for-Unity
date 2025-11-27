@@ -1,7 +1,9 @@
 {
-    "name": "EggCentric.Debugging",
-    "rootNamespace": "EggCentric.Debugging",
-    "references": [],
+    "name": "EggCentric.Debugging.Geometry",
+    "rootNamespace": "EggCentric.Debugging.Geometry",
+    "references": [
+        "GUID:1bde08b571070014d80a450a5a94b848"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
