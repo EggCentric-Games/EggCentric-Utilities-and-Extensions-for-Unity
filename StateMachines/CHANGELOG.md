@@ -1,3 +1,9 @@
+## [2.2.1] - 2025-11-28
+
+### Debug events and much more!
+
+- Revamped OnTransitionAdded debug event
+
 ## [2.2.0] - 2025-11-28
 
 ### Debug events and much more!
