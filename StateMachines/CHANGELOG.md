@@ -1,6 +1,19 @@
+## [2.3.0] - 2025-11-28
+
+### New transition request building logic
+
+- Implemented IgnoreConditions flag
+- Forced() now creates urgent request with all flags "on"
+- Implemented ability to call IgnoreLocks while building a TransitionRequest
+- Implemented ability to call IgnoreConditions while building a TransitionRequest
+- Renamed Forced flag to IgnoreLocks
+- Renamed TransitionBuilderBase to TransitionBuilder
+- Renamed TransitionBuilder to PlainTransitionBuilder
+- Fixed TransitionFlags reference in TransitionRequest
+
 ## [2.2.1] - 2025-11-28
 
-### Debug events and much more!
+### Small debug improvements
 
 - Revamped OnTransitionAdded debug event
 
