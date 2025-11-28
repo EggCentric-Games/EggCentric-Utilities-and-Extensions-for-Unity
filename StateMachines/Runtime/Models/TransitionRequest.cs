@@ -9,10 +9,7 @@ namespace EggCentric.StateMachines
         public bool IsValid => _executionPolicy.IsValid;
         public object Source => _source; 
         public int Priority => _priority;
-        public TransitionFlags Flags => _flags;
-        public abstract Type TargetState { get; }
-
-        protected TransitionFlags _flags;
+        public TransitionFlags Flags => _executionPolicy.TransitionFlags;
 
         private readonly IExecutionPolicy _executionPolicy;
         private readonly object _source;
