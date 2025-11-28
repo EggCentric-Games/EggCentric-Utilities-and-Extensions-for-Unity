@@ -1,4 +1,16 @@
 
+## [2.1.0] - 2025-11-28
+
+### Debug events and much more!
+
+- Implemented debugging events support
+- Implemented additional generic restriction for TransitionRequests
+- Implemented transition request ExecutionPolicies
+- Moved request execution and resolving logic into TransitionRequest 
+- Renamed ICommonState to IPlainState
+- Fixed transition request priority
+- Other improvements
+
 ## [2.0.1] - 2025-11-26
 
 ### Small hotfix
