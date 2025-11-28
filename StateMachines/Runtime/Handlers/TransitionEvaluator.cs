@@ -13,7 +13,7 @@ namespace EggCentric.StateMachines
         public event Action<Type> OnMissingRegisteredState;
         public event Action<Type> OnRegisterStateDuplication;
 
-        public event Action<ITransition> OnTransitionAdded;
+        public event Action<Type, ITransition> OnTransitionAdded;
 
         public event Action<Type, Type> OnMissingTransition;
         public event Action<Type, Type> OnInvalidStateType;
@@ -47,7 +47,7 @@ namespace EggCentric.StateMachines
             Transition<TTarget> newTransition = new Transition<TTarget>();
             stateTransitions.Add(newTransition);
 
-            OnTransitionAdded?.Invoke(newTransition);
+            OnTransitionAdded?.Invoke(typeof(TSource), newTransition);
             return newTransition;
         }
 
