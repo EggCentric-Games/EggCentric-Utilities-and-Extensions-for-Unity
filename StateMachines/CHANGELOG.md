@@ -1,3 +1,11 @@
+## [2.2.0] - 2025-11-28
+
+### Debug events and much more!
+
+- Implemented ability to get current state machine lock level
+- Implemented support of demug events for request receiving
+- Revamped debug events return types
+
 
 ## [2.1.0] - 2025-11-28
 
