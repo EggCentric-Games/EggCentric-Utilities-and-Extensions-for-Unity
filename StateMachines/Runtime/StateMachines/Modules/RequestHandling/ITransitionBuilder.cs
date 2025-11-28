@@ -1,11 +1,11 @@
 namespace EggCentric.StateMachines
 {
-    public interface ITransitionBuilder
+    public interface ITransitionBuilder<TStateType> where TStateType : IState
     {
-        public ITransitionBuilder WithPriority(int priority);
+        public ITransitionBuilder<TStateType> WithPriority(int priority);
 
-        public TransitionRequest Now();
-        public TransitionRequest Forced();
-        public TransitionRequest AwaitFor(float lifetime = -1f);
+        public TransitionRequest<TStateType> Now();
+        public TransitionRequest<TStateType> Forced();
+        public TransitionRequest<TStateType> AwaitFor(float lifetime = -1f);
     }
 }

@@ -1,9 +1,8 @@
-using System;
 using UnityEngine;
 
 namespace EggCentric.StateMachines
 {
-    public class DelayedRequest : TransitionRequest
+    public class DelayedPolicy : ExecutionPolicy
     {
         public override bool IsValid => !isExpired;
 
@@ -12,7 +11,7 @@ namespace EggCentric.StateMachines
 
         private bool isExpired => _lifetime < 0 ? false : (Time.time - _creationTime) > _lifetime;
 
-        public DelayedRequest(Type targetState, object source, float lifetime = -1f, int priority = 0) : base(targetState, source, priority)
+        public DelayedPolicy(float lifetime = -1f)
         {
             _lifetime = lifetime;
             _creationTime = Time.time;

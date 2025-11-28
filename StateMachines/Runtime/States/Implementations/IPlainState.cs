@@ -1,6 +1,6 @@
 namespace EggCentric.StateMachines
 {
-    public interface ICommonState : IState
+    public interface IPlainState : IState
     {
         public void Enter();
     }

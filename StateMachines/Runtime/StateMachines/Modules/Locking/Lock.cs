@@ -6,7 +6,7 @@ namespace EggCentric.StateMachines
     {
         public Guid ID => _lockId;
         public object Source => _lockSource;
-        public int priority => _priority;
+        public int Priority => _priority;
 
         private readonly Guid _lockId;
         private readonly object _lockSource;

@@ -1,71 +1,83 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace EggCentric.StateMachines
 {
-    public class TransitionEvaluator<TStateType> where TStateType : IState
+
+    public class TransitionEvaluator<TStateType> : ITransitionEvaluatorEventsProvider where TStateType : IState
     {
-        private IStateMachine<TStateType> _stateMachine;
-        private Dictionary<Type, List<ITransition>> transitions;
+        private readonly IStateMachine<TStateType> _stateMachine;
+        private Dictionary<Type, List<ITransition>> _transitions;
+
+        public event Action<ITransition> OnTransitionAdded;
+        public event Action<Type, Type> OnMissingTransition;
+        public event Action OnUninitializedStateMachine;
+        public event Action<Type> OnMissingRegisteredState;
+        public event Action<Type> OnRegisterStateDuplication;
+        public event Action<Type> OnInvalidStateType;
 
         public TransitionEvaluator(IStateMachine<TStateType> stateMachine)
         {
-            transitions = new Dictionary<Type, List<ITransition>>();
-
             _stateMachine = stateMachine;
+            _transitions = new Dictionary<Type, List<ITransition>>();
         }
 
         public void RegisterState<TState>() where TState : class, IState, TStateType
         {
-            transitions.Add(typeof(TState), new List<ITransition>());
+            if(_transitions.ContainsKey(typeof(TState)))
+            {
+                OnRegisterStateDuplication?.Invoke(typeof(TState));
+                return;
+            }
+
+            _transitions.Add(typeof(TState), new List<ITransition>());
         }
+
+        public IReadOnlyList<ITransition> AvailableTransitions(Type type) => GetStateTransitions(type);
 
         public Transition<TTarget> AddTransition<TSource, TTarget>() where TSource : class, IState, TStateType where TTarget : class, IState, TStateType
         {
-            if (!transitions.TryGetValue(typeof(TSource), out var stateTransitions))
-            {
-                Debug.LogError($"There is no registered states of type {typeof(TSource)}!");
+            var stateTransitions = GetStateTransitions(typeof(TSource));
+
+            if (stateTransitions == null)
                 return null;
-            }
 
             Transition<TTarget> newTransition = new Transition<TTarget>();
             stateTransitions.Add(newTransition);
 
+            OnTransitionAdded?.Invoke(newTransition);
             return newTransition;
         }
 
-        public bool ResolveTransition(TransitionRequest request, out ITransition result)
+        public bool ResolveTransition<TTarget>(out ITransition result) where TTarget : class, IState, TStateType => ResolveTransition<TTarget>(_stateMachine.CurrentState, out result);
+
+        private bool ResolveTransition<TTarget>(IState source, out ITransition result) where TTarget : class, IState, TStateType
         {
             result = null;
 
-            var source = _stateMachine.CurrentState?.GetType();
-            var target = request.TargetState;
-            var transitionAvailable = request.Flags.HasFlag(TransitionFlags.Forced) || _stateMachine.IsFreeFor(request.Priority);
-
-            if(!transitionAvailable)
-            {
-                Debug.LogWarning($"State machine is locked for {request.Priority}. Rejecting.");
-                return false;
-            }
-
             if (source == null)
             {
-                Debug.LogError($"State machine must be initialized first.");
+                OnUninitializedStateMachine?.Invoke();
                 return false;
             }
 
-            if (!transitions.TryGetValue(source, out List<ITransition> stateTransitions))
+            Type stateType = source.GetType();
+            if (!typeof(TStateType).IsAssignableFrom(stateType))
             {
-                Debug.LogWarning($"There's is no registered state of type {source}. Rejecting.");
+                OnInvalidStateType?.Invoke(stateType);
                 return false;
             }
 
-            List<ITransition> availableTransitions = stateTransitions.FindAll(x => x.TargetState == target);
+            var stateTransitions = GetStateTransitions(stateType);
+
+            if (stateTransitions == null)
+                return false;
+
+            List<ITransition> availableTransitions = stateTransitions.FindAll(x => x.TargetState == typeof(TTarget));
 
             if (availableTransitions.Count <= 0)
             {
-                Debug.LogWarning($"There's is no transition from {source} to {target}. Rejecting.");
+                OnMissingTransition?.Invoke(stateType, typeof(TTarget));
                 return false;
             }
 
@@ -79,6 +91,20 @@ namespace EggCentric.StateMachines
             }
 
             return false;
+        }
+
+        private List<ITransition> GetStateTransitions(Type type)
+        {
+            if (!typeof(TStateType).IsAssignableFrom(type))
+                return null;
+
+            if (!_transitions.TryGetValue(type, out var stateTransitions))
+            {
+                OnMissingRegisteredState?.Invoke(type);
+                return null;
+            }
+
+            return stateTransitions;
         }
     }
 }

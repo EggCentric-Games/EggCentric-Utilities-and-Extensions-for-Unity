@@ -3,11 +3,16 @@ using System.Collections.Generic;
 
 namespace EggCentric.StateMachines
 {
+
     public abstract class StateMachine<TStateType> : IStateMachine<TStateType> where TStateType : IState
     {
         public Type DefaultState => _defaultState;
         public TStateType CurrentState => _currentState;
         public bool IsLocked => _lockHandler.IsLocked;
+
+        public IRequestHandlerEventsProvider<TStateType> RequestEvents => _requestHandler;
+        public ITransitionEvaluatorEventsProvider TransitionEvents => _transitionEvaluator;
+        public ILockEventsProvider LockEvents => _lockHandler;
 
         private TransitionEvaluator<TStateType> _transitionEvaluator;
         private RequestHandler<TStateType> _requestHandler;
@@ -18,15 +23,18 @@ namespace EggCentric.StateMachines
         private bool _isInitialized;
         private TStateType _currentState;
 
+        public event Action<Type> OnRegisterStateDuplication;
+        public event Action<Type> OnMissingRegisteredState;
+
         public StateMachine() => CreateFields();
 
-        public ITransitionBuilder To<TTarget>(object source) where TTarget : class, ICommonState, TStateType => _requestHandler.To<TTarget>(source);
+        public ITransitionBuilder<TStateType> To<TTarget>(object source) where TTarget : class, IPlainState, TStateType => _requestHandler.To<TTarget>(source);
         
-        public ITransitionBuilder To<TTarget, TPayload>(object source, TPayload payload) where TTarget : class, IPayloadedState<TPayload>, TStateType => _requestHandler.To<TTarget, TPayload>(source, payload);
+        public ITransitionBuilder<TStateType> To<TTarget, TPayload>(object source, TPayload payload) where TTarget : class, IPayloadedState<TPayload>, TStateType => _requestHandler.To<TTarget, TPayload>(source, payload);
 
-        public void DisposeRequest(TransitionRequest requestToDispose) => _requestHandler.DisposeRequest(requestToDispose);
+        public void DiscardRequest(TransitionRequest<TStateType> requestToDispose) => _requestHandler.DiscardRequest(requestToDispose);
 
-        public void DisposeRequests(object source) => _requestHandler.DisposeRequests(source);
+        public void DiscardFromSource(object source) => _requestHandler.DiscardFromSource(source);
 
         public Guid RequestLock(object source, int priority = 0) => _lockHandler.RequestLock(source, priority);
 
@@ -34,7 +42,7 @@ namespace EggCentric.StateMachines
 
         public void DisposeLocks(object source) => _lockHandler.DisposeLocks(source);
 
-        public void ExecuteTransition<TTarget>(ITransition<TTarget> transition) where TTarget : class, ICommonState, TStateType => Enter<TTarget>();
+        public void ExecuteTransition<TTarget>(ITransition<TTarget> transition) where TTarget : class, IPlainState, TStateType => Enter<TTarget>();
 
         public void ExecuteTransition<TTarget, TPayload>(ITransition<TTarget> transition, TPayload payload) where TTarget : class, IPayloadedState<TPayload>, TStateType => Enter<TTarget, TPayload>(payload);
 
@@ -51,7 +59,7 @@ namespace EggCentric.StateMachines
 
         protected virtual void Tick() => _requestHandler.HandleRequests();
 
-        protected void Initialize<TDefaultState>() where TDefaultState : class, ICommonState, TStateType
+        protected void Initialize<TDefaultState>() where TDefaultState : class, IPlainState, TStateType
         {
             if (_isInitialized)
                 return;
@@ -77,6 +85,12 @@ namespace EggCentric.StateMachines
 
         protected void RegisterState<TState>(TState state) where TState : class, IState, TStateType
         {
+            if (_registeredStates.ContainsKey(typeof(TState)))
+            {
+                OnRegisterStateDuplication?.Invoke(typeof(TState));
+                return;
+            }
+
             _registeredStates.Add(typeof(TState), state);
             _transitionEvaluator.RegisterState<TState>();
         }
@@ -89,7 +103,7 @@ namespace EggCentric.StateMachines
         protected abstract void RegisterStates();
         protected abstract void RegisterTransitions();
 
-        private void SetDefaultState<TDefaultState>() where TDefaultState : class, ICommonState, TStateType
+        private void SetDefaultState<TDefaultState>() where TDefaultState : class, IPlainState, TStateType
         {
             _defaultState = typeof(TDefaultState);
             Enter<TDefaultState>();
@@ -101,7 +115,7 @@ namespace EggCentric.StateMachines
             Enter<TDefaultState, TPayload>(payload);
         }
 
-        private void Enter<TState>() where TState : class, TStateType, ICommonState => ChangeState<TState>().Enter();
+        private void Enter<TState>() where TState : class, TStateType, IPlainState => ChangeState<TState>().Enter();
 
         private void Enter<TState, TPayload>(TPayload payload) where TState : class, TStateType, IPayloadedState<TPayload> => ChangeState<TState>().Enter(payload);
 
@@ -116,7 +130,11 @@ namespace EggCentric.StateMachines
 
         private TState GetState<TState>() where TState : class, IState
         {
-            return _registeredStates[typeof(TState)] as TState;
+            if (_registeredStates.TryGetValue(typeof(TState), out var state))
+                return state as TState;
+
+            OnMissingRegisteredState?.Invoke(typeof(TState));
+            return null;
         }
     }
 }
