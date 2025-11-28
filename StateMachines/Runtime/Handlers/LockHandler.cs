@@ -11,9 +11,9 @@ namespace EggCentric.StateMachines
 
         private Dictionary<Guid, Lock> _activeLocks;
 
-        public event Action<Lock, object> OnLockPlaced;
         public event Action<object, int> OnLockRequested;
         public event Action<Guid> OnLockDisposeRequested;
+        public event Action<Lock> OnLockPlaced;
         public event Action<Lock> OnLockDisposed;
         public event Action<Guid> OnInvalidDisposalRequested;
         public event Action OnInvalidRequestSource;
@@ -69,7 +69,7 @@ namespace EggCentric.StateMachines
 
             Lock newLock = new Lock(source, priority);
             _activeLocks.Add(newLock.ID, newLock);
-            OnLockPlaced?.Invoke(newLock, source);
+            OnLockPlaced?.Invoke(newLock);
 
             return newLock;
         }

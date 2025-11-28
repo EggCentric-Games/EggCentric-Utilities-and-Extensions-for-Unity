@@ -9,12 +9,14 @@ namespace EggCentric.StateMachines
         private readonly IStateMachine<TStateType> _stateMachine;
         private Dictionary<Type, List<ITransition>> _transitions;
 
-        public event Action<ITransition> OnTransitionAdded;
-        public event Action<Type, Type> OnMissingTransition;
         public event Action OnUninitializedStateMachine;
         public event Action<Type> OnMissingRegisteredState;
         public event Action<Type> OnRegisterStateDuplication;
-        public event Action<Type> OnInvalidStateType;
+
+        public event Action<ITransition> OnTransitionAdded;
+
+        public event Action<Type, Type> OnMissingTransition;
+        public event Action<Type, Type> OnInvalidStateType;
 
         public TransitionEvaluator(IStateMachine<TStateType> stateMachine)
         {
@@ -64,7 +66,7 @@ namespace EggCentric.StateMachines
             Type stateType = source.GetType();
             if (!typeof(TStateType).IsAssignableFrom(stateType))
             {
-                OnInvalidStateType?.Invoke(stateType);
+                OnInvalidStateType?.Invoke(stateType, typeof(TStateType));
                 return false;
             }
 
@@ -93,14 +95,17 @@ namespace EggCentric.StateMachines
             return false;
         }
 
-        private List<ITransition> GetStateTransitions(Type type)
+        private List<ITransition> GetStateTransitions(Type stateType)
         {
-            if (!typeof(TStateType).IsAssignableFrom(type))
-                return null;
-
-            if (!_transitions.TryGetValue(type, out var stateTransitions))
+            if (!typeof(TStateType).IsAssignableFrom(stateType))
             {
-                OnMissingRegisteredState?.Invoke(type);
+                OnInvalidStateType?.Invoke(stateType, typeof(TStateType));
+                return null;
+            }
+
+            if (!_transitions.TryGetValue(stateType, out var stateTransitions))
+            {
+                OnMissingRegisteredState?.Invoke(stateType);
                 return null;
             }
 
