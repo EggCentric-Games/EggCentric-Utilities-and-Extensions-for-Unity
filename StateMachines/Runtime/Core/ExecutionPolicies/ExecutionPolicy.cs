@@ -5,6 +5,8 @@ namespace EggCentric.StateMachines
         public TransitionFlags TransitionFlags => flags;
         public abstract bool IsValid { get; }
 
-        protected TransitionFlags flags;
+        protected readonly TransitionFlags flags;
+
+        public ExecutionPolicy(TransitionFlags flags) => this.flags = flags;
     }
 }

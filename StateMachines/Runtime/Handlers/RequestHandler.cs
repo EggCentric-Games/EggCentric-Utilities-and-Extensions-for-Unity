@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
 
 namespace EggCentric.StateMachines
 {
@@ -36,7 +37,7 @@ namespace EggCentric.StateMachines
                 return null;
 
             OnTransitionRequested?.Invoke(typeof(TTarget), source);
-            return new TransitionBuilder<TTarget>(this, source);
+            return new PlainTransitionBuilder<TTarget>(this, source);
         }
 
         public ITransitionBuilder<TStateType> To<TTarget, TPayload>(object source, TPayload payload) where TTarget : class, IPayloadedState<TPayload>, TStateType
@@ -80,12 +81,12 @@ namespace EggCentric.StateMachines
 
         public void HandleRequests() => ProcessRequestsInQueue();
 
-        private TransitionRequest<TStateType> AddRequest<TTarget>(object source, int priority = 0, bool isForced = false) where TTarget : class, IPlainState, TStateType
+        private TransitionRequest<TStateType> AddRequest<TTarget>(object source, TransitionFlags transitionFlags, int priority = 0) where TTarget : class, IPlainState, TStateType
         {
             if (!HandleRequestSource(source))
                 return null;
 
-            IExecutionPolicy executionPolicy = new UrgentPolicy(isForced);
+            IExecutionPolicy executionPolicy = new UrgentPolicy(transitionFlags);
             TransitionRequest<TStateType> newRequest = new PlainRequest<TStateType, TTarget>(source, executionPolicy, priority);
 
             EnqueueRequest(newRequest);
@@ -93,12 +94,12 @@ namespace EggCentric.StateMachines
             return newRequest;
         }
 
-        private TransitionRequest<TStateType> AddRequest<TTarget, TPayload>(object source, TPayload payload, int priority = 0, bool isForced = false) where TTarget : class, IPayloadedState<TPayload>, TStateType
+        private TransitionRequest<TStateType> AddRequest<TTarget, TPayload>(object source, TPayload payload, TransitionFlags transitionFlags, int priority = 0, bool isForced = false) where TTarget : class, IPayloadedState<TPayload>, TStateType
         {
             if (!HandleRequestSource(source))
                 return null;
 
-            IExecutionPolicy executionPolicy = new UrgentPolicy(isForced);
+            IExecutionPolicy executionPolicy = new UrgentPolicy(transitionFlags);
             TransitionRequest<TStateType> newRequest = new PayloadedRequest<TStateType, TTarget, TPayload>(source, payload, executionPolicy, priority);
 
             EnqueueRequest(newRequest);
@@ -106,12 +107,12 @@ namespace EggCentric.StateMachines
             return newRequest;
         }
 
-        private TransitionRequest<TStateType> AddRequest<TTarget>(object source, int priority = 0, float lifetime = -1f) where TTarget : class, IPlainState, TStateType
+        private TransitionRequest<TStateType> AddRequest<TTarget>(object source, TransitionFlags transitionFlags, int priority = 0, float lifetime = -1f) where TTarget : class, IPlainState, TStateType
         {
             if (!HandleRequestSource(source))
                 return null;
 
-            IExecutionPolicy executionPolicy = new DelayedPolicy(lifetime);
+            IExecutionPolicy executionPolicy = new DelayedPolicy(transitionFlags);
             TransitionRequest<TStateType> newRequest = new PlainRequest<TStateType, TTarget>(source, executionPolicy, priority);
 
             EnqueueRequest(newRequest);
@@ -119,12 +120,12 @@ namespace EggCentric.StateMachines
             return newRequest;
         }
 
-        private TransitionRequest<TStateType> AddRequest<TTarget, TPayload>(object source, TPayload payload, int priority = 0, float lifetime = -1f) where TTarget : class, IPayloadedState<TPayload>, TStateType
+        private TransitionRequest<TStateType> AddRequest<TTarget, TPayload>(object source, TPayload payload, TransitionFlags transitionFlags, int priority = 0, float lifetime = -1f) where TTarget : class, IPayloadedState<TPayload>, TStateType
         {
             if (!HandleRequestSource(source))
                 return null;
 
-            IExecutionPolicy executionPolicy = new DelayedPolicy(lifetime);
+            IExecutionPolicy executionPolicy = new DelayedPolicy(transitionFlags);
             TransitionRequest<TStateType> newRequest = new PayloadedRequest<TStateType, TTarget, TPayload>(source, payload, executionPolicy, priority);
 
             EnqueueRequest(newRequest);
@@ -196,46 +197,62 @@ namespace EggCentric.StateMachines
             return true;
         }
 
-        private abstract class TransitionBuilderBase<TTarget> : ITransitionBuilder<TStateType> where TTarget : class, IState, TStateType
+        private abstract class TransitionBuilder<TTarget> : ITransitionBuilder<TStateType> where TTarget : class, IState, TStateType
         {
-            public object Source { get; private set; }
-            public int Priority { get; private set; }
-            public Type Target => typeof(TTarget);
-
             protected readonly RequestHandler<TStateType> requestHandler;
+            protected readonly object source;
 
-            public TransitionBuilderBase(RequestHandler<TStateType> requestHandler, object source)
+            protected int priority => _priority;
+            protected TransitionFlags flags => _flags;
+
+            private int _priority;
+            private TransitionFlags _flags;
+
+            public TransitionBuilder(RequestHandler<TStateType> requestHandler, object source)
             {
                 this.requestHandler = requestHandler;
-                Source = source;
+                this.source = source;
             }
+
+            public TransitionRequest<TStateType> Forced() => IgnoreLocks().IgnoreConditions().Now();
 
             public ITransitionBuilder<TStateType> WithPriority(int priority)
             {
-                Priority = priority;
+                _priority = priority;
+
+                return this;
+            }
+
+            public ITransitionBuilder<TStateType> IgnoreLocks()
+            {
+                _flags = _flags | TransitionFlags.IgnoreLocks;
+
+                return this;
+            }
+
+            public ITransitionBuilder<TStateType> IgnoreConditions()
+            { 
+                _flags = _flags | TransitionFlags.IgnoreConditions;
 
                 return this;
             }
 
             public abstract TransitionRequest<TStateType> Now();
-            public abstract TransitionRequest<TStateType> Forced();
             public abstract TransitionRequest<TStateType> AwaitFor(float lifetime);
         }
 
-        private class TransitionBuilder<TTarget> : TransitionBuilderBase<TTarget> where TTarget : class, IPlainState, TStateType
+        private class PlainTransitionBuilder<TTarget> : TransitionBuilder<TTarget> where TTarget : class, IPlainState, TStateType
         {
-            public TransitionBuilder(RequestHandler<TStateType> requestHandler, object source) : base(requestHandler, source)
+            public PlainTransitionBuilder(RequestHandler<TStateType> requestHandler, object source) : base(requestHandler, source)
             {
             }
 
-            public override TransitionRequest<TStateType> Now() => requestHandler.AddRequest<TTarget>(Source, Priority, false);
+            public override TransitionRequest<TStateType> Now() => requestHandler.AddRequest<TTarget>(source, flags, priority);
 
-            public override TransitionRequest<TStateType> Forced() => requestHandler.AddRequest<TTarget>(Source, Priority, true);
-
-            public override TransitionRequest<TStateType> AwaitFor(float lifetime) => requestHandler.AddRequest<TTarget>(Source, Priority, lifetime);
+            public override TransitionRequest<TStateType> AwaitFor(float lifetime) => requestHandler.AddRequest<TTarget>(source, flags, priority, lifetime);
         }
 
-        private class PayloadTransitionBuilder<TTarget, TPayload> : TransitionBuilderBase<TTarget> where TTarget : class, IPayloadedState<TPayload>, TStateType
+        private class PayloadTransitionBuilder<TTarget, TPayload> : TransitionBuilder<TTarget> where TTarget : class, IPayloadedState<TPayload>, TStateType
         {
             private readonly TPayload _payload;
 
@@ -244,11 +261,9 @@ namespace EggCentric.StateMachines
                 _payload = payload;
             }
 
-            public override TransitionRequest<TStateType> Now() => requestHandler.AddRequest<TTarget, TPayload>(Source, _payload, Priority, false);
-            
-            public override TransitionRequest<TStateType> Forced() => requestHandler.AddRequest<TTarget, TPayload>(Source, _payload, Priority, true);
+            public override TransitionRequest<TStateType> Now() => requestHandler.AddRequest<TTarget, TPayload>(source, _payload, flags, priority, false);
 
-            public override TransitionRequest<TStateType> AwaitFor(float lifetime) => requestHandler.AddRequest<TTarget, TPayload>(Source, _payload, Priority, lifetime);
+            public override TransitionRequest<TStateType> AwaitFor(float lifetime) => requestHandler.AddRequest<TTarget, TPayload>(source, _payload, flags, priority, lifetime);
         }
     }
 }

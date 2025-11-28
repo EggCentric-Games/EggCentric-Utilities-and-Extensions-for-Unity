@@ -4,10 +4,9 @@ namespace EggCentric.StateMachines
     {
         private bool _isConsumed = false;
 
-        public UrgentPolicy(bool isForced = false)
+        public UrgentPolicy(TransitionFlags flags) : base(flags)
         {
-            if (isForced)
-                flags = TransitionFlags.Forced;
+
         }
 
         public override bool IsValid

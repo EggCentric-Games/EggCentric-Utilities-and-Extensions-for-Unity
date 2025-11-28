@@ -6,6 +6,7 @@ namespace EggCentric.StateMachines
 
     public abstract class TransitionRequest<TRequestType> where TRequestType : IState
     {
+        public abstract Type TargetState { get; }
         public bool IsValid => _executionPolicy.IsValid;
         public object Source => _source; 
         public int Priority => _priority;
