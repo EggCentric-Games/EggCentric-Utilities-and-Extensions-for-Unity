@@ -13,6 +13,7 @@ namespace EggCentric.StateMachines
         private List<TransitionRequest<TStateType>> _pendingRequests;
 
         public event Action<Type, object> OnTransitionRequested;
+        public event Action<TransitionRequest<TStateType>> OnTransitionDisposeRequested;
         public event Action<TransitionRequest<TStateType>> OnRequestAdded;
         public event Action<TransitionRequest<TStateType>> OnRequestPerformed;
         public event Action<TransitionRequest<TStateType>> OnRequestDiscarded;
@@ -50,6 +51,8 @@ namespace EggCentric.StateMachines
 
         public void DiscardRequest(TransitionRequest<TStateType> requestToDispose)
         {
+            OnTransitionDisposeRequested(requestToDispose);
+
             if (requestToDispose == null)
             {
                 OnInvalidDisposeRequest?.Invoke(requestToDispose);

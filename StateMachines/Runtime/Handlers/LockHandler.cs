@@ -12,6 +12,8 @@ namespace EggCentric.StateMachines
         private Dictionary<Guid, Lock> _activeLocks;
 
         public event Action<Lock, object> OnLockPlaced;
+        public event Action<object, int> OnLockRequested;
+        public event Action<Guid> OnLockDisposeRequested;
         public event Action<Lock> OnLockDisposed;
         public event Action<Guid> OnInvalidDisposalRequested;
         public event Action OnInvalidRequestSource;
@@ -20,6 +22,8 @@ namespace EggCentric.StateMachines
 
         public Guid RequestLock(object source, int priority = 0)
         {
+            OnLockRequested?.Invoke(source, priority);
+
             if (!HandleRequestSource(source))
                 return default;
 
@@ -28,6 +32,8 @@ namespace EggCentric.StateMachines
 
         public void DisposeLock(Guid lockID)
         {
+            OnLockDisposeRequested(lockID);
+
             if (!_activeLocks.TryGetValue(lockID, out _))
             {
                 OnInvalidDisposalRequested?.Invoke(lockID);
