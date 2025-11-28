@@ -183,7 +183,7 @@ namespace EggCentric.StateMachines
             OnRequestDiscarded?.Invoke(request);
         }
 
-        private bool IsRequestPerformable(TransitionRequest<TStateType> request) => request.Flags.HasFlag(TransitionFlags.Forced) || _stateMachine.IsFreeFor(request.Priority);
+        private bool IsRequestPerformable(TransitionRequest<TStateType> request) => request.Flags.HasFlag(TransitionFlags.IgnoreLocks) || _stateMachine.IsFreeFor(request.Priority);
 
         private bool HandleRequestSource(object source)
         {

@@ -2,7 +2,7 @@ using System;
 
 namespace EggCentric.StateMachines
 {
-    public delegate bool Resolver(out ITransition transition);
+    public delegate bool Resolver(out ITransition transition, bool ignoreConditions = false);
 
     public abstract class TransitionRequest<TRequestType> where TRequestType : IState
     {
@@ -32,7 +32,7 @@ namespace EggCentric.StateMachines
 
         public bool TryToPerform()
         {
-            if (!_resolver(out ITransition performedTransition))
+            if (!_resolver(out ITransition performedTransition, Flags.HasFlag(TransitionFlags.IgnoreConditions)))
                 return false;
 
             _executor(performedTransition);

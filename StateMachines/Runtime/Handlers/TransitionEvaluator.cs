@@ -51,9 +51,9 @@ namespace EggCentric.StateMachines
             return newTransition;
         }
 
-        public bool ResolveTransition<TTarget>(out ITransition result) where TTarget : class, IState, TStateType => ResolveTransition<TTarget>(_stateMachine.CurrentState, out result);
+        public bool ResolveTransition<TTarget>(out ITransition result, bool ignoreConditions = false) where TTarget : class, IState, TStateType => ResolveTransition<TTarget>(_stateMachine.CurrentState, out result);
 
-        private bool ResolveTransition<TTarget>(IState source, out ITransition result) where TTarget : class, IState, TStateType
+        private bool ResolveTransition<TTarget>(IState source, out ITransition result, bool ignoreConditions = false) where TTarget : class, IState, TStateType
         {
             result = null;
 
@@ -85,7 +85,7 @@ namespace EggCentric.StateMachines
 
             foreach (var transition in availableTransitions)
             {
-                if (transition.IsSatisfied)
+                if (ignoreConditions || transition.IsSatisfied)
                 {
                     result = transition;
                     return true;
