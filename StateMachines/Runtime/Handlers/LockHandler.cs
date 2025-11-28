@@ -7,6 +7,7 @@ namespace EggCentric.StateMachines
     public class LockHandler : ILockEventsProvider
     {
         public bool IsLocked => _activeLocks.Count > 0;
+        public int LockLevel => _activeLocks.Count > 0 ? _activeLocks.OrderByDescending(x => x.Value.Priority).First().Value.Priority : 0;
 
         private Dictionary<Guid, Lock> _activeLocks;
 

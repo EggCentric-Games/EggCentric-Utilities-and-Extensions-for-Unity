@@ -7,6 +7,7 @@ namespace EggCentric.StateMachines
         public TStateType CurrentState { get; }
         public Type DefaultState { get; }
         public bool IsLocked { get; }
+        public int LockLevel { get; }
 
         public ITransitionBuilder<TStateType> To<TTarget>(object source) where TTarget : class, IPlainState, TStateType;
         public ITransitionBuilder<TStateType> To<TTarget, TPayload>(object source, TPayload payload) where TTarget : class, IPayloadedState<TPayload>, TStateType;

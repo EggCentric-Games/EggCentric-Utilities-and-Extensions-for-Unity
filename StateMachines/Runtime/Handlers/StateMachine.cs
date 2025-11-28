@@ -9,6 +9,7 @@ namespace EggCentric.StateMachines
         public Type DefaultState => _defaultState;
         public TStateType CurrentState => _currentState;
         public bool IsLocked => _lockHandler.IsLocked;
+        public int LockLevel => _lockHandler.LockLevel;
 
         public IRequestHandlerEventsProvider<TStateType> RequestEvents => _requestHandler;
         public ITransitionEvaluatorEventsProvider TransitionEvents => _transitionEvaluator;
