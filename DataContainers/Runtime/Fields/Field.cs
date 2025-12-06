@@ -20,10 +20,7 @@ namespace EggCentric.DataContainers
             this.value = value;
         }
 
-        public static implicit operator T(Field<T> obj)
-        {
-            return obj.Value;
-        }
+        public static implicit operator T(Field<T> obj) => obj.Value;
 
         protected void UpdateValue(T value)
         {

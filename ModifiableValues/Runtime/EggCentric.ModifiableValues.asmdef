@@ -1,0 +1,16 @@
+{
+    "name": "EggCentric.ModifiableValues",
+    "rootNamespace": "EggCentric.ModifiableValues",
+    "references": [
+        "GUID:5d7f8f5e9f0b2e84ca217cd8245efced"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
