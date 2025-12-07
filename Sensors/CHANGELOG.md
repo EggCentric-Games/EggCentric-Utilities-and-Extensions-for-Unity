@@ -1,3 +1,9 @@
+## [1.2.0] - 2025-12-07
+
+### Removed excessive restrictions
+
+- The generic restriction to be a Component has been removed
+
 ## [1.1.0] - 2025-12-07
 
 ### Implemented detection events
