@@ -1,3 +1,11 @@
+## [1.1.0] - 2025-11-26
+
+### Implementation of Controllers
+
+- Implemented IController abstraction
+- Implemented Controller
+
+
 ## [1.0.0] - 2025-11-26
 
 ### Implementation of common input types
