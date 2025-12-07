@@ -1,3 +1,9 @@
+## [1.1.1] - 2025-11-26
+
+### Hotfix
+
+- Fixed protection level mistake in Controller
+
 ## [1.1.0] - 2025-11-26
 
 ### Implementation of abstractions
