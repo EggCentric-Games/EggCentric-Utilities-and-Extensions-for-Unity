@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 namespace EggCentric.InputHandling
 {
 
-    public class ContinuousInput : ContinuousInputBase
+    public class ContinuousInput : ContinuousInputBase, IContinuousInput
     {
         public event Action OnInput;
 
@@ -17,7 +17,7 @@ namespace EggCentric.InputHandling
         protected override void SendDefault() => OnInput?.Invoke();
     }
 
-    public class ContinuousInput<TInputType> : ContinuousInputBase, IPayloadedInput<TInputType> where TInputType : struct
+    public class ContinuousInput<TInputType> : ContinuousInputBase, IContinuousInput<TInputType> where TInputType : struct
     {
         public TInputType CurrentInput => observedAction.ReadValue<TInputType>();
 

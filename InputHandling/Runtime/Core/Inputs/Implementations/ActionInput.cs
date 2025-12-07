@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 namespace EggCentric.InputHandling
 {
-    public class ActionInput : Input
+    public class ActionInput : Input, IActionInput
     {
         public event Action OnInputStarted;
         public event Action OnInputCanceled;
@@ -16,7 +16,7 @@ namespace EggCentric.InputHandling
         protected override void OnActionFinished(InputAction.CallbackContext context) => OnInputCanceled?.Invoke();
     }
 
-    public class ActionInput<TInputType> : Input, IPayloadedInput<TInputType> where TInputType : struct
+    public class ActionInput<TInputType> : Input, IActionInput<TInputType> where TInputType : struct
     {
         public TInputType CurrentInput => observedAction.ReadValue<TInputType>();
 
