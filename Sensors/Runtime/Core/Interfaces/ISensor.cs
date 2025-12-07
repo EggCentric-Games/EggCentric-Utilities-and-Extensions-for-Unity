@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace EggCentric.Sensors
 {
-    public interface ISensor<T> : ISensorEventsProvider<T> where T : Component
+    public interface ISensor<T> : ISensorEventsProvider<T>
     {
         public IReadOnlyCollection<Detection<T>> Detections { get; }
     }

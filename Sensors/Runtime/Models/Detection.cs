@@ -7,7 +7,7 @@ namespace System.Runtime.CompilerServices
 
 namespace EggCentric.Sensors
 {
-    public record Detection<T>(T Component, Collider2D Collider) where T : Component
+    public record Detection<T>(T Component, Collider2D Collider)
     {
         public static implicit operator T(Detection<T> obj)
         {

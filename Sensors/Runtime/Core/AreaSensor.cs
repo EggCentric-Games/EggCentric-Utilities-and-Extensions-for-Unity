@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace EggCentric.Sensors
 {
-    public class AreaSensor<T> : MonoBehaviour, ISensor<T> where T : Component
+    public class AreaSensor<T> : MonoBehaviour, ISensor<T>
     {
         public IReadOnlyCollection<Detection<T>> Detections => _detections;
 
