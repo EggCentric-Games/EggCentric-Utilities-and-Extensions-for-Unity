@@ -1,8 +1,12 @@
 ## [1.1.0] - 2025-11-26
 
-### Implementation of Controllers
+### Implementation of abstractions
 
 - Implemented IController abstraction
+- Implemented IActionInput abstraction
+- Implemented IContinuousInput abstraction
+- Implemented generic IActionInput abstraction
+- Implemented generic IContinuousInput abstraction
 - Implemented Controller
 
 
