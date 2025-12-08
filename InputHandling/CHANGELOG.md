@@ -1,10 +1,17 @@
-## [1.1.1] - 2025-11-26
+
+## [1.1.2] - 2025-12-08
+
+### Excessive generic resriction removal
+
+- Removed excessive generic restriction in IController
+
+## [1.1.1] - 2025-12-07
 
 ### Hotfix
 
 - Fixed protection level mistake in Controller
 
-## [1.1.0] - 2025-11-26
+## [1.1.0] - 2025-12-07
 
 ### Implementation of abstractions
 
