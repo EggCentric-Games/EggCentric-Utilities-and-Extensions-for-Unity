@@ -1,6 +1,6 @@
 namespace EggCentric.InputHandling
 {
-    public abstract class Controller<TControllableEntity, TInputHandler> : IController<TControllableEntity, TInputHandler> where TInputHandler : IInputHandler
+    public abstract class Controller<TControllableEntity, TInputHandler> : IController<TInputHandler> where TInputHandler : IInputHandler
     {
         protected readonly TControllableEntity controlledEntity;
         protected TInputHandler inputHandler;
