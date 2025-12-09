@@ -7,6 +7,6 @@ namespace EggCentric.InputHandling
 
         public Controller(TControllableEntity controlledEntity) => this.controlledEntity = controlledEntity;
 
-        public abstract void BindFor(TInputHandler input);
+        public virtual void BindFor(TInputHandler inputHandler) => this.inputHandler = inputHandler;
     }
 }
