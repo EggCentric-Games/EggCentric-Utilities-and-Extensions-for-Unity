@@ -1,3 +1,11 @@
+## [1.4.1] - 2025-12-09
+
+### Read only access
+
+- Renamed DataCache to PersistentDataCache
+- Changed file structure
+- Performed a minor code cleanup
+
 ## [1.4.0] - 2025-07-17
 
 ### Read only access
