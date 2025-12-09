@@ -1,4 +1,10 @@
 
+## [1.1.3] - 2025-12-08
+
+### Default BindFor implementation
+
+- Implemented inputHandler binding by default
+
 ## [1.1.2] - 2025-12-08
 
 ### Excessive generic resriction removal
