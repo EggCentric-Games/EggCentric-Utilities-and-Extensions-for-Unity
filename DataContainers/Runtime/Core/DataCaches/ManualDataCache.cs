@@ -8,9 +8,6 @@
         public abstract void SetValue(TValue newValue);
         public abstract void Invalidate();
 
-        public static implicit operator TValue(ManualDataCache<TValue> obj)
-        {
-            return obj.Data;
-        }
+        public static implicit operator TValue(ManualDataCache<TValue> obj) => obj.Data;
     }
 }

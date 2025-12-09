@@ -19,10 +19,7 @@ namespace EggCentric.DataContainers
             this.valueGetter = valueGetter;
         }
 
-        public static implicit operator TValue(AutomatedDataCache<TValue> obj)
-        {
-            return obj.Data;
-        }
+        public static implicit operator TValue(AutomatedDataCache<TValue> obj) => obj.Data;
 
         public TValue GetValue()
         {
@@ -38,9 +35,6 @@ namespace EggCentric.DataContainers
             }
         }
 
-        public void Invalidate()
-        {
-            cache.Invalidate();
-        }
+        public void Invalidate() => cache.Invalidate();
     }
 }

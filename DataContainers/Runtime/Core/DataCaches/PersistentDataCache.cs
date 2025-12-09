@@ -1,6 +1,6 @@
 ﻿namespace EggCentric.DataContainers
 {
-    public class DataCache<TValue> : ManualDataCache<TValue>
+    public class PersistentDataCache<TValue> : ManualDataCache<TValue>
     {
         public override TValue Data => _value;
         public override bool IsValid => _hasValue;
@@ -8,20 +8,9 @@
         private bool _hasValue;
         private TValue _value;
 
-        public DataCache()
-        {
+        public PersistentDataCache(TValue initialValue = default) => SetValue(initialValue);
 
-        }
-
-        public DataCache(TValue initialValue) : this()
-        {
-            SetValue(initialValue);
-        }
-
-        public static implicit operator TValue(DataCache<TValue> obj)
-        {
-            return obj.Data;
-        }
+        public static implicit operator TValue(PersistentDataCache<TValue> obj) => obj.Data;
 
         public override void SetValue(TValue value)
         {
