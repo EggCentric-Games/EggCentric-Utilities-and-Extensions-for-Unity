@@ -1,0 +1,13 @@
+{
+  "name": "com.eggcentric.asset_databases",
+  "version": "1.0.0",
+  "displayName": "EggCentric Asset Databases",
+  "description": "Templates for asset registries/databases creation",
+  "unity": "2022.3",
+  "dependencies": {},
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}
