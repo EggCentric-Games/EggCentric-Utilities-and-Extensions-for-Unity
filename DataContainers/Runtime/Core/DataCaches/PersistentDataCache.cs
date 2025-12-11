@@ -8,7 +8,8 @@
         private bool _hasValue;
         private TValue _value;
 
-        public PersistentDataCache(TValue initialValue = default) => SetValue(initialValue);
+        public PersistentDataCache() => _value = default;
+        public PersistentDataCache(TValue initialValue) => SetValue(initialValue);
 
         public static implicit operator TValue(PersistentDataCache<TValue> obj) => obj.Data;
 

@@ -1,6 +1,5 @@
 ﻿using System;
 
-
 namespace EggCentric.DataContainers
 {
     public class AutomatedDataCache<TValue> : IDataCache<TValue>
