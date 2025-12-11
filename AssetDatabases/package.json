@@ -4,7 +4,9 @@
   "displayName": "EggCentric Asset Databases",
   "description": "Templates for asset registries/databases creation",
   "unity": "2022.3",
-  "dependencies": {},
+  "dependencies": {
+    "com.eggcentric.data_containers": "1.4.2"
+  },
   "author": {
     "name": "HummeL",
     "email": "arian.lukianiuk@gmail.com",
