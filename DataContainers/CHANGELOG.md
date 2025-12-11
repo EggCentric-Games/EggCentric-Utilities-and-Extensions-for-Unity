@@ -1,7 +1,12 @@
+## [1.4.2] - 2025-12-09
+
+### DataCache initialization fix
+
+- Fixed DataCache initialization
+
 ## [1.4.1] - 2025-12-09
 
-### Read only access
-
+### Cleanup
 - Renamed DataCache to PersistentDataCache
 - Changed file structure
 - Performed a minor code cleanup
