@@ -1,4 +1,5 @@
 using EggCentric.AssetDatabases;
+using EggCentric.CodeGeneration;
 using System.IO;
 using System.Text;
 using UnityEditor;
@@ -54,85 +55,50 @@ namespace EggCentric.CodeGeneraton.AssetDatabases
 
         private void BakeLibrary(TDatabase assetLibrary)
         {
-            var builder = new StringBuilder();
-            AppendLine(builder, "// AUTO-GENERATED FILE — DO NOT MODIFY MANUALLY");
-            AppendLine(builder, $"namespace {_namespaceName}");
-            AppendLine(builder, "{");
+            var codeWriter = new CodeWriter();
 
-            BakeCategory(builder, assetLibrary.Root, 1);
+            codeWriter.AddNamespace(_namespaceName);
+            codeWriter.OpenBlock();
+            
+            BakeCategory(codeWriter, assetLibrary.Root);
+            
+            codeWriter.CloseBlock();
 
-            AppendLine(builder, "}");
-
-            FinishGeneration(builder);
+            FinishGeneration(codeWriter);
         }
 
-        private void BakeCategory(StringBuilder builder, IAssetCategory<TAsset> category, int depth = 0)
+        private void BakeCategory(CodeWriter codeWriter, IAssetCategory<TAsset> category)
         {
-            string safeName = MakeSafe(category.Name);
-            AppendLine(builder, $"public static class {safeName}", depth);
-            AppendLine(builder, "{", depth);
+            codeWriter.AddClass(category.Name);
+            codeWriter.OpenBlock();
 
             foreach (var entry in category.Entries)
-                BakeEntry(builder, entry, depth + 1);
+                BakeEntry(codeWriter, entry);
 
-            if (category.SubCategories.Count > 0)
-                AppendLine(builder);
+            if (category.Entries.Count > 0 && category.SubCategories.Count > 0)
+                codeWriter.AddEmptyLine();
 
             foreach (var subCategory in category.SubCategories)
-                BakeCategory(builder, subCategory, depth + 1);
+                BakeCategory(codeWriter, subCategory);
 
-            AppendLine(builder, "}", depth);
+            codeWriter.CloseBlock();
         }
 
-        private void BakeEntry(StringBuilder builder, IAssetEntry entry, int depth = 0)
+        private void BakeEntry(CodeWriter codeWriter, IAssetEntry entry)
         {
             if (entry == null || string.IsNullOrEmpty(entry.Name))
                 return;
 
-            string safeName = MakeSafe(entry.Name);
-            AppendLine(builder, $"public const int {safeName} = {nextEntryID};", depth);
+            codeWriter.AddVariable(entry.Name, nextEntryID);
             nextEntryID++;
         }
 
-        private void FinishGeneration(StringBuilder builder)
+        private void FinishGeneration(CodeWriter codeWriter)
         {
-            File.WriteAllText(_outputPath, builder.ToString(), Encoding.UTF8);
+            File.WriteAllText(_outputPath, codeWriter.ToString(), Encoding.UTF8);
             AssetDatabase.Refresh();
 
             Debug.Log("Database bake completed.");
-        }
-
-        private StringBuilder AppendLine(StringBuilder builder) => builder.AppendLine();
-
-        private StringBuilder AppendLine(StringBuilder builder, string line, int depth = 0)
-        {
-            builder.AppendLine();
-            AddIndentation(builder, depth);
-            builder.Append(line);
-
-            return builder;
-        }
-
-        private void AddIndentation(StringBuilder builder, int depth)
-        {
-            for (int i = 0; i < depth; i++)
-                builder.Append("    ");
-        }
-
-        private static string MakeSafe(string name)
-        {
-            // Replace invalid C# identifier chars
-            var sb = new StringBuilder();
-            if (!char.IsLetter(name[0]))
-                sb.Append('_');
-
-            foreach (char c in name)
-            {
-                if (char.IsLetterOrDigit(c) || c == '_') sb.Append(c);
-                else sb.Append('_');
-            }
-
-            return sb.ToString();
         }
     }
 }

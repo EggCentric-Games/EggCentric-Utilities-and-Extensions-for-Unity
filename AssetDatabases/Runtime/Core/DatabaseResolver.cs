@@ -1,13 +1,20 @@
 using UnityEngine;
+using EggCentric.DataContainers;
+
 
 namespace EggCentric.AssetDatabases
 {
-    public abstract class DatabaseResolver<TAsset> : IDatabaseResolver<TAsset> where TAsset : IAssetEntry
+    public class DatabaseResolver<TAsset> : IDatabaseResolver<TAsset> where TAsset : IAssetEntry
     {
-        private readonly AssetDatabase<TAsset> _assetDatabase;
-        private TAsset[] _lookupTable;
+        private readonly IAssetDatabase<TAsset> _assetDatabase;
+        private IDataCache<TAsset[]> _lookupTable;
 
-        public DatabaseResolver(AssetDatabase<TAsset> assetDatabase) => _assetDatabase = assetDatabase;
+        public DatabaseResolver(IAssetDatabase<TAsset> assetDatabase)
+        {
+            _assetDatabase = assetDatabase;
+
+            _lookupTable = new AutomatedDataCache<TAsset[]>(new PersistentDataCache<TAsset[]>(), GenerateCollection);
+        }
 
         public bool ResolveFor(int id, out TAsset result)
         {
@@ -15,21 +22,23 @@ namespace EggCentric.AssetDatabases
             if (_lookupTable == null)
                 return false;
 
-            if (id < 0 || id >= _lookupTable.Length)
+            if (id < 0 || id >= _lookupTable.Data.Length)
                 return false;
 
-            result = _lookupTable[id];
+            result = _lookupTable.Data[id];
             return true;
         }
 
-        public void GenerateCollection()
+        public TAsset[] GenerateCollection()
         {
-            _lookupTable = new TAsset[_assetDatabase.Root.TotalEntryCount];
+            var lookupTable = new TAsset[_assetDatabase.Root.TotalEntryCount];
             int startAssetId = 0;
-            AddCategoryEntries(_assetDatabase.Root, ref startAssetId);
+            AddCategoryEntries(lookupTable, _assetDatabase.Root, ref startAssetId);
+
+            return lookupTable;
         }
 
-        private void AddCategoryEntries(IAssetCategory<TAsset> category, ref int assetId)
+        private void AddCategoryEntries(TAsset[] lookupTable, IAssetCategory<TAsset> category, ref int assetId)
         {
             if (category == null)
             {
@@ -38,18 +47,17 @@ namespace EggCentric.AssetDatabases
             }
 
             foreach (var entry in category.Entries)
-                AddEntry(entry, ref assetId);
+                AddEntry(lookupTable, entry, ref assetId);
 
             foreach (var subCategory in category.SubCategories)
-                AddCategoryEntries(subCategory, ref assetId);
+                AddCategoryEntries(lookupTable, subCategory, ref assetId);
         }
 
-        private void AddEntry(TAsset entry, ref int assetId)
+        private void AddEntry(TAsset[] lookupTable, TAsset entry, ref int assetId)
         {
             if (entry == null)
                 Debug.LogWarning($"Null entry found");
-
-            _lookupTable[assetId] = entry;
+            lookupTable[assetId] = entry;
             assetId++;
         }
     }

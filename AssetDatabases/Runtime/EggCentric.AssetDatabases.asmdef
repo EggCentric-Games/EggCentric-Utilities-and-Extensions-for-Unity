@@ -1,7 +1,9 @@
 {
     "name": "EggCentric.AssetDatabases",
     "rootNamespace": "EggCentric.AssetDatabases",
-    "references": [],
+    "references": [
+        "GUID:5d7f8f5e9f0b2e84ca217cd8245efced"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
