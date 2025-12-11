@@ -1,0 +1,13 @@
+{
+  "name": "com.eggcentric.code_generation",
+  "version": "1.0.0",
+  "displayName": "EggCentric Code Generation",
+  "description": "Tools for robust and fluent code generation",
+  "unity": "2022.3",
+  "dependencies": {},
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}

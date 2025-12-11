@@ -1,0 +1,16 @@
+{
+    "name": "EggCentric.CodeGeneration",
+    "rootNamespace": "EggCentric.CodeGeneration",
+    "references": [
+        "GUID:2dda7f7b4aeea4c47884dfdec4f0d0dc"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
