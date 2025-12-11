@@ -4,7 +4,9 @@
   "displayName": "EggCentric Code Generation",
   "description": "Tools for robust and fluent code generation",
   "unity": "2022.3",
-  "dependencies": {},
+  "dependencies": {
+    "com.eggcentric.asset_databases": "1.0.0"
+  },
   "author": {
     "name": "HummeL",
     "email": "arian.lukianiuk@gmail.com",
