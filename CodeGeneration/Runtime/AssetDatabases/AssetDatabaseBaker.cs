@@ -6,16 +6,21 @@ using UnityEngine;
 
 namespace EggCentric.CodeGeneraton.AssetDatabases
 {
-    public abstract class AssetDatabaseBuilder<TDatabase, TAsset> : ScriptableObject where TDatabase : Object, IAssetLibrary<TAsset> where TAsset : IAssetEntry
+    public abstract class AssetDatabaseBaker : ScriptableObject, IAssetDatabaseBaker
+    {
+        public abstract void Rebake();
+    }
+
+    public abstract class AssetDatabaseBaker<TDatabase, TAsset> : AssetDatabaseBaker where TDatabase : Object, IAssetDatabase<TAsset> where TAsset : IAssetEntry
     {
         [SerializeField] private string _databasePath;
         [SerializeField] private string _outputPath;
 
         [SerializeField] private string _namespaceName;
 
-        private nint nextEntryID;
+        private int nextEntryID;
 
-        public void Rebake()
+        public override void Rebake()
         {
             CleanUp();
 
@@ -47,14 +52,14 @@ namespace EggCentric.CodeGeneraton.AssetDatabases
             return true;
         }
 
-        private void BakeLibrary(IAssetLibrary<TAsset> assetLibrary)
+        private void BakeLibrary(TDatabase assetLibrary)
         {
             var builder = new StringBuilder();
             AppendLine(builder, "// AUTO-GENERATED FILE — DO NOT MODIFY MANUALLY");
             AppendLine(builder, $"namespace {_namespaceName}");
             AppendLine(builder, "{");
 
-            BakeCategory(builder, assetLibrary, 1);
+            BakeCategory(builder, assetLibrary.Root, 1);
 
             AppendLine(builder, "}");
 
@@ -118,7 +123,8 @@ namespace EggCentric.CodeGeneraton.AssetDatabases
         {
             // Replace invalid C# identifier chars
             var sb = new StringBuilder();
-            if (!char.IsLetter(name[0])) sb.Append('_');
+            if (!char.IsLetter(name[0]))
+                sb.Append('_');
 
             foreach (char c in name)
             {

@@ -1,0 +1,16 @@
+{
+    "name": "EggCentric.CodeGeneration.Editor",
+    "rootNamespace": "EggCentric.CodeGeneration.Editor",
+    "references": [
+        "GUID:7765a92d67d0350448f88956f28f9a5c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

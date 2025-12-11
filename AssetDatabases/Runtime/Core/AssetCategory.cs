@@ -7,7 +7,6 @@ namespace EggCentric.AssetDatabases
     public class AssetCategory<TAsset> : IAssetCategory<TAsset> where TAsset : IAssetEntry
     {
         public string Name => _name;
-
         public IReadOnlyCollection<TAsset> Entries => _entries;
         public IReadOnlyCollection<IAssetCategory<TAsset>> SubCategories => _subcategories;
 
