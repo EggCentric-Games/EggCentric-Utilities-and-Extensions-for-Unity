@@ -1,3 +1,11 @@
+## [1.5.0] - 2025-12-14
+
+### Trackable values
+
+- Implemented ITrackableValue
+- Converted IDataCache to ITrackableValue
+- Minor improvemnt of TimeDependentDataCache validity check
+
 ## [1.4.2] - 2025-12-09
 
 ### DataCache initialization fix
