@@ -22,10 +22,10 @@ namespace EggCentric.AssetDatabases
             if (_lookupTable == null)
                 return false;
 
-            if (id < 0 || id >= _lookupTable.Data.Length)
+            if (id < 0 || id >= _lookupTable.Value.Length)
                 return false;
 
-            result = _lookupTable.Data[id];
+            result = _lookupTable.Value[id];
             return true;
         }
 
