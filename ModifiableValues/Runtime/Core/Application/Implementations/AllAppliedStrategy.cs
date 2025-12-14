@@ -8,7 +8,7 @@ namespace EggCentric.ModifiableValues
         {
         }
 
-        protected override float ApplyFor(float baseValue)
+        public override float ApplyFor(float baseValue)
         {
             if (activeModifiers.Count <= 0)
                 return baseValue;

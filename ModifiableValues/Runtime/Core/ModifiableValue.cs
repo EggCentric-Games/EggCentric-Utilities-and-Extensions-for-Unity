@@ -6,18 +6,22 @@ namespace EggCentric.ModifiableValues
 {
     public class ModifiableValue
     {
+        public IReadOnlyField<float> BaseValue => _baseValue;
+        public ITrackableValue<float> ModifiedValue => _modifiedValue;
         public IReadOnlyCollection<IValueModifier> ActiveModifiers => _modifierRegistry.ActiveModifiers;
-        public float ModifiedValue => _applicationStrategy.GetFor(BaseValue);
 
-        public readonly Field<float> BaseValue;
-
-        private readonly ModifierRegistry _modifierRegistry;
         private IModificationApplicationStrategy _applicationStrategy;
+
+        private readonly Field<float> _baseValue;
+        private readonly IDataCache<float> _modifiedValue;
+        private readonly ModifierRegistry _modifierRegistry;
 
         public ModifiableValue(float baseValue = 0f)
         {
             _modifierRegistry = new ModifierRegistry();
-            BaseValue = new Field<float>(baseValue);
+            _baseValue = new Field<float>(baseValue);
+
+            _modifiedValue = new AutomatedDataCache<float>(new PersistentDataCache<float>(), () => _applicationStrategy.ApplyFor(_baseValue));
 
             WithApplicationStrategy(new AllAppliedStrategy(_modifierRegistry.ActiveModifiers));
         }
@@ -45,23 +49,27 @@ namespace EggCentric.ModifiableValues
             SetApplicationStrategy(applicationStrategy);
             return this;
         }
-    
+
+        public void SetBaseValue(float value) => _baseValue.Value = value;
+
         public IValueModifier AddModifier(IValueModifier modifier) => _modifierRegistry.AddModifier(modifier);
         public void RemoveModifier(IValueModifier modifier) => _modifierRegistry.RemoveModifier(modifier);
 
-        public static implicit operator float(ModifiableValue obj) => obj.ModifiedValue;
+        public static implicit operator float(ModifiableValue obj) => obj.ModifiedValue.Value;
 
         private void SetApplicationStrategy(IModificationApplicationStrategy applicationStrategy)
         {
             if (_applicationStrategy != null)
             {
-                _modifierRegistry.IsDirty.OnValueChangedNoArgs -= _applicationStrategy.MarkDirty;
-                BaseValue.OnValueChangedNoArgs -= _applicationStrategy.MarkDirty;
+                _modifierRegistry.IsDirty.OnValueChangedNoArgs -= _modifiedValue.Invalidate;
+                _baseValue.OnValueChangedNoArgs -= _modifiedValue.Invalidate;
             }
 
             _applicationStrategy = applicationStrategy;
-            _modifierRegistry.IsDirty.OnValueChangedNoArgs += _applicationStrategy.MarkDirty;
-            BaseValue.OnValueChangedNoArgs += _applicationStrategy.MarkDirty;
+            _modifiedValue.Invalidate();
+
+            _modifierRegistry.IsDirty.OnValueChangedNoArgs += _modifiedValue.Invalidate;
+            _baseValue.OnValueChangedNoArgs += _modifiedValue.Invalidate;
         }
     }
 }
