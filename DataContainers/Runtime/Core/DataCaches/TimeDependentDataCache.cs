@@ -4,9 +4,9 @@
     {
         // to-do: fix null-ref that happens if cache was created without initial value
         // decided to move on, because it is unlikely to happen, since IsValid presumes external validation before usage
-        public override TValue Data => _lastRecord;
+        public override TValue Value => _lastRecord;
 
-        public override bool IsValid => _lastRecord != null && _lastRecord.IsValid;
+        public override bool IsValid => _lastRecord?.IsValid ?? false;
 
         private DataRecord<TValue> _lastRecord;
         private float _defaultRecordLifetime;
@@ -15,10 +15,18 @@
 
         public TimeDependentDataCache(TValue initialValue, float timeToLive = 0f) : this(timeToLive) => SetValue(initialValue);
 
-        public static implicit operator TValue(TimeDependentDataCache<TValue> obj) => obj.Data;
+        public static implicit operator TValue(TimeDependentDataCache<TValue> obj) => obj.Value;
 
-        public override void SetValue(TValue value) => _lastRecord = new DataRecord<TValue>(value, _defaultRecordLifetime);
+        public override void SetValue(TValue value)
+        {
+            _lastRecord = new DataRecord<TValue>(value, _defaultRecordLifetime);
+            base.SetValue(value);
+        }
 
-        public override void Invalidate() => _lastRecord = null;
+        public override void Invalidate()
+        {
+            _lastRecord = null;
+            base.Invalidate();
+        }
     }
 }

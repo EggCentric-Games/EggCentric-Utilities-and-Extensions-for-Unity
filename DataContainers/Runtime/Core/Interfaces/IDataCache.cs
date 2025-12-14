@@ -1,10 +1,7 @@
 ﻿namespace EggCentric.DataContainers
 {
-    public interface IDataCache<T>
+    public interface IDataCache<T> : IReadOnlyDataCache<T>
     {
-        public T Data { get; }
-        public bool IsValid { get; }
-
         public void Invalidate();
     }
 }
