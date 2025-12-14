@@ -1,11 +1,11 @@
 {
   "name": "com.eggcentric.modifiable_values",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "displayName": "EggCentric Modifiable Values",
   "description": "Tools for robust implementation of modifiable values such as stats and parameters",
   "unity": "2022.3",
   "dependencies": {
-    "com.eggcentric.data_containers": "1.4.0"
+    "com.eggcentric.data_containers": "1.5.0"
   },
   "author": {
     "name": "HummeL",
