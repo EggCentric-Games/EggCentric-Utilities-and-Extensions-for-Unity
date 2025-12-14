@@ -1,11 +1,11 @@
 {
   "name": "com.eggcentric.asset_databases",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "displayName": "EggCentric Asset Databases",
   "description": "Templates for asset registries/databases creation",
   "unity": "2022.3",
   "dependencies": {
-    "com.eggcentric.data_containers": "1.4.2"
+    "com.eggcentric.data_containers": "1.5.0"
   },
   "author": {
     "name": "HummeL",
