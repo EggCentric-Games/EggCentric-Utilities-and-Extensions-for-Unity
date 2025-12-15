@@ -1,3 +1,9 @@
+## [1.1.1] - 2025-12-15
+
+### Some syntax sugar
+
+- Added AreSatisfied() extension method
+
 ## [1.1.0] - 2025-11-22
 
 ### Condition check revamp
