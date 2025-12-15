@@ -6,11 +6,10 @@ namespace EggCentric.Conditions
     {
         public bool IsSatisfied => _checker();
 
-        private Func<bool> _checker;
+        private readonly Func<bool> _checker;
 
-        public SimpleCondition(Func<bool> checker)
-        {
-            _checker = checker;
-        }
+        public SimpleCondition(Func<bool> checker) => _checker = checker;
+
+        public static implicit operator SimpleCondition(Func<bool> obj) => new SimpleCondition(obj);
     }
 }
