@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace EggCentric.Conditions
 {
     public static class ConditionsExtensions
@@ -6,5 +8,14 @@ namespace EggCentric.Conditions
         public static ICondition And(this ICondition lhs, ICondition rhs) => new AndCondition(lhs, rhs);
         public static ICondition Or(this ICondition lhs, ICondition rhs) => new OrCondition(lhs, rhs);
         public static ICondition Xor(this ICondition lhs, ICondition rhs) => new XorCondition(lhs, rhs);
+
+        public static bool AreSatisfied(this IEnumerable<ICondition> conditions)
+        {
+            foreach (var condition in conditions)
+                if (!condition.IsSatisfied)
+                    return false;
+
+            return true;
+        }
     }
 }
