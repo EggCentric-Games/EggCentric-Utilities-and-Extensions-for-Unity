@@ -6,7 +6,7 @@ namespace EggCentric.ModifiableValues
 {
     public class ModifiableValue : IModifiableValue
     {
-        public IReadOnlyField<float> BaseValue => _baseValue;
+        public ITrackableValue<float> BaseValue => _baseValue;
         public ITrackableValue<float> ModifiedValue => _modifiedValue;
         public IReadOnlyCollection<IValueModifier> ActiveModifiers => _modifierRegistry.ActiveModifiers;
 
