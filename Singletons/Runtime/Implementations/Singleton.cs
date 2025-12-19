@@ -8,6 +8,8 @@ namespace EggCentric.Singletons
         public static T Instance { get; private set; }
         public static bool IsValid => Instance != null;
 
+        T ISingleton<T>.Instance => Instance;
+
         public static event Action OnInitialized;
 
         public Singleton() => HandleInstancing();
