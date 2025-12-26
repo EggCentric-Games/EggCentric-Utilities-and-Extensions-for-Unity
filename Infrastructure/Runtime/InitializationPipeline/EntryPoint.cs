@@ -1,22 +1,10 @@
-using EggCentric.Singletons;
+using UnityEngine;
 
 namespace EggCentric.Infrastructure
 {
-    public class EntryPoint : MonoSingleton<EntryPoint>
+    public static class EntryPoint
     {
-        public GameBootstrapper Bootstrapper;
-
-        protected override void Awake()
-        {
-            base.Awake();
-
-            SetupBootstrapper();
-        }
-
-        private void SetupBootstrapper()
-        {
-            Bootstrapper = new GameBootstrapper();
-            Bootstrapper.InitializeGame();
-        }
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void InitializeGame() => CompositionRootProvider.Instance.Build().Run();
     }
 }

@@ -1,33 +1,15 @@
-using EggCentric.Singletons;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
 
 namespace EggCentric.Infrastructure
 {
-    public class GameBootstrapper : Singleton<GameBootstrapper>
+    public class GameBootstrapper : IGameBootstrapper
     {
-        private const string _GameScene = "SampleScene";
+        private readonly BootstrapRunner _bootstrapRunner = new();
 
-        public void InitializeGame()
+        public GameBootstrapper()
         {
-            InitializeSystems();
-            LoadInitialScene();
         }
 
-        private void InitializeSystems()
-        {
-
-        }
-
-        private void LoadInitialScene()
-        {
-            var loading = SceneManager.LoadSceneAsync(_GameScene);
-            loading.completed += OnSceneLoaded;
-        }
-
-        private void OnSceneLoaded(AsyncOperation operation)
-        {
-
-        }
+        public async Task RunFor(IBootstrapPipeline pipeline) => await _bootstrapRunner.PerformBootstrap(pipeline);
     }
 }
