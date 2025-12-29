@@ -1,0 +1,16 @@
+{
+  "name": "com.eggcentric.infrastructure.initialization_pipeline",
+  "version": "1.0.0",
+  "displayName": "EggCentric Infrastructure Initialization Pipeline",
+  "description": "A set of tools for creation of robust and reliable initialization pipelines",
+  "unity": "2022.3",
+  "dependencies": {
+    "com.eggcentric.infrastructure": "1.2.0",
+    "com.eggcentric.dependency_injection": "0.1.0"
+  },
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}
