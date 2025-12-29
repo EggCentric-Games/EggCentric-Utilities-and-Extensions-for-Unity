@@ -1,0 +1,17 @@
+{
+    "name": "EggCentric.Infrastructure.InitializationPipeline",
+    "rootNamespace": "EggCentric.Infrastructure.InitializationPipeline",
+    "references": [
+        "GUID:8fddfd1810fdf7d48b5d4046e36dc012",
+        "GUID:5742569fdd279904082ccfa111f7b317"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
