@@ -1,0 +1,14 @@
+{
+  "name": "com.eggcentric.dependency_injection",
+  "version": "0.1.0",
+  "displayName": "EggCentric Dependency Injection",
+  "description": "A lightweight dependency injection package inspired by Zenject",
+  "unity": "2022.3",
+  "dependencies": {
+  },
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}
