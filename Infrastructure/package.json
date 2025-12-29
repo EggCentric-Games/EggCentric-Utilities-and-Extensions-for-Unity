@@ -1,6 +1,6 @@
 {
   "name": "com.eggcentric.infrastructure",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "displayName": "EggCentric Infrastructure",
   "description": "Set of code snippets and architectural elements",
   "unity": "2022.3",

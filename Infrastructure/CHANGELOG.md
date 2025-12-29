@@ -1,3 +1,10 @@
+## [1.2.0] - 2025-12-29
+
+### Package separation
+
+- Removed EntryPoint and GameBootstrapper templates
+- Minor improvements in package structure
+
 ## [1.1.0] - 2025-11-26
 
 ### LifeCycleProvider extension
