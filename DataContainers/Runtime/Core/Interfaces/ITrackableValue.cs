@@ -2,10 +2,8 @@
 
 namespace EggCentric.DataContainers
 {
-    public interface ITrackableValue<T>
+    public interface ITrackableValue<T> : IValueProvider<T>
     {
-        public T Value { get; }
-
         public event Action<T> OnValueChanged;
         public event Action OnValueChangedNoArgs;
     }

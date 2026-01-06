@@ -1,3 +1,9 @@
+## [1.5.1] - 2025-01-06
+
+### Value Provider
+
+- Implemented IValueProvider - a thin wrapper
+
 ## [1.5.0] - 2025-12-14
 
 ### Trackable values

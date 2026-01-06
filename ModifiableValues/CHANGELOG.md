@@ -1,3 +1,9 @@
+## [1.1.1] - 2025-01-06
+
+### IValueProvider Support
+
+- Implemented IValueProvider support
+
 ## [1.1.0] - 2025-12-14
 
 ### Cache logic revamp
