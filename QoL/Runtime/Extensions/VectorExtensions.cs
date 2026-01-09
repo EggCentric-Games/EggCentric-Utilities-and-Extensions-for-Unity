@@ -22,5 +22,28 @@ namespace EggCentric.QoL
 
             return pivot + rotatedDirection;
         }
+
+        public static Vector2 Project(this Vector2 source, Vector2 target)
+        {
+            Vector2 targetDirection = target.normalized;
+            float t = Vector2.Dot(source, targetDirection);
+            Vector2 projection = targetDirection * t;
+
+            return projection;
+        }
+
+        public static float DistanceToLine(this Vector2 source, Vector2 target) => Vector2.Dot(source, target.Normal());
+
+        public static Vector2 FromAngle(float angle) => new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+
+        public static Vector2 Normal(this Vector2 source, bool isInverted = false)
+        {
+            source.Normalize();
+
+            if(isInverted)
+                return new Vector2(source.y, -source.x);
+
+            return new Vector2(-source.y, source.x);
+        }
     }
 }

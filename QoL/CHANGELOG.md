@@ -1,3 +1,12 @@
+## [1.2.0] - 2026-01-09
+
+### Vector2 extensions
+
+- Implemented Vector2 construction from angle
+- Implemented Vector2 normal creation
+- Implemented Vector2 projection onto other vector
+- Implemented point to Vector2 distance calculation 
+
 ## [1.1.0] - 2025-11-07
 - Implemented fast rounding extensions
 
