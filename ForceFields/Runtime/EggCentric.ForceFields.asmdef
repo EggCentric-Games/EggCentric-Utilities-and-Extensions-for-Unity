@@ -1,0 +1,16 @@
+{
+    "name": "EggCentric.ForceFields",
+    "rootNamespace": "EggCentric.ForceFields",
+    "references": [
+        "GUID:0576d2b7fe110e5488ad715cb15ee1e0"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
