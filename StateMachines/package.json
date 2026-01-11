@@ -1,6 +1,6 @@
 {
   "name": "com.eggcentric.state_machines",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "displayName": "EggCentric State Machines",
   "description": "Tools for easier state managment and transition implementation",
   "unity": "2022.3",

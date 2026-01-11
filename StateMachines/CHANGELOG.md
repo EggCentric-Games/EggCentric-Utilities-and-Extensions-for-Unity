@@ -1,3 +1,9 @@
+## [2.3.1] - 2026-01-1
+
+### Tickable states
+
+- Implemented ITickableState
+
 ## [2.3.0] - 2025-11-28
 
 ### New transition request building logic
