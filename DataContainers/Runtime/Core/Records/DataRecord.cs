@@ -11,14 +11,8 @@ namespace EggCentric.DataContainers
     {
         public bool IsValid => Time.time <= Timestamp + TimeToLive;
 
-        public DataRecord(TValue data, float timeToLive = 0f) : this(data, Time.time, timeToLive)
-        {
+        public DataRecord(TValue data, float timeToLive = 0f) : this(data, Time.time, timeToLive) { }
 
-        }
-
-        public static implicit operator TValue(DataRecord<TValue> obj)
-        {
-            return obj.Data;
-        }
+        public static implicit operator TValue(DataRecord<TValue> obj) => obj.Data;
     }
 }

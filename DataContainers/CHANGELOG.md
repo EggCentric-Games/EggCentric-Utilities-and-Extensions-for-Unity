@@ -1,4 +1,10 @@
-## [1.5.1] - 2025-01-06
+## [1.6.0] - 2026-01-06
+
+### Ordered sets
+
+- Implemented OrderedSet
+
+## [1.5.1] - 2026-01-06
 
 ### Value Provider
 
