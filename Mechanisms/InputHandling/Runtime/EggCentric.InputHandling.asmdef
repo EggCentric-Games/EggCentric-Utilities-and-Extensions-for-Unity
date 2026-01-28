@@ -1,0 +1,18 @@
+{
+    "name": "EggCentric.InputHandling",
+    "rootNamespace": "EggCentric.InputHandling",
+    "references": [
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:8fddfd1810fdf7d48b5d4046e36dc012",
+        "GUID:8273d3c34604e1548b460d33aad01ebf"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

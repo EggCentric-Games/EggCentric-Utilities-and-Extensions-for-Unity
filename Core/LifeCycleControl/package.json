@@ -1,0 +1,16 @@
+{
+  "name": "com.eggcentric.lifecycle_handling",
+  "version": "1.0.0",
+  "displayName": "EggCentric Lifecycle Handling",
+  "description": "Common implementations, patterns and markers for easier lifecycle control",
+  "unity": "2022.3",
+  "dependencies": {
+    "com.eggcentric.infrastructure": "1.2.0",
+    "com.eggcentric.singletons": "1.1.0"
+  },
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}
