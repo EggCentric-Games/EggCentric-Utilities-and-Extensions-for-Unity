@@ -1,0 +1,20 @@
+{
+    "name": "EggCentric.Effects",
+    "rootNamespace": "EggCentric.Effects",
+    "references": [
+        "GUID:5742569fdd279904082ccfa111f7b317",
+        "GUID:5d7f8f5e9f0b2e84ca217cd8245efced",
+        "GUID:e9dc1b37f62ab84419a30e892ee6a36f",
+        "GUID:c0867b8b67f0b1f429936f40f1ba2304",
+        "GUID:2bbadb76495492b4ab4ba7cefe223c76"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
