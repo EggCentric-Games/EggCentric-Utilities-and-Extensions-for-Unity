@@ -1,0 +1,15 @@
+{
+  "name": "com.eggcentric.commands",
+  "version": "0.1.0",
+  "displayName": "EggCentric Commands",
+  "description": "Tools for robust and effective command pattern implementation",
+  "unity": "2022.3",
+  "dependencies": {
+
+  },
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}
