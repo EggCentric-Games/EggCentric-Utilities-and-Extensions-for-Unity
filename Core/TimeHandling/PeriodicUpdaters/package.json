@@ -1,0 +1,16 @@
+{
+  "name": "com.eggcentric.periodic_updaters",
+  "version": "1.0.0",
+  "displayName": "EggCentric Periodic Updaters",
+  "description": "Tools providing stable periodic time-dependent updates",
+  "unity": "2022.3",
+  "dependencies": {
+    "com.eggcentric.data_containers": "1.6.1",
+    "com.eggcentric.lifecycle_handling": "1.0.0"
+  },
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}

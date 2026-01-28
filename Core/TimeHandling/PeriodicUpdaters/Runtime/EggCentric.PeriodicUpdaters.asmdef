@@ -1,0 +1,17 @@
+{
+    "name": "EggCentric.PeriodicUpdaters",
+    "rootNamespace": "EggCentric.PeriodicUpdaters",
+    "references": [
+        "GUID:5d7f8f5e9f0b2e84ca217cd8245efced",
+        "GUID:8273d3c34604e1548b460d33aad01ebf"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
