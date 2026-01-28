@@ -1,0 +1,19 @@
+{
+    "name": "EggCentric.Abilities",
+    "rootNamespace": "EggCentric.Abilities",
+    "references": [
+        "GUID:5d7f8f5e9f0b2e84ca217cd8245efced",
+        "GUID:730578583045ca34c8f0ee651f0ee145",
+        "GUID:aa4bfb81f074c4640bef749ceb9444d3",
+        "GUID:8750cb68569643e41b119450374e0193"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
