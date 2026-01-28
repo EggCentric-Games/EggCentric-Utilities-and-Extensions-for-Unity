@@ -1,0 +1,17 @@
+{
+  "name": "com.eggcentric.visitables",
+  "version": "1.0.0",
+  "displayName": "EggCentric Visitables",
+  "description": "Visitor pattern implementation alongside with additional Visitor-related tools",
+  "unity": "2022.3",
+  "dependencies": {
+    "com.eggcentric.data_containers": "1.6.1",
+    "com.eggcentric.common_bahviours": "1.0.0",
+    "com.eggcentric.validation": "1.0.0"
+  },
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}
