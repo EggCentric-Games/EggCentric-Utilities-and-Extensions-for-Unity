@@ -1,0 +1,21 @@
+{
+  "name": "com.eggcentric.effects.sources",
+  "version": "1.0.0",
+  "displayName": "EggCentric Effect Sources",
+  "description": "An existing effect framework extension, meant to provide robust and still powerful ways for effect creation and organization",
+  "unity": "2022.3",
+  "dependencies": {
+    "com.eggcentric.dependency_injection": "0.2.0",
+    "com.eggcentric.collection_processing": "0.1.0",
+    "com.eggcentric.collection_processing.types": "0.1.0",
+    "com.eggcentric.data_containers": "1.6.1",
+    "com.eggcentric.common_behaviours": "0.1.0",
+    "com.eggcentric.visitables": "1.0.0",
+    "com.eggcentric.effects": "1.0.0"
+  },
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}
