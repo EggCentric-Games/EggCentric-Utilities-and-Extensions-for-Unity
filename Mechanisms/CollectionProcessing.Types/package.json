@@ -1,0 +1,15 @@
+{
+  "name": "com.eggcentric.collection_processing.types",
+  "version": "0.1.0",
+  "displayName": "EggCentric Collection Processing Types",
+  "description": "",
+  "unity": "2022.3",
+  "dependencies": {
+    "com.eggcentric.collection_processing": "0.1.0"
+  },
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}
