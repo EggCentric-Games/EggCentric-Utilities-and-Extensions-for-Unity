@@ -1,3 +1,14 @@
+## [1.6.1] - 2026-01-26
+
+### Default IValueProviders
+
+Provided a bunch of concrete IValueProvider implementations
+- Implemented FixedValueProvider
+- Implemented SequentialValueProvider
+- Implemented AutomatedSequentialProvider
+- Implemented PropertyWrapper
+- Implemented Getter
+
 ## [1.6.0] - 2026-01-06
 
 ### Ordered sets
