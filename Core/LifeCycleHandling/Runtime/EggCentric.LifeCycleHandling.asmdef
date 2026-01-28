@@ -1,0 +1,17 @@
+{
+    "name": "EggCentric.LifeCycleHandling",
+    "rootNamespace": "EggCentric.LifeCycleHandling",
+    "references": [
+        "GUID:8fddfd1810fdf7d48b5d4046e36dc012",
+        "GUID:1f423c5aac8f932459825caadccb79e3"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
