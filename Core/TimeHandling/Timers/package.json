@@ -1,0 +1,17 @@
+{
+  "name": "com.eggcentric.timers",
+  "version": "1.0.0",
+  "displayName": "EggCentric Timers",
+  "description": "A set of tools for robust time period handling",
+  "unity": "2022.3",
+  "dependencies": {
+    "com.eggcentric.data_containers": "1.6.1",
+    "com.eggcentric.lifecycle_handling": "1.0.0",
+    "com.eggcentric.periodic_updaters": "1.0.0"
+  },
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}

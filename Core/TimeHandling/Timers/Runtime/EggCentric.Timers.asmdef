@@ -1,0 +1,18 @@
+{
+    "name": "EggCentric.Timers",
+    "rootNamespace": "EggCentric.Timers",
+    "references": [
+        "GUID:5d7f8f5e9f0b2e84ca217cd8245efced",
+        "GUID:8273d3c34604e1548b460d33aad01ebf",
+        "GUID:547b4aab30bc24043bdcef4a0cebeee7"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
