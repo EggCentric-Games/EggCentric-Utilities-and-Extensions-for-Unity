@@ -1,11 +1,14 @@
 {
-  "name": "com.eggcentric.pid",
-  "version": "0.1.0",
-  "displayName": "EggCentric PID Controllers",
-  "description": "Tools for easy creation of PID controllers",
+  "name": "com.eggcentric.buffs",
+  "version": "1.0.0",
+  "displayName": "EggCentric Buffs",
+  "description": "Buffs and prolonged effects creation framework",
   "unity": "2022.3",
   "dependencies": {
-
+    "com.eggcentric.dependency_injection": "0.2.0",
+    "com.eggcentric.lifecycle_handling": "1.0.0",
+    "com.eggcentric.visitables": "1.0.0",
+    "com.eggcentric.common_behaviours": "0.1.0"
   },
   "author": {
     "name": "HummeL",

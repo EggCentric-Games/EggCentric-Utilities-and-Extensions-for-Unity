@@ -1,5 +1,6 @@
-## [0.1.0] - 2025-11-26
+## [1.0.0] - 2026-01-26
 
 ### First Release
 
-- Implemented simple generic PID controller
+- Implemented Buffs
+- Implemented BuffReceivers
