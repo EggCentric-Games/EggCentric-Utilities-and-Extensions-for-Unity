@@ -38,5 +38,6 @@ namespace EggCentric.QoL
         {
             return Mathf.FloorToInt(number);
         }
+        public static float Quantize(this float number, float step) => Mathf.Floor(number / step) * step;
     }
 }
