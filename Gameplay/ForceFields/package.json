@@ -1,10 +1,11 @@
 {
   "name": "com.eggcentric.force_fields",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "displayName": "EggCentric Force Fields",
   "description": "A toolset for robust implementation of different force fields and physical effectors",
   "unity": "2022.3",
   "dependencies": {
+    "com.eggcentric.data_containers": "1.6.1",
     "com.eggcentric.sensors": "1.2.0"
   },
   "author": {

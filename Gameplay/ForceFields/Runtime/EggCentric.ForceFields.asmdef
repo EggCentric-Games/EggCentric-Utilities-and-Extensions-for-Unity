@@ -2,6 +2,7 @@
     "name": "EggCentric.ForceFields",
     "rootNamespace": "EggCentric.ForceFields",
     "references": [
+        "GUID:5d7f8f5e9f0b2e84ca217cd8245efced",
         "GUID:0576d2b7fe110e5488ad715cb15ee1e0"
     ],
     "includePlatforms": [],
