@@ -29,15 +29,8 @@ namespace EggCentric.QoL
             return wrappedNumber;
         }
 
-        public static int Ceil(this float number)
-        {
-            return Mathf.CeilToInt(number);
-        }
-
-        public static int Floor(this float number)
-        {
-            return Mathf.FloorToInt(number);
-        }
+        public static int Ceil(this float number) => Mathf.CeilToInt(number);
+        public static int Floor(this float number) => Mathf.FloorToInt(number);
         public static float Quantize(this float number, float step) => Mathf.Floor(number / step) * step;
         public static float PingPong(this float number, float ceil) => Mathf.Abs(((ceil - number) % (2*ceil)) - ceil);
     }
