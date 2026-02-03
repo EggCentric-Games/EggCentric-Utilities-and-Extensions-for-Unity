@@ -7,10 +7,10 @@ namespace EggCentric.ForceFields
         protected readonly IForceFieldContext context;
         private readonly ISensor<TAffectedComponent> _contactDetector;
 
-        public ForceField(IForceFieldContext context, ISensor<TAffectedComponent> sensor)
+        public ForceField(IForceFieldContext context, ISensor<TAffectedComponent> contactDetector)
         {
             this.context = context;
-            _contactDetector = sensor;
+            _contactDetector = contactDetector;
         }
 
         public void Enable()
