@@ -39,5 +39,6 @@ namespace EggCentric.QoL
             return Mathf.FloorToInt(number);
         }
         public static float Quantize(this float number, float step) => Mathf.Floor(number / step) * step;
+        public static float PingPong(this float number, float ceil) => Mathf.Abs(((ceil - number) % (2*ceil)) - ceil);
     }
 }
