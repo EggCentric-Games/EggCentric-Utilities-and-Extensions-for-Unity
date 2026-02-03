@@ -1,3 +1,10 @@
+## [1.2.1] - 2026-02-03
+
+### New math extensions
+
+- Implemented PingPong float extension
+- Implemented Quantize float extension
+
 ## [1.2.0] - 2026-01-09
 
 ### Vector2 extensions
