@@ -1,11 +1,12 @@
 {
   "name": "com.eggcentric.state_machines",
-  "version": "2.3.1",
+  "version": "2.4.0",
   "displayName": "EggCentric State Machines",
   "description": "Tools for easier state managment and transition implementation",
   "unity": "2022.3",
   "dependencies": {
-    "com.eggcentric.conditions": "1.0.0"
+    "com.eggcentric.conditions": "1.0.0",
+    "com.eggcentric.lifecycle_handling": "1.0.0"
   },
   "author": {
     "name": "HummeL",

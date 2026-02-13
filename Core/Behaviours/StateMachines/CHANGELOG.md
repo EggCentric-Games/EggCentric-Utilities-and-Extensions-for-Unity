@@ -1,3 +1,14 @@
+## [2.4.0] - 2026-01-1
+
+### Refinement
+
+- Introduced LifeCycleHandling package dependency
+- Implemented ITickableState support
+- Implemented protection from null-state entry
+- Implemented OnUninitializedStateMachineUsage debugging event
+- Removed default state concept
+- Changed Initialize access level to public
+
 ## [2.3.1] - 2026-01-1
 
 ### Tickable states
