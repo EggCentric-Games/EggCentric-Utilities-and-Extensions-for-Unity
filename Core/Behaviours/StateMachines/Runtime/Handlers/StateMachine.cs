@@ -5,7 +5,6 @@ namespace EggCentric.StateMachines
 {
     public abstract class StateMachine<TStateType> : IStateMachine<TStateType> where TStateType : IState
     {
-        public Type DefaultState => _defaultState;
         public bool IsInitialized { get; private set; }
         public TStateType CurrentState => _currentState;
         public bool IsLocked => _lockHandler.IsLocked;
@@ -20,10 +19,9 @@ namespace EggCentric.StateMachines
         private LockHandler _lockHandler;
 
         private Dictionary<Type, IState> _registeredStates;
-        private Type _defaultState;
-        private bool _isInitialized;
         private TStateType _currentState;
 
+        public event Action OnUninitializedStateMachineUsage;
         public event Action<Type> OnRegisterStateDuplication;
         public event Action<Type> OnMissingRegisteredState;
 
@@ -49,6 +47,31 @@ namespace EggCentric.StateMachines
 
         public bool IsFreeFor(int priority) => !_lockHandler.IsLockedFor(priority);
 
+        public void Initialize<TDefaultState>() where TDefaultState : class, IPlainState, TStateType
+        {
+            if (IsInitialized)
+                return;
+
+            Build();
+            Enter<TDefaultState>();
+            IsInitialized = true;
+        }
+
+        protected virtual void Tick() => _requestHandler.HandleRequests();
+        public void Initialize<TDefaultState, TPayload>(TPayload payload) where TDefaultState : class, IPayloadedState<TPayload>, TStateType
+        {
+            if (IsInitialized)
+                return;
+
+            Build();
+            Enter<TDefaultState, TPayload>(payload);
+            IsInitialized = true;
+        }
+
+        {
+                return;
+
+
         protected virtual void CreateFields()
         {
             _transitionEvaluator = new TransitionEvaluator<TStateType>(this);
@@ -56,32 +79,6 @@ namespace EggCentric.StateMachines
             _lockHandler = new LockHandler();
 
             _registeredStates = new Dictionary<Type, IState>();
-        }
-
-        protected virtual void Tick() => _requestHandler.HandleRequests();
-
-        protected void Initialize<TDefaultState>() where TDefaultState : class, IPlainState, TStateType
-        {
-            if (_isInitialized)
-                return;
-
-            RegisterStates();
-            RegisterTransitions();
-            SetDefaultState<TDefaultState>();
-
-            _isInitialized = true;
-        }
-
-        protected void Initialize<TDefaultState, TPayload>(TPayload payload) where TDefaultState : class, IPayloadedState<TPayload>, TStateType
-        {
-            if (_isInitialized)
-                return;
-
-            RegisterStates();
-            RegisterTransitions();
-            SetDefaultState<TDefaultState, TPayload>(payload);
-
-            _isInitialized = true;
         }
 
         protected void RegisterState<TState>(TState state) where TState : class, IState, TStateType
@@ -104,19 +101,7 @@ namespace EggCentric.StateMachines
         protected abstract void RegisterStates();
         protected abstract void RegisterTransitions();
 
-        private void SetDefaultState<TDefaultState>() where TDefaultState : class, IPlainState, TStateType
-        {
-            _defaultState = typeof(TDefaultState);
-            Enter<TDefaultState>();
-        }
         private void Enter<TState>() where TState : class, TStateType, IPlainState => ChangeState<TState>()?.Enter();
-
-        private void SetDefaultState<TDefaultState, TPayload>(TPayload payload) where TDefaultState : class, IPayloadedState<TPayload>, TStateType
-        {
-            _defaultState = typeof(TDefaultState);
-            Enter<TDefaultState, TPayload>(payload);
-        }
-
 
         private void Enter<TState, TPayload>(TPayload payload) where TState : class, TStateType, IPayloadedState<TPayload> => ChangeState<TState>()?.Enter(payload);
 
@@ -139,6 +124,12 @@ namespace EggCentric.StateMachines
 
             OnMissingRegisteredState?.Invoke(typeof(TState));
             return null;
+        }
+
+        private void Build()
+        {
+            RegisterStates();
+            RegisterTransitions();
         }
     }
 }
