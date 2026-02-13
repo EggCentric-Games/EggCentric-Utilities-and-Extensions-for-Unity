@@ -109,6 +109,7 @@ namespace EggCentric.StateMachines
             _defaultState = typeof(TDefaultState);
             Enter<TDefaultState>();
         }
+        private void Enter<TState>() where TState : class, TStateType, IPlainState => ChangeState<TState>()?.Enter();
 
         private void SetDefaultState<TDefaultState, TPayload>(TPayload payload) where TDefaultState : class, IPayloadedState<TPayload>, TStateType
         {
@@ -116,13 +117,15 @@ namespace EggCentric.StateMachines
             Enter<TDefaultState, TPayload>(payload);
         }
 
-        private void Enter<TState>() where TState : class, TStateType, IPlainState => ChangeState<TState>().Enter();
 
-        private void Enter<TState, TPayload>(TPayload payload) where TState : class, TStateType, IPayloadedState<TPayload> => ChangeState<TState>().Enter(payload);
+        private void Enter<TState, TPayload>(TPayload payload) where TState : class, TStateType, IPayloadedState<TPayload> => ChangeState<TState>()?.Enter(payload);
 
         private TState ChangeState<TState>() where TState : class, IState, TStateType
         {
             TState state = GetState<TState>();
+            if (state == null)
+                return null;
+
             _currentState?.Exit();
             _currentState = state;
 
