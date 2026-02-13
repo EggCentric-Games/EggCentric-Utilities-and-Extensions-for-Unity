@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace EggCentric.StateMachines
 {
-
     public class TransitionEvaluator<TStateType> : ITransitionEvaluatorEventsProvider where TStateType : IState
     {
         private readonly IStateMachine<TStateType> _stateMachine;
@@ -24,6 +23,8 @@ namespace EggCentric.StateMachines
             _transitions = new Dictionary<Type, List<ITransition>>();
         }
 
+        public IReadOnlyList<ITransition> GetAvailableTransitions(Type type) => GetStateTransitions(type);
+
         public void RegisterState<TState>() where TState : class, IState, TStateType
         {
             if(_transitions.ContainsKey(typeof(TState)))
@@ -34,8 +35,6 @@ namespace EggCentric.StateMachines
 
             _transitions.Add(typeof(TState), new List<ITransition>());
         }
-
-        public IReadOnlyList<ITransition> AvailableTransitions(Type type) => GetStateTransitions(type);
 
         public Transition<TTarget> AddTransition<TSource, TTarget>() where TSource : class, IState, TStateType where TTarget : class, IState, TStateType
         {
