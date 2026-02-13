@@ -1,3 +1,9 @@
+## [1.0.1] - 2026-02-13
+
+### Access levels
+
+- ProjectContext now exposes mutable service container instead of read-only one
+
 ## [1.0.0] - 2025-07-24
 
 ### First Release

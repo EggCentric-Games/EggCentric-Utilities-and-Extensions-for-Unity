@@ -1,6 +1,6 @@
 {
   "name": "com.eggcentric.infrastructure.initialization_pipeline",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "displayName": "EggCentric Infrastructure Initialization Pipeline",
   "description": "A set of tools for creation of robust and reliable initialization pipelines",
   "unity": "2022.3",
