@@ -1,4 +1,7 @@
-public interface IInitializable
+namespace EggCentric.Infrastructure
 {
-    public void Initialize();
+    public interface IInitializable
+    {
+        public void Initialize();
+    }
 }

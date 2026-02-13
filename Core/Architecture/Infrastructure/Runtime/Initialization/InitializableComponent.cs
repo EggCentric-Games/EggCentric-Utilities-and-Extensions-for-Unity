@@ -1,17 +1,20 @@
 using UnityEngine;
 
-public abstract class InitializableComponent : MonoBehaviour, IInitializable
+namespace EggCentric.Infrastructure
 {
-    protected bool isInitialized;
-
-    public void Initialize()
+    public abstract class InitializableComponent : MonoBehaviour, IInitializable
     {
-        if (isInitialized)
-            return;
+        protected bool isInitialized;
 
-        isInitialized = true;
-        OnInitialized();
+        public void Initialize()
+        {
+            if (isInitialized)
+                return;
+
+            isInitialized = true;
+            OnInitialized();
+        }
+
+        protected abstract void OnInitialized();
     }
-
-    protected abstract void OnInitialized();
 }

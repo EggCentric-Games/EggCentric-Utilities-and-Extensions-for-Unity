@@ -1,23 +1,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Initializer : MonoBehaviour
+namespace EggCentric.Infrastructure
 {
-    private IEnumerable<IInitializable> _modules;
-
-    public void Initialize()
+    public class Initializer : MonoBehaviour
     {
-        CacheModules();
-        InitializeModules();
-    }
+        private IEnumerable<IInitializable> _modules;
 
-    public void Clear() => _modules = null;
+        public void Initialize()
+        {
+            CacheModules();
+            InitializeModules();
+        }
 
-    private void CacheModules() => _modules = GetComponentsInChildren<IInitializable>();
+        public void Clear() => _modules = null;
 
-    private void InitializeModules()
-    {
-        foreach (var module in _modules)
-            module.Initialize();
+        private void CacheModules() => _modules = GetComponentsInChildren<IInitializable>();
+
+        private void InitializeModules()
+        {
+            foreach (var module in _modules)
+                module.Initialize();
+        }
     }
 }
