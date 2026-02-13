@@ -1,7 +1,8 @@
+using EggCentric.LifeCycleHandling;
+
 namespace EggCentric.StateMachines
 {
-    public interface ITickableState
+    public interface ITickableState : ITickable
     {
-        public void Tick(float timeStep);
     }
 }

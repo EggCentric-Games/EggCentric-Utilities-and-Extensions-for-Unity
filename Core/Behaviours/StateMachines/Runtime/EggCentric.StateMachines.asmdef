@@ -2,6 +2,7 @@
     "name": "EggCentric.StateMachines",
     "rootNamespace": "EggCentric.StateMachines",
     "references": [
+        "GUID:8273d3c34604e1548b460d33aad01ebf",
         "GUID:aa4bfb81f074c4640bef749ceb9444d3"
     ],
     "includePlatforms": [],
