@@ -9,7 +9,7 @@ namespace EggCentric.StateMachines
         private readonly IStateMachine<TStateType> _stateMachine;
         private Dictionary<Type, List<ITransition>> _transitions;
 
-        public event Action OnUninitializedStateMachine;
+        public event Action OnUninitializedStateMachineUsage;
         public event Action<Type> OnMissingRegisteredState;
         public event Action<Type> OnRegisterStateDuplication;
 
@@ -59,7 +59,7 @@ namespace EggCentric.StateMachines
 
             if (source == null)
             {
-                OnUninitializedStateMachine?.Invoke();
+                OnUninitializedStateMachineUsage?.Invoke();
                 return false;
             }
 

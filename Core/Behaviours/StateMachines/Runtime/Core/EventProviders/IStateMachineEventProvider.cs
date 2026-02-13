@@ -8,6 +8,7 @@ namespace EggCentric.StateMachines
         public ITransitionEvaluatorEventsProvider TransitionEvents { get; }
         public ILockEventsProvider LockEvents { get; }
 
+        public event Action OnUninitializedStateMachineUsage;
         public event Action<Type> OnRegisterStateDuplication;
         public event Action<Type> OnMissingRegisteredState;
     }

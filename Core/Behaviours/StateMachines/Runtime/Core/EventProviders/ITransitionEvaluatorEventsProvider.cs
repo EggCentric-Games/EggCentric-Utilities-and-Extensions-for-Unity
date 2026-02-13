@@ -4,7 +4,7 @@ namespace EggCentric.StateMachines
 {
     public interface ITransitionEvaluatorEventsProvider
     {
-        public event Action OnUninitializedStateMachine;
+        public event Action OnUninitializedStateMachineUsage;
         public event Action<Type> OnMissingRegisteredState;
         public event Action<Type> OnRegisterStateDuplication;
 

@@ -15,7 +15,7 @@ namespace EggCentric.StateMachines
 
         private void EnableTransitionEvaluatorEvents()
         {
-            _eventsProvider.OnUninitializedStateMachine += LogUninitializedStateMachine;
+            _eventsProvider.OnUninitializedStateMachineUsage += LogUninitializedStateMachine;
             _eventsProvider.OnMissingRegisteredState += LogMissingRegisteredState;
             _eventsProvider.OnRegisterStateDuplication += LogRegisterStateDuplication;
             _eventsProvider.OnTransitionAdded += LogTransitionAdded;
@@ -25,7 +25,7 @@ namespace EggCentric.StateMachines
 
         private void DisableTransitionEvaluatorEvents()
         {
-            _eventsProvider.OnUninitializedStateMachine -= LogUninitializedStateMachine;
+            _eventsProvider.OnUninitializedStateMachineUsage -= LogUninitializedStateMachine;
             _eventsProvider.OnMissingRegisteredState -= LogMissingRegisteredState;
             _eventsProvider.OnRegisterStateDuplication -= LogRegisterStateDuplication;
             _eventsProvider.OnTransitionAdded -= LogTransitionAdded;
