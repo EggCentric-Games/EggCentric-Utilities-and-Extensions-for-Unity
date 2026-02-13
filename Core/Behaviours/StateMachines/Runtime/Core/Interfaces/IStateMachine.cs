@@ -5,7 +5,6 @@ namespace EggCentric.StateMachines
 {
     public interface IStateMachine : ITickable
     {
-        public Type DefaultState { get; }
         public bool IsInitialized { get; }
         public IState CurrentState { get; }
         public bool IsLocked { get; }
