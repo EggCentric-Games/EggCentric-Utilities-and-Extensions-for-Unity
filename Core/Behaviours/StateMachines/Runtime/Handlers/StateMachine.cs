@@ -20,6 +20,7 @@ namespace EggCentric.StateMachines
 
         private Dictionary<Type, IState> _registeredStates;
         private TStateType _currentState;
+        private ITickableState _tickableState;
 
         public event Action OnUninitializedStateMachineUsage;
         public event Action<Type> OnRegisterStateDuplication;
@@ -57,7 +58,6 @@ namespace EggCentric.StateMachines
             IsInitialized = true;
         }
 
-        protected virtual void Tick() => _requestHandler.HandleRequests();
         public void Initialize<TDefaultState, TPayload>(TPayload payload) where TDefaultState : class, IPayloadedState<TPayload>, TStateType
         {
             if (IsInitialized)
@@ -68,9 +68,17 @@ namespace EggCentric.StateMachines
             IsInitialized = true;
         }
 
+        public virtual void Tick(float timeStep)
         {
+            if (!IsInitialized)
+            {
+                OnUninitializedStateMachineUsage?.Invoke();
                 return;
+            }
 
+            _requestHandler.HandleRequests();
+            _tickableState?.Tick(timeStep);
+        }
 
         protected virtual void CreateFields()
         {
@@ -113,6 +121,7 @@ namespace EggCentric.StateMachines
 
             _currentState?.Exit();
             _currentState = state;
+            _tickableState = _currentState as ITickableState;
 
             return state;
         }
