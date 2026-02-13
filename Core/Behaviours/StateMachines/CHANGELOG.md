@@ -1,4 +1,4 @@
-## [2.4.0] - 2026-01-1
+## [2.4.0] - 2026-02-13
 
 ### Refinement
 
@@ -9,7 +9,7 @@
 - Removed default state concept
 - Changed Initialize access level to public
 
-## [2.3.1] - 2026-01-1
+## [2.3.1] - 2026-01-01
 
 ### Tickable states
 
