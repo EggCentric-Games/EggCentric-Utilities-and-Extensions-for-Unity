@@ -1,3 +1,11 @@
+## [1.2.1] - 2025-12-29
+
+### Initialization module
+
+- Provided IInitializable interface
+- Implemented InitializableComponenent
+- Implemented Initializer
+
 ## [1.2.0] - 2025-12-29
 
 ### Package separation
