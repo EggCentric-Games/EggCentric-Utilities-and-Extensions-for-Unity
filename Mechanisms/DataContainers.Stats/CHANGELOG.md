@@ -1,3 +1,10 @@
+## [1.0.1] - 2026-02-20
+
+### DataContainers merge
+
+- Introduced dependency on DataContainers package
+- IStat now inherits ITrackableValue<float>
+
 ## [1.0.0] - 2025-05-25
 
 ### First Release

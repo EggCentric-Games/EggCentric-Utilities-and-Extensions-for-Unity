@@ -1,15 +1,16 @@
 using System;
 using UnityEngine;
 
-namespace EggCentric.Stats
+namespace EggCentric.DataContainers.Stats
 {
     public class ValueStat : IStat
     {
         protected float currentValue;
 
-        public float TotalValue => currentValue;
+        public float Value => currentValue;
 
-        public event Action OnValueChanged;
+        public event Action<float> OnValueChanged;
+        public event Action OnValueChangedNoArgs;
 
         public ValueStat(float value = 0f)
         {
@@ -18,7 +19,7 @@ namespace EggCentric.Stats
 
         public virtual void SetValue(float value)
         {
-            float change = value - TotalValue;
+            float change = value - Value;
             ChangeValue(change);
         }
 
@@ -37,15 +38,19 @@ namespace EggCentric.Stats
         protected virtual void IncreaseValue(float amount)
         {
             currentValue += amount;
-
-            OnValueChanged?.Invoke();
+            NotifyValueChange();
         }
 
         protected virtual void DecreaseValue(float amount)
         {
             currentValue -= amount;
+            NotifyValueChange();
+        }
 
-            OnValueChanged?.Invoke();
+        private void NotifyValueChange()
+        {
+            OnValueChanged?.Invoke(Value);
+            OnValueChangedNoArgs?.Invoke();
         }
     }
 }

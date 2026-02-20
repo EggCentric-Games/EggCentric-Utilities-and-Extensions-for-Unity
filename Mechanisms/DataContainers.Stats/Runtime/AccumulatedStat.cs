@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace EggCentric.Stats
+namespace EggCentric.DataContainers.Stats
 {
     public class AccumulatedStat : RangedStat
     {

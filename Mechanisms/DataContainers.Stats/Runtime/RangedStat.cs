@@ -1,6 +1,6 @@
 using System;
 
-namespace EggCentric.Stats
+namespace EggCentric.DataContainers.Stats
 {
     public class RangedStat : ValueStat
     {

@@ -1,7 +1,7 @@
 using System;
 using EggCentric.Evaluators;
 
-namespace EggCentric.Stats
+namespace EggCentric.DataContainers.Stats
 {
     public class StagedStat : ValueStat
     {
