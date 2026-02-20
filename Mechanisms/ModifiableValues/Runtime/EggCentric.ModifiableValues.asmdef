@@ -2,6 +2,7 @@
     "name": "EggCentric.ModifiableValues",
     "rootNamespace": "EggCentric.ModifiableValues",
     "references": [
+        "GUID:80ec13fe3e40c8d429e99feda5f08830",
         "GUID:5d7f8f5e9f0b2e84ca217cd8245efced"
     ],
     "includePlatforms": [],

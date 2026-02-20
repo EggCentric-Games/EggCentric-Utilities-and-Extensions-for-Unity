@@ -8,12 +8,12 @@ namespace EggCentric.Sensors
 {
     public class AreaSensor<T> : MonoBehaviour, ISensor<T>
     {
-        public IReadOnlyCollection<Detection<T>> Detections => _detections;
+        public IReadOnlyCollection<IDetection<T>> Detections => _detections;
 
-        private HashSet<Detection<T>> _detections = new();
+        private HashSet<IDetection<T>> _detections = new();
 
-        public event Action<Detection<T>> OnNewDetection;
-        public event Action<Detection<T>> OnDetectionLost;
+        public event Action<IDetection<T>> OnNewDetection;
+        public event Action<IDetection<T>> OnDetectionLost;
 
         private void OnTriggerEnter2D(Collider2D collider)
         {

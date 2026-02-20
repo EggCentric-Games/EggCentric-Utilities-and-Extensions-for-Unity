@@ -1,0 +1,16 @@
+{
+  "name": "com.eggcentric.value_providers.random",
+  "version": "0.1.0",
+  "displayName": "EggCentric Value Providers - Random",
+  "description": "Extension of the main Value Providers package. Provides support of the Randomization package",
+  "unity": "2022.3",
+  "dependencies": {
+    "com.eggcentric.value_providers": "1.0.0",
+    "com.eggcentric.randomization": "1.0.0"
+  },
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}

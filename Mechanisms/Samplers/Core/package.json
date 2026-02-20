@@ -1,0 +1,17 @@
+{
+  "name": "com.eggcentric.samplers",
+  "version": "1.0.0",
+  "displayName": "EggCentric Samplers",
+  "description": "Provides robust parametric based value sampling system",
+  "unity": "2022.3",
+  "dependencies": {
+    "com.eggcentric.qol": "1.2.1",
+    "com.eggcentric.value_providers.data_containers": "1.6.2",
+    "com.eggcentric.progress_sources": "1.0.0"
+  },
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}

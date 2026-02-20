@@ -1,0 +1,18 @@
+{
+    "name": "EggCentric.ValueProviders.Random",
+    "rootNamespace": "",
+    "references": [
+        "GUID:80ec13fe3e40c8d429e99feda5f08830",
+        "GUID:f5a287e9cc057624cba28acc224e12f0",
+        "GUID:95925a822c2d4ca41b86881355127f84"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

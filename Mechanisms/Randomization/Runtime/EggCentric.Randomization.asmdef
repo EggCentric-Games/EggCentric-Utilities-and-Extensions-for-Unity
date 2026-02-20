@@ -1,0 +1,18 @@
+{
+    "name": "EggCentric.Randomization",
+    "rootNamespace": "EggCentric.Randomization",
+    "references": [
+        "GUID:95925a822c2d4ca41b86881355127f84",
+        "GUID:5d7f8f5e9f0b2e84ca217cd8245efced",
+        "GUID:547b4aab30bc24043bdcef4a0cebeee7"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

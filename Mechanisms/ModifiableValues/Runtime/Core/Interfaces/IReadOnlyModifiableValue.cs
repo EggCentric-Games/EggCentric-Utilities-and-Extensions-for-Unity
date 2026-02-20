@@ -1,4 +1,4 @@
-using EggCentric.DataContainers;
+using EggCentric.ValueProviders;
 using System.Collections.Generic;
 
 namespace EggCentric.ModifiableValues

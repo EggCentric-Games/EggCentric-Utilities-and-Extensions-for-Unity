@@ -1,0 +1,16 @@
+{
+  "name": "com.eggcentric.value_providers.validated",
+  "version": "1.0.0",
+  "displayName": "EggCentric Data Containers - Validated",
+  "description": "Extension of the main Value Providers package. Provides support of the Validation package",
+  "unity": "2022.3",
+  "dependencies": {
+    "com.eggcentric.value_providers": "1.0.0",
+    "com.eggcentric.evaluators": "1.0.0"
+  },
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}

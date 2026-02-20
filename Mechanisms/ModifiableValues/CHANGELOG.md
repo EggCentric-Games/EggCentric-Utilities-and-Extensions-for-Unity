@@ -1,3 +1,9 @@
+## [1.1.2] - 2026-02-20
+
+### Switch to the ValueProviders package
+
+- Dependency was changed from DataContainers package to ValueProviders package
+
 ## [1.1.1] - 2025-01-06
 
 ### IValueProvider Support

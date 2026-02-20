@@ -1,0 +1,20 @@
+{
+  "name": "com.eggcentric.samplers.time_based",
+  "version": "0.1.0",
+  "displayName": "EggCentric Samplers - Time Based",
+  "description": "Time-based samplers extension",
+  "unity": "2022.3",
+  "dependencies": {
+    "com.eggcentric.samplers": "1.0.0",
+    "com.eggcentric.value_providers.data_containers": "1.6.2",
+    "com.eggcentric.periodic_updaters": "1.0.0",
+    "com.eggcentric.lifecycle_handling": "1.0.0",
+    "com.eggcentric.progress_sources": "0.1.0",
+    "com.eggcentric.progress_sources.types": "0.1.0"
+  },
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}

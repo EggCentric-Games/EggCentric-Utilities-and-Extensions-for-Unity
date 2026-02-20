@@ -2,6 +2,7 @@
     "name": "EggCentric.Abilities",
     "rootNamespace": "EggCentric.Abilities",
     "references": [
+        "GUID:80ec13fe3e40c8d429e99feda5f08830",
         "GUID:5d7f8f5e9f0b2e84ca217cd8245efced",
         "GUID:730578583045ca34c8f0ee651f0ee145",
         "GUID:aa4bfb81f074c4640bef749ceb9444d3",

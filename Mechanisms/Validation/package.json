@@ -5,7 +5,7 @@
   "description": "Data validation utilities",
   "unity": "2022.3",
   "dependencies": {
-    "com.eggcentric.data_containers": "1.5.1"
+    "com.eggcentric.value_providers.data_containers": "1.5.1"
   },
   "author": {
     "name": "HummeL",

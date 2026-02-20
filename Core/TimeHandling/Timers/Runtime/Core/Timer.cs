@@ -1,5 +1,6 @@
 using EggCentric.LifeCycleHandling;
 using EggCentric.PeriodicUpdaters;
+using EggCentric.ValueProviders;
 using System;
 using System.Collections.Generic;
 using UnityEngine;

@@ -1,0 +1,17 @@
+{
+  "name": "com.eggcentric.force_fields.gravity",
+  "version": "0.1.1",
+  "displayName": "EggCentric Gravity",
+  "description": "Force field based gravity implementation",
+  "unity": "2022.3",
+  "dependencies": {
+    "com.eggcentric.value_providers.data_containers": "1.5.1",
+    "com.eggcentric.force_fields": "1.0.0",
+    "com.eggcentric.sensors": "1.2.0"
+  },
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}

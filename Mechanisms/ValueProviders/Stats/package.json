@@ -1,0 +1,16 @@
+{
+  "name": "com.eggcentric.value_providers.stats",
+  "version": "1.0.1",
+  "displayName": "EggCentric Value Providers - Stats",
+  "description": "Collection of stats (ranged properties) used for fast prototyping and unified implementation",
+  "unity": "2022.3",
+  "dependencies": {
+    "com.eggcentric.value_providers": "1.0.0",
+    "com.eggcentric.evaluators": "1.0.0"
+  },
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}

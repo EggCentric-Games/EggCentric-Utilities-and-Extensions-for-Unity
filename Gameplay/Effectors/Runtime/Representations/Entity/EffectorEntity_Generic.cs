@@ -33,6 +33,6 @@ namespace EggCentric.Effectors
         }
 
         protected abstract AreaSensor<T> CreateSensor();
-        protected abstract void ApplyEffect(Detection<T> target);
+        protected abstract void ApplyEffect(IDetection<T> target);
     }
 }

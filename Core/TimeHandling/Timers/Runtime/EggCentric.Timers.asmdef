@@ -2,7 +2,7 @@
     "name": "EggCentric.Timers",
     "rootNamespace": "EggCentric.Timers",
     "references": [
-        "GUID:5d7f8f5e9f0b2e84ca217cd8245efced",
+        "GUID:80ec13fe3e40c8d429e99feda5f08830",
         "GUID:8273d3c34604e1548b460d33aad01ebf",
         "GUID:547b4aab30bc24043bdcef4a0cebeee7"
     ],

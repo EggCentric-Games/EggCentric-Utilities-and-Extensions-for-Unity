@@ -2,8 +2,8 @@ using System.Collections.Generic;
 
 namespace EggCentric.Sensors
 {
-    public interface ISensor<T> : ISensorEventsProvider<T>
+    public interface ISensor<out T> : ISensorEventsProvider<T>
     {
-        public IReadOnlyCollection<Detection<T>> Detections { get; }
+        public IReadOnlyCollection<IDetection<T>> Detections { get; }
     }
 }

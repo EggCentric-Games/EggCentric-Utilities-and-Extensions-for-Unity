@@ -1,0 +1,19 @@
+{
+    "name": "EggCentric.PeriodicUpdaters.Random",
+    "rootNamespace": "",
+    "references": [
+        "GUID:547b4aab30bc24043bdcef4a0cebeee7",
+        "GUID:f5a287e9cc057624cba28acc224e12f0",
+        "GUID:80ec13fe3e40c8d429e99feda5f08830",
+        "GUID:16ccff4e74f09b24ab260b9c5010fa0d"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

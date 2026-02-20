@@ -1,4 +1,4 @@
-using EggCentric.DataContainers;
+using EggCentric.ValueProviders.DataContainers;
 
 namespace EggCentric.Abilities.Modifiers
 {

@@ -1,6 +1,6 @@
 {
-    "name": "Eggcentric.TransformModifiers",
-    "rootNamespace": "Eggcentric.TransformModifiers",
+    "name": "EggCentric.TransformModifiers",
+    "rootNamespace": "EggCentric.TransformModifiers",
     "references": [
         "GUID:5d7f8f5e9f0b2e84ca217cd8245efced",
         "GUID:52e6e3a8ae38ae44bbc6c84df756f4a6",

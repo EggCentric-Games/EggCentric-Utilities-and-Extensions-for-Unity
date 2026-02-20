@@ -1,0 +1,18 @@
+{
+  "name": "com.eggcentric.force_fields.types",
+  "version": "0.1.1",
+  "displayName": "EggCentric Force Field Types",
+  "description": "Pack of defaul force field implementations",
+  "unity": "2022.3",
+  "dependencies": {
+    "com.eggcentric.value_providers.data_containers": "1.5.1",
+    "com.eggcentric.qol": "1.2.0",
+    "com.eggcentric.evaluators": "1.1.0",
+    "com.eggcentric.force_fields": "1.0.0"
+  },
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}

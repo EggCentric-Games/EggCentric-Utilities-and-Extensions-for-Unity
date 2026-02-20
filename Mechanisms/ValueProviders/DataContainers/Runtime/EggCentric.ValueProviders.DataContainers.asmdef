@@ -1,0 +1,16 @@
+{
+    "name": "EggCentric.ValueProviders.ValueProviders.DataContainers",
+    "rootNamespace": "EggCentric.ValueProviders.ValueProviders.DataContainers",
+    "references": [
+        "GUID:80ec13fe3e40c8d429e99feda5f08830"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

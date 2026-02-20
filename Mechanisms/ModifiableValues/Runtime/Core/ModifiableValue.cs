@@ -1,4 +1,5 @@
-using EggCentric.DataContainers;
+using EggCentric.ValueProviders.DataContainers;
+using EggCentric.ValueProviders;
 using System.Collections.Generic;
 using UnityEngine;
 

@@ -1,4 +1,4 @@
-﻿using EggCentric.DataContainers;
+﻿using EggCentric.ValueProviders.DataContainers;
 using EggCentric.Configurators;
 using EggCentric.Evaluators;
 using UnityEngine;

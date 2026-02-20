@@ -1,0 +1,17 @@
+{
+  "name": "com.eggcentric.randomization",
+  "version": "1.0.0",
+  "displayName": "EggCentric Randomization",
+  "description": "Collection of general tool and extensions for more comfortable improved workflows",
+  "unity": "2022.3",
+  "dependencies": {
+    "com.eggcentric.value_providers.data_containers": "1.6.2",
+    "com.eggcentric.value_providers.qol": "1.2.2",
+    "com.eggcentric.value_providers.periodic_updaters": "1.0.0"
+  },
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}

@@ -1,0 +1,15 @@
+  {
+  "name": "com.eggcentric.value_providers.data_containers",
+  "version": "1.6.2",
+  "displayName": "EggCentric Value Providers - Data Containers",
+  "description": "Generic wrappers for extended control over your data",
+  "unity": "2022.3",
+  "dependencies": {
+    "com.eggcentric.value_providers": "1.0.0"
+  },
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}
