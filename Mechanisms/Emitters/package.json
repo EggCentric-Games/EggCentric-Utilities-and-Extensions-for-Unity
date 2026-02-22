@@ -1,10 +1,17 @@
 {
-  "name": "com.eggcentric.qol",
-  "version": "1.2.1",
-  "displayName": "EggCentric Quality of Life",
-  "description": "Collection of general tool and extensions for more comfortable improved workflows",
+  "name": "com.eggcentric.emitters",
+  "version": "0.1.0",
+  "displayName": "EggCentric Emitters",
+  "description": "",
   "unity": "2022.3",
-  "dependencies": {},
+  "dependencies": {
+    "com.eggcentric.value_providers.validated": "1.0.0",
+    "com.eggcentric.randomization": "1.0.0",
+    "com.eggcentric.samplers": "1.0.0",
+    "com.eggcentric.validation": "1.0.0",
+    "com.eggcentric.coordinate_systems": "0.1.0",
+    "com.eggcentric.coordinate_systems.defaults": "0.1.0"
+  },
   "author": {
     "name": "HummeL",
     "email": "arian.lukianiuk@gmail.com",

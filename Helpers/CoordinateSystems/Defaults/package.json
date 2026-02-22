@@ -1,0 +1,15 @@
+{
+  "name": "com.eggcentric.coordinate_systems.defaults",
+  "version": "0.1.0",
+  "displayName": "EggCentric Coordinate Systems - Defaults",
+  "description": "",
+  "unity": "2022.3",
+  "dependencies": {
+    "com.eggcentric.coordinate_systems": "0.1.0"
+  },
+  "author": {
+    "name": "HummeL",
+    "email": "arian.lukianiuk@gmail.com",
+    "url": "https://github.com/Hummel-AL"
+  }
+}

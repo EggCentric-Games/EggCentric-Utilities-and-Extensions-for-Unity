@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace EggCentric.Emmiters
 {
-    public class UniformSpread : IAngleSamplingStrategy
+    public class UniformCos : IAngleSamplingStrategy
     {
         public float GetAngle(float minAngle, float maxAngle, float t)
         {

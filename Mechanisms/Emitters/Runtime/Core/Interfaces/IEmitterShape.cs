@@ -1,9 +1,7 @@
-using UnityEngine;
-
 namespace EggCentric.Emmiters
 {
     public interface IEmitterShape
     {
-        public Vector3 GetDirection();
+        public Point GetPoint(float filling);
     }
 }

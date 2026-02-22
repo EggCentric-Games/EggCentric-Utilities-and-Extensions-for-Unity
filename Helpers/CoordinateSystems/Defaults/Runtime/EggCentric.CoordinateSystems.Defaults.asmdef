@@ -1,0 +1,16 @@
+{
+    "name": "EggCentric.CoordinateSystems.Defaults",
+    "rootNamespace": "EggCentric.CoordinateSystems.Defaults",
+    "references": [
+        "GUID:79094ae102837ee42aa259e2af889776"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
