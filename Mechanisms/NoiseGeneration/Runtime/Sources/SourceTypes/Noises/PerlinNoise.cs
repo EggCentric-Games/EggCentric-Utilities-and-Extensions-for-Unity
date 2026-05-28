@@ -1,11 +1,27 @@
-using System;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace EggCentric.NoiseGeneration
 {
     public class PerlinNoise : ProceduralNoise
     {
+        private static readonly Vector3[] Gradients =
+        {
+            new( 1, 1, 0),
+            new(-1, 1, 0),
+            new( 1,-1, 0),
+            new(-1,-1, 0),
+
+            new( 1, 0, 1),
+            new(-1, 0, 1),
+            new( 1, 0,-1),
+            new(-1, 0,-1),
+
+            new( 0, 1, 1),
+            new( 0,-1, 1),
+            new( 0, 1,-1),
+            new( 0,-1,-1)
+        };
+
         protected override float GetSample(Vector3 position, ulong seed)
         {
             var xF = Mathf.FloorToInt(position.x);
@@ -16,34 +32,27 @@ namespace EggCentric.NoiseGeneration
             var yC = yF + 1;
             var zC = zF + 1;
 
-            Vector3Int[] referencePoints = new Vector3Int[] {
-                new Vector3Int(xF, yF, zF),
-                new Vector3Int(xF, yF, zC),
-                new Vector3Int(xF, yC, zF),
-                new Vector3Int(xF, yC, zC),
-                new Vector3Int(xC, yF, zF),
-                new Vector3Int(xC, yF, zC),
-                new Vector3Int(xC, yC, zF),
-                new Vector3Int(xC, yC, zC)
-            };
+            float dx = position.x - xF;
+            float dy = position.y - yF;
+            float dz = position.z - zF;
 
-            float[] influences = new float[referencePoints.Length];
-            for(int i = 0; i < referencePoints.Length; i++)
-            {
-                var hash = NoiseHash.Hash(stackalloc float[] { referencePoints[i].x, referencePoints[i].y, referencePoints[i].z }, seed);
-                var gradient = RandomExtensions.WithSeed(() => Random.onUnitSphere, (int)hash);
-                var offset = position - referencePoints[i];
-                influences[i] = Vector3.Dot(gradient, offset);
-            }
+            float n000 = GradientDot(xF, yF, zF, dx, dy, dz, seed);
+            float n001 = GradientDot(xF, yF, zC, dx, dy, dz - 1, seed);
+            float n010 = GradientDot(xF, yC, zF, dx, dy - 1, dz, seed);
+            float n011 = GradientDot(xF, yC, zC, dx, dy - 1, dz - 1, seed);
+            float n100 = GradientDot(xC, yF, zF, dx - 1, dy, dz, seed);
+            float n101 = GradientDot(xC, yF, zC, dx - 1, dy, dz - 1, seed);
+            float n110 = GradientDot(xC, yC, zF, dx - 1, dy - 1, dz, seed);
+            float n111 = GradientDot(xC, yC, zC, dx - 1, dy - 1, dz - 1, seed);
 
-            var u = Fade(position.x - Mathf.Floor(position.x));
-            var v = Fade(position.y - Mathf.Floor(position.y));
-            var w = Fade(position.z - Mathf.Floor(position.z));
+            var u = Fade(dx);
+            var v = Fade(dy);
+            var w = Fade(dz);
 
-            float zAvg1 = Mathf.Lerp(influences[0], influences[1], w);
-            float zAvg2 = Mathf.Lerp(influences[2], influences[3], w);
-            float zAvg3 = Mathf.Lerp(influences[4], influences[5], w);
-            float zAvg4 = Mathf.Lerp(influences[6], influences[7], w);
+            float zAvg1 = Mathf.Lerp(n000, n001, w);
+            float zAvg2 = Mathf.Lerp(n010, n011, w);
+            float zAvg3 = Mathf.Lerp(n100, n101, w);
+            float zAvg4 = Mathf.Lerp(n110, n111, w);
 
             float yAvg1 = Mathf.Lerp(zAvg1, zAvg2, v);
             float yAvg2 = Mathf.Lerp(zAvg3, zAvg4, v);
@@ -52,22 +61,19 @@ namespace EggCentric.NoiseGeneration
 
             return average;
         }
+
+        private float GradientDot(float x, float y, float z, float dx, float dy, float dz, ulong seed)
+        {
+            var hash = NoiseHash.Hash(stackalloc float[] { x, y, z }, seed);
+            var gradient = Gradients[(int)(hash % (ulong)Gradients.Length)];
+            var influence = gradient.x * dx + gradient.y * dy + gradient.z * dz;
+
+            return influence;
+        }
+
         private float Fade(float t)
         {
             return t * t * t * (t * (t * 6f - 15f) + 10f);
         }
-    }
-}
-
-public static class RandomExtensions
-{
-    public static T WithSeed<T>(Func<T> func, int seed)
-    {
-        var previousState = Random.state;
-        Random.InitState(seed);
-        var result = func();
-        Random.state = previousState;
-
-        return result;
     }
 }
