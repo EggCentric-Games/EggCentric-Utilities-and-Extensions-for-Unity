@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace EggCentric.ProceduralGeneration.Modifiers
+namespace EggCentric.NoiseGeneration.Modifiers
 {
 
     [MovedFrom(true, "EggCentric.ProceduralGeneration", null, "AbsolutePowerLayerModifier")]

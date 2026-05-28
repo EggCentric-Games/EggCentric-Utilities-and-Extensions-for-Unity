@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace EggCentric.ProceduralGeneration.Modifiers
+namespace EggCentric.NoiseGeneration.Modifiers
 {
     public static class ModifierUtility
     {

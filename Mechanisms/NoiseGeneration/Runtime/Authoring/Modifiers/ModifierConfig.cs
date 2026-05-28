@@ -1,6 +1,6 @@
-using EggCentric.ProceduralGeneration.Modifiers;
+using EggCentric.NoiseGeneration.Modifiers;
 
-namespace EggCentric.ProceduralGeneration.Authoring.Modifiers
+namespace EggCentric.NoiseGeneration.Authoring.Modifiers
 {
     public abstract class ModifierConfig<TModifier> : IModifierConfig where TModifier : IGenerationModifier
     {

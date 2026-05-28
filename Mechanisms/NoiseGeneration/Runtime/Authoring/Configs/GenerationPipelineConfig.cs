@@ -1,7 +1,7 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace EggCentric.ProceduralGeneration
+namespace EggCentric.NoiseGeneration
 {
     [CreateAssetMenu(fileName = "GenerationPipeline_", menuName = "EggCentric/Generation")]
     public class GenerationPipelineConfig : SerializedScriptableObject, IConfig<GenerationPipeline>

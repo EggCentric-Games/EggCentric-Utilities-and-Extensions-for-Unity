@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace EggCentric.ProceduralGeneration
+namespace EggCentric.NoiseGeneration
 {
     public class PerlinNoise : ProceduralNoise
     {

@@ -1,7 +1,7 @@
-using EggCentric.ProceduralGeneration.Authoring.Modifiers;
+using EggCentric.NoiseGeneration.Authoring.Modifiers;
 using UnityEngine;
 
-namespace EggCentric.ProceduralGeneration
+namespace EggCentric.NoiseGeneration
 {
     [System.Serializable]
     public class GenerationOperationConfig : IGenerationNodeConfig<GenerationOperationNode>

@@ -1,7 +1,7 @@
-using EggCentric.ProceduralGeneration.Modifiers;
+using EggCentric.NoiseGeneration.Modifiers;
 using UnityEngine;
 
-namespace EggCentric.ProceduralGeneration.Authoring.Modifiers
+namespace EggCentric.NoiseGeneration.Authoring.Modifiers
 {
     [System.Serializable]
     public class SignedPowerModifierConfig : ModifierConfig<SignedPowerModifier>

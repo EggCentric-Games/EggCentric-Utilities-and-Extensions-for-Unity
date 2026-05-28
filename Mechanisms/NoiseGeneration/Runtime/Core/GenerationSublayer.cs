@@ -1,7 +1,7 @@
 using System.Runtime.InteropServices;
 using UnityEngine;
 
-namespace EggCentric.ProceduralGeneration
+namespace EggCentric.NoiseGeneration
 {
     [StructLayout(LayoutKind.Sequential)]
     public struct GenerationSublayer

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace EggCentric.ProceduralGeneration
+namespace EggCentric.NoiseGeneration
 {
     [System.Serializable]
     public struct OctaveSettings

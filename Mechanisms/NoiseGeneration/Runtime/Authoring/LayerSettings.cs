@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace EggCentric.ProceduralGeneration
+namespace EggCentric.NoiseGeneration
 {
     [System.Serializable]
     [StructLayout(LayoutKind.Sequential)]

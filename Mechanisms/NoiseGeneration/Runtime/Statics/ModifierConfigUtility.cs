@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using EggCentric.ProceduralGeneration.Modifiers;
+using EggCentric.NoiseGeneration.Modifiers;
 
-namespace EggCentric.ProceduralGeneration.Authoring.Modifiers
+namespace EggCentric.NoiseGeneration.Authoring.Modifiers
 {
     internal static class ModifierConfigUtility
     {

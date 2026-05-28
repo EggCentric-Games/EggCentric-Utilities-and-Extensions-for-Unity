@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using EggCentric.ProceduralGeneration.Modifiers;
+using EggCentric.NoiseGeneration.Modifiers;
 using UnityEngine;
 
-namespace EggCentric.ProceduralGeneration
+namespace EggCentric.NoiseGeneration
 {
     public interface IGenerationNode
     {

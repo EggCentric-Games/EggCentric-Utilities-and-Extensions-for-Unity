@@ -1,6 +1,6 @@
 using System;
 
-namespace EggCentric.ProceduralGeneration
+namespace EggCentric.NoiseGeneration
 {
     public static class NoiseHash
     {

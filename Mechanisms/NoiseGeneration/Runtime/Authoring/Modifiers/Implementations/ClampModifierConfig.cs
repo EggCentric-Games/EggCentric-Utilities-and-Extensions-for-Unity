@@ -1,8 +1,8 @@
-using EggCentric.ProceduralGeneration.Modifiers;
+using EggCentric.NoiseGeneration.Modifiers;
 using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace EggCentric.ProceduralGeneration.Authoring.Modifiers
+namespace EggCentric.NoiseGeneration.Authoring.Modifiers
 {
     [System.Serializable]
     [MovedFrom(true, "EggCentric.ProceduralGeneration", null, "ClampLayerModifierConfig")]

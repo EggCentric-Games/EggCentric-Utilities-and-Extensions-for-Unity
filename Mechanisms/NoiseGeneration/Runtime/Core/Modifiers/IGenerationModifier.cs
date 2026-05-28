@@ -1,4 +1,4 @@
-namespace EggCentric.ProceduralGeneration.Modifiers
+namespace EggCentric.NoiseGeneration.Modifiers
 {
     public interface IGenerationModifier
     {

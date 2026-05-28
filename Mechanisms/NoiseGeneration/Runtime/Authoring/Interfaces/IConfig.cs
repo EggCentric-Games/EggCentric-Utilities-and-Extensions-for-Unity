@@ -1,4 +1,4 @@
-namespace EggCentric.ProceduralGeneration
+namespace EggCentric.NoiseGeneration
 {
     public interface IConfig<out TInstance>
     {

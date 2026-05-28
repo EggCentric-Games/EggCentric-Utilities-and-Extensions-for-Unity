@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace EggCentric.ProceduralGeneration
+namespace EggCentric.NoiseGeneration
 {
     public class NoiseGenerator : MonoBehaviour
     {
