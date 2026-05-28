@@ -1,4 +1,4 @@
-using EggCentric.ValueProviders;
+using EggCentric.ValueProviders.PatternGenerators;
 using System.Collections.Generic;
 
 namespace EggCentric.PeriodicUpdaters

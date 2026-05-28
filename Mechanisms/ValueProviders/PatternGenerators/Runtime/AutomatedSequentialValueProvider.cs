@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace EggCentric.ValueProviders
+namespace EggCentric.ValueProviders.PatternGenerators
 {
     public class AutomatedSequentialValueProvider<T> : IValueProvider<T>
     {

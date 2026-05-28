@@ -1,10 +1,8 @@
 {
-    "name": "EggCentric.PeriodicUpdaters",
-    "rootNamespace": "EggCentric.PeriodicUpdaters",
+    "name": "EggCentric.ValueProviders.PatternGenerators",
+    "rootNamespace": "EggCentric.ValueProviders.PatternGenerators",
     "references": [
-        "GUID:80ec13fe3e40c8d429e99feda5f08830",
-        "GUID:10a7bd465158c8a499b89df0e5f9e690",
-        "GUID:8273d3c34604e1548b460d33aad01ebf"
+        "GUID:80ec13fe3e40c8d429e99feda5f08830"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
