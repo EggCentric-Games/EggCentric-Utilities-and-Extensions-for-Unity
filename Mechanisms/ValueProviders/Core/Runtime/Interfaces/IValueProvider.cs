@@ -1,6 +1,6 @@
 ﻿namespace EggCentric.ValueProviders
 {
-    public interface IValueProvider<T>
+    public interface IValueProvider<out T>
     {
         public T Value { get; }
     }

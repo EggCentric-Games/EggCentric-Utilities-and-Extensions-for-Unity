@@ -11,7 +11,7 @@ namespace EggCentric.ValueProviders.PatternGenerators
 
         public SequentialValueProvider(IEnumerable<T> sequence) => SetSequence(sequence);
 
-        public override T Peek() => _sequence[_currentIndex];
+        public override T Peek(int offset = 0) => _sequence[_currentIndex + offset];
 
         public void SetSequence(IEnumerable<T> sequence)
         {
