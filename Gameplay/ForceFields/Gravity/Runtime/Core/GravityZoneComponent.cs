@@ -5,7 +5,7 @@ namespace EggCentric.ForceFields.Gravity
 {
     public class GravityZoneComponent : MonoBehaviour
     {
-        [SerializeField] private AreaSensor<IGravityAffectedBody> _contactDetector;
+        [SerializeField] private TriggerSensor2D<IGravityAffectedBody> _contactDetector;
         [SerializeField] private IGravityFieldSettings<IGravityFieldContext> _settings;
         
         private GravityField _gravityZone;

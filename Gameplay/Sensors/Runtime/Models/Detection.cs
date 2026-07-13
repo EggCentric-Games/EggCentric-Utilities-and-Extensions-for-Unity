@@ -1,23 +1,17 @@
-﻿using UnityEngine;
-
-namespace System.Runtime.CompilerServices
+﻿namespace System.Runtime.CompilerServices
 {
     internal static class IsExternalInit { }
 }
 
 namespace EggCentric.Sensors
 {
-    public interface IDetection<out T>
+    public interface IDetection<out TComponent>
     {
-        public T Component { get; }
-        public Collider2D Collider { get; }
+        public TComponent Component { get; }
     }
 
-    public record Detection<T>(T Component, Collider2D Collider) : IDetection<T>
+    public record Detection<TComponent, TSource>(TComponent Component, TSource Source) : IDetection<TComponent>
     {
-        public static implicit operator T(Detection<T> obj)
-        {
-            return obj.Component;
-        }
+        public static implicit operator TComponent(Detection<TComponent, TSource> obj) => obj.Component;
     }
 }

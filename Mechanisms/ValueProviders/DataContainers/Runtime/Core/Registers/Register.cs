@@ -5,6 +5,8 @@ namespace EggCentric.ValueProviders.DataContainers
 {
     public class Register<T> : IRegister<T>
     {
+        public IReadOnlyCollection<T> Items => registeredItems;
+
         private HashSet<T> registeredItems;
 
         public event Action<T> OnItemEntry;

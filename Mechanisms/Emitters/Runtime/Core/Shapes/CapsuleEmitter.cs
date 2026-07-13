@@ -14,7 +14,7 @@ namespace EggCentric.Emmiters
         private Sampler _sampler;
         private Arc _base;
 
-        public CapsuleEmitter(Sampler sampler, float ratio = 0.5f) : this(sampler, CoordinateFrames.Frame2D, ratio) { }
+        public CapsuleEmitter(Sampler sampler, float ratio = 0.5f) : this(sampler, CoordinateFrames.HorizontalFrame2D, ratio) { }
         public CapsuleEmitter(Sampler sampler, ICoordinateFrame coordinatesReferences, float ratio = 0.5f)
         {
             _coordinatesReference = coordinatesReferences;
@@ -41,13 +41,13 @@ namespace EggCentric.Emmiters
             var positionOffset = Mathf.Clamp(sample, 0f, straightPart);
             var deviatedDirection = _base.SampleAt(circularity);
 
-            var position = _coordinatesReference.Normal * positionOffset;
+            var position = _coordinatesReference.MainDirection * positionOffset;
             position += deviatedDirection * filling * circularPart;
 
             if(Random.value > 0.5f)
             {
-                deviatedDirection = Vector3.Reflect(deviatedDirection, _coordinatesReference.Normal);
-                position = Vector3.Reflect(position, _coordinatesReference.Normal);
+                deviatedDirection = Vector3.Reflect(deviatedDirection, _coordinatesReference.MainDirection);
+                position = Vector3.Reflect(position, _coordinatesReference.MainDirection);
             }
 
             return new Point(position, deviatedDirection);

@@ -6,18 +6,20 @@ namespace EggCentric.ValueProviders.PatternGenerators
 {
     public class SequentialValueProvider<T> : PatternGenerator<T>
     {
-        private IReadOnlyList<T> _sequence;
+        public IReadOnlyList<T> Sequence { get; set; }
+        public int CurrentItem => _currentIndex;
+
         private int _currentIndex;
 
         public SequentialValueProvider(IEnumerable<T> sequence) => SetSequence(sequence);
 
-        public override T Peek(int offset = 0) => _sequence[_currentIndex + offset];
+        public override T Peek(int offset = 0) => Sequence[_currentIndex + offset];
 
         public void SetSequence(IEnumerable<T> sequence)
         {
             if (sequence == null || sequence.Count() <= 0)
             {
-                if (_sequence == null)
+                if (Sequence == null)
                 {
                     Debug.LogError($"Provided sequence is invalid! Reverting to default.");
                     SetDefaultSequence();
@@ -28,7 +30,7 @@ namespace EggCentric.ValueProviders.PatternGenerators
                 return;
             }
 
-            _sequence = sequence.ToArray();
+            Sequence = sequence.ToArray();
             Reset();
         }
 
@@ -36,7 +38,7 @@ namespace EggCentric.ValueProviders.PatternGenerators
 
         protected override void HandleItemChange() => MoveNext();
 
-        private void MoveNext() => _currentIndex = (_currentIndex + 1) % _sequence.Count();
+        private void MoveNext() => _currentIndex = (_currentIndex + 1) % Sequence.Count();
 
         private void SetDefaultSequence() => SetSequence(new T[] { default });
     }

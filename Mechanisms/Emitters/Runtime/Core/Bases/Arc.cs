@@ -18,7 +18,7 @@ namespace EggCentric.Emmiters
             MinAngle = new ValidatedValue<float>(ValidateLowerAngle, minAngle);
             MaxAngle = new ValidatedValue<float>(ValidateUpperAngle, maxAngle);
 
-            InCoordinates(CoordinateFrames.Frame2D);
+            InCoordinates(CoordinateFrames.HorizontalFrame2D);
             WithStrategy(new UniformCos());
         }
 
@@ -47,7 +47,7 @@ namespace EggCentric.Emmiters
             var sin = Mathf.Sin(sampleAngle);
             var cos = Mathf.Cos(sampleAngle);
 
-            return cos * _coordinatesReference.Normal + sin * _coordinatesReference.Bitangent;
+            return cos * _coordinatesReference.MainDirection + sin * _coordinatesReference.SecondaryDirection;
         }
 
         private bool ValidateLowerAngle(float angle, out float validated)

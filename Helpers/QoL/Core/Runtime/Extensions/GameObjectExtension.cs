@@ -6,17 +6,34 @@ namespace EggCentric.QoL
     {
         public static bool TryGetComponentInParent<TComponent>(this Component target, out TComponent component)
         {
-            target.TryGetComponent(out component);
+            Transform parent = target.transform.parent;
+            component = parent ? parent.GetComponentInParent<TComponent>() : default;
+            return component != null;
+        }
 
-            if (component != null && !ReferenceEquals(component, target))
+        public static bool TryGetComponentInChildren<TComponent>(this Component target, out TComponent component)
+        {
+            foreach (Transform child in target.transform)
+            {
+                component = child.GetComponentInChildren<TComponent>();
+
+                if (component != null)
+                    return true;
+            }
+
+            component = default;
+            return component != null;
+        }
+
+        public static bool TryGetComponentInHierarchy<TComponent>(this Component target, out TComponent component)
+        {
+            if(target.TryGetComponent(out component))
                 return true;
 
-            if (target.transform.parent == null)
-                return false;
+            if (TryGetComponentInParent(target, out component))
+                return true;
 
-            component = target.transform.parent.GetComponentInParent<TComponent>();
-
-            if (component != null && !ReferenceEquals(component, target))
+            if(TryGetComponentInChildren(target, out component))
                 return true;
 
             return false;

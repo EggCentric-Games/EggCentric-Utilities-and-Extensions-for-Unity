@@ -13,7 +13,7 @@ namespace EggCentric.Emmiters
         private ICoordinateFrame _coordinatesReference;
         private Arc _base;
 
-        public ConeEmitter(float minAngle = 0f, float maxAngle = 45f) : this(CoordinateFrames.Frame2D, minAngle, maxAngle) { }
+        public ConeEmitter(float minAngle = 0f, float maxAngle = 45f) : this(CoordinateFrames.HorizontalFrame2D, minAngle, maxAngle) { }
         public ConeEmitter(ICoordinateFrame coordinatesReferences, float minAngle = 0f, float maxAngle = 45f)
         {
             _coordinatesReference = coordinatesReferences;
@@ -31,7 +31,7 @@ namespace EggCentric.Emmiters
         {
             var deviatedDirection = _base.SampleAt(filling);
 
-            return new Point(_coordinatesReference.Bitangent * filling, deviatedDirection);
+            return new Point(_coordinatesReference.TertiaryDirection * filling, deviatedDirection);
         }
 
         private bool ValidateLowerAngle(float angle, out float validated)

@@ -5,7 +5,7 @@ namespace EggCentric.Effectors
 {
     public abstract class EffectorEntity<T> : EffectorEntity where T : Component
     {
-        private AreaSensor<T> _sensor;
+        private TriggerSensor2D<T> _sensor;
 
         protected override void Initialize()
         {
@@ -32,7 +32,7 @@ namespace EggCentric.Effectors
                 Destroy(_sensor);
         }
 
-        protected abstract AreaSensor<T> CreateSensor();
+        protected abstract TriggerSensor2D<T> CreateSensor();
         protected abstract void ApplyEffect(IDetection<T> target);
     }
 }

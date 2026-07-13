@@ -1,5 +1,3 @@
-using EggCentric.Randomization;
-
 namespace EggCentric.Randomization
 {
     public interface IDeviationStrategy

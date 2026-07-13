@@ -14,7 +14,7 @@ namespace EggCentric.Emmiters
         private Sampler _sampler;
         private Arc _base;
 
-        public SectorEmitter(Sampler sampler, float minAngle = 0f, float maxAngle = 0f) : this(sampler, CoordinateFrames.Frame2D, minAngle, maxAngle) { }
+        public SectorEmitter(Sampler sampler, float minAngle = 0f, float maxAngle = 0f) : this(sampler, CoordinateFrames.HorizontalFrame2D, minAngle, maxAngle) { }
         public SectorEmitter(Sampler sampler, ICoordinateFrame coordinatesReferences, float minAngle = 0f, float maxAngle = 45f)
         {
             _sampler = sampler;

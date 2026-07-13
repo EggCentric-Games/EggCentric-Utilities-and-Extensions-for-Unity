@@ -28,7 +28,7 @@ namespace EggCentric.Emmiters
         {
             var basePoint = _emitter.GetPoint(filling);
             var targetAngle = Mathf.Lerp(MinAngle, MaxAngle, _rotationSampler.GetSample());
-            var rotationalModifier = Quaternion.AngleAxis(targetAngle, _coordinatesReferences.Normal);
+            var rotationalModifier = Quaternion.AngleAxis(targetAngle, _coordinatesReferences.MainDirection);
 
             return rotationalModifier * basePoint;
         }

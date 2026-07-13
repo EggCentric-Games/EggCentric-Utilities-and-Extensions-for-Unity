@@ -2,9 +2,9 @@ using System;
 
 namespace EggCentric.Sensors
 {
-    public interface ISensorEventsProvider<out T>
+    public interface ISensorEventsProvider<out TComponent>
     {
-        public event Action<IDetection<T>> OnNewDetection;
-        public event Action<IDetection<T>> OnDetectionLost;
+        public event Action<IDetection<TComponent>> OnNewDetection;
+        public event Action<IDetection<TComponent>> OnDetectionLost;
     }
 }
