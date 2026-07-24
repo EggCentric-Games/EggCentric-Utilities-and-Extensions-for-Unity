@@ -51,7 +51,7 @@ public class NodeBounds
 
 public interface ITree<TItem> where TItem : ITreeItem<TItem>
 {
-    public ITreeSettings Settings { get; }
+    public TreeSettings Settings { get; }
 
     public void GetOverlaps(Vector3 position, float radius, List<TItem> result);
     public bool Insert(TItem item);
@@ -62,25 +62,15 @@ public interface ITree<TItem> where TItem : ITreeItem<TItem>
     public void DrawItems(Color color, float size = 0.1f);
 }
 
-public interface ITree<TNode, TItem> : ITree<TItem> where TNode : ITreeNode<TNode, TItem> where TItem : ITreeItem<TItem>
+public abstract class Tree<TNode, TItem> where TNode : ITreeNode<TNode, TItem> where TItem : ITreeItem<TItem>
 {
-    public ITreeMergingPolicy<TNode, TItem> MergingPolicy { get; }
-
-    public abstract TNode CreateNode(TNode parent, NodeBounds bounds);
-}
-
-public abstract class Tree<TNode, TItem> : ITree<TNode, TItem> where TNode : ITreeNode<TNode, TItem> where TItem : ITreeItem<TItem>
-{
-    public ITreeSettings Settings { get; }
-    public ITreeMergingPolicy<TNode, TItem> MergingPolicy => _mergingPolicy;
+    public TreeSettings Settings { get; }
 
     protected TNode root;
-    private ITreeMergingPolicy<TNode, TItem> _mergingPolicy;
 
-    public Tree(TreeSettings settings, NodeBounds bounds, ITreeMergingPolicy<TNode, TItem> mergingPolicy)
+    public Tree(TreeSettings settings, NodeBounds bounds)
     {
         Settings = settings;
-        _mergingPolicy = mergingPolicy;
 
         root = CreateRoot(bounds);
     }
@@ -174,7 +164,7 @@ public abstract class Tree<TNode, TItem> : ITree<TNode, TItem> where TNode : ITr
 
 public class Octree<TItem> : Tree<OctreeNode<TItem>, TItem> where TItem : ITreeItem<TItem>
 {
-    public Octree(TreeSettings settings, NodeBounds bounds, ITreeMergingPolicy<OctreeNode<TItem>, TItem> mergingPolicy) : base(settings, bounds, mergingPolicy)
+    public Octree(TreeSettings settings, NodeBounds bounds) : base(settings, bounds)
     {
     }
 
@@ -204,68 +194,15 @@ public interface ITreeNode<TItem> where TItem : ITreeItem<TItem>
 
 public interface ITreeNode<TNode, TItem> : ITreeNode<TItem> where TNode : ITreeNode<TNode, TItem> where TItem : ITreeItem<TItem>
 {
-    public ITree<TNode, TItem> Tree { get; }
+    public Tree<TNode, TItem> Tree { get; }
     public new TNode Parent { get; }
     public IReadOnlyList<TNode> Children { get; }
     public IReadOnlyList<TItem> Items { get; }
 }
 
-public interface ITreeMergingPolicy<TNode, TItem> where TNode : ITreeNode<TNode, TItem> where TItem : ITreeItem<TItem>
-{
-    public bool IsSplitRequired(TNode node);
-    public bool IsSplitAvailable(TNode node);
-    public bool IsMergeAvailable(TNode node);
-}
-
-public abstract class TreeMergingPolicy<TSettings, TNode, TItem> : ITreeMergingPolicy<TNode, TItem> where TNode : ITreeNode<TNode, TItem> where TItem : ITreeItem<TItem>
-{
-    public TSettings Settings { get; }
-
-    public TreeMergingPolicy(TSettings settings) => Settings = settings;
-
-    public abstract bool IsSplitRequired(TNode node);
-    public abstract bool IsMergeAvailable(TNode node);
-    public abstract bool IsSplitAvailable(TNode node);
-}
-
-public class CommonMergingPolicy<TNode, TItem> : TreeMergingPolicy<TreeSettings, TNode, TItem> where TNode : ITreeNode<TNode, TItem> where TItem : ITreeItem<TItem>
-{
-    public CommonMergingPolicy(TreeSettings settings) : base(settings)
-    {
-    }
-
-    public override bool IsSplitRequired(TNode node) => node.Items.Count > Settings.Capacity && node.IsLeaf;
-
-    public override bool IsSplitAvailable(TNode node)
-    {
-        if (node.Depth >= Settings.MaxDepth)
-            return false;
-
-        return true;
-    }
-
-    public override bool IsMergeAvailable(TNode node)
-    {
-        if (node.IsLeaf)
-            return true;
-
-        var totalItemCount = 0;
-        foreach (var child in node.Children)
-            if (!IsMergeAvailable(child))
-                return false;
-            else
-                totalItemCount += child.Items.Count;
-
-        if (totalItemCount > Settings.Capacity)
-            return false;
-
-        return true;
-    }
-}
-
 public abstract class TreeNode<TNode, TItem> : ITreeNode<TNode, TItem> where TNode : TreeNode<TNode, TItem> where TItem : ITreeItem<TItem>
 {
-    public ITree<TNode, TItem> Tree { get; }
+    public Tree<TNode, TItem> Tree { get; }
     public TNode Parent => _parent;
     public NodeBounds Bounds => _bounds;
     public IReadOnlyList<TNode> Children => _children;
@@ -289,7 +226,7 @@ public abstract class TreeNode<TNode, TItem> : ITreeNode<TNode, TItem> where TNo
     public event Action<TItem> OnItemRemoved;
     public event Action OnMergePerformed;
 
-    public TreeNode(ITree<TNode, TItem> tree, TNode parent, NodeBounds bounds, int depth)
+    public TreeNode(Tree<TNode, TItem> tree, TNode parent, NodeBounds bounds, int depth)
     {
         _bounds = bounds;
         Tree = tree;
@@ -312,6 +249,34 @@ public abstract class TreeNode<TNode, TItem> : ITreeNode<TNode, TItem> where TNo
 
     //    _parent.Invalidate();
     //}
+
+    private bool IsSplitRequired(TNode node) => node.Items.Count > Tree.Settings.Capacity && node.IsLeaf;
+
+    private bool IsSplitAvailable(TNode node)
+    {
+        if (node.Depth >= Tree.Settings.MaxDepth)
+            return false;
+
+        return true;
+    }
+
+    private bool IsMergeAvailable(TNode node)
+    {
+        if (node.IsLeaf)
+            return true;
+
+        var totalItemCount = 0;
+        foreach (var child in node.Children)
+            if (!IsMergeAvailable(child))
+                return false;
+            else
+                totalItemCount += child.Items.Count;
+
+        if (totalItemCount > Tree.Settings.Capacity)
+            return false;
+
+        return true;
+    }
 
     private float GetMaxOffset()
     {
@@ -357,7 +322,7 @@ public abstract class TreeNode<TNode, TItem> : ITreeNode<TNode, TItem> where TNo
 
     public bool TrySplit()
     {
-        if (!Tree.MergingPolicy.IsSplitAvailable((TNode)this))
+        if (!IsSplitAvailable((TNode)this))
             return false;
 
         Split();
@@ -383,7 +348,7 @@ public abstract class TreeNode<TNode, TItem> : ITreeNode<TNode, TItem> where TNo
 
     protected bool TryMerge()
     {
-        if (!Tree.MergingPolicy.IsMergeAvailable((TNode)this))
+        if (!IsMergeAvailable((TNode)this))
             return false;
 
         Merge();
@@ -413,7 +378,7 @@ public abstract class TreeNode<TNode, TItem> : ITreeNode<TNode, TItem> where TNo
         }
 
         Assign(item);
-        if (Tree.MergingPolicy.IsSplitRequired((TNode)this))
+        if (IsSplitRequired((TNode)this))
             TrySplit();
 
         return true;
@@ -506,7 +471,7 @@ public class TreeSettings : ITreeSettings
 public class OctreeNode<TItem> : TreeNode<OctreeNode<TItem>, TItem> where TItem : ITreeItem<TItem>
 {
 
-    public OctreeNode(ITree<OctreeNode<TItem>, TItem> tree, OctreeNode<TItem> parent, NodeBounds bounds, int depth) : base(tree, parent, bounds, depth)
+    public OctreeNode(Tree<OctreeNode<TItem>, TItem> tree, OctreeNode<TItem> parent, NodeBounds bounds, int depth) : base(tree, parent, bounds, depth)
     {
     }
 

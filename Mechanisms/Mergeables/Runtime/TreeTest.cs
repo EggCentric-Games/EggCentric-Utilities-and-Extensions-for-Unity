@@ -29,8 +29,7 @@ public class TreeTest : MonoBehaviour
         _bounds = new NodeBounds(_center, _extents);
 
         var settings = _parameters.Bake();
-        var mergingPolicy = new CommonMergingPolicy<OctreeNode<DropletTreeItem>, DropletTreeItem>(settings);
-        _tree = new MergeableTree(settings, _bounds, mergingPolicy);
+        _tree = new MergeableTree(settings, _bounds);
         _intersections = new List<DropletTreeItem>();
         _droplets = new List<DropletTreeItem>();
         _register = new Register<DropletTreeItem>();
@@ -231,7 +230,7 @@ public class TreeTest : MonoBehaviour
 
 public class MergeableTree : Octree<DropletTreeItem>
 {
-    public MergeableTree(TreeSettings settings, NodeBounds bounds, ITreeMergingPolicy<OctreeNode<DropletTreeItem>, DropletTreeItem> mergingPolicy) : base(settings, bounds, mergingPolicy)
+    public MergeableTree(TreeSettings settings, NodeBounds bounds) : base(settings, bounds)
     {
     }
 }
