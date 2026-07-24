@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace EggCentric.Sensors
 {
-    public abstract class Sensor<TComponent> : ISensor<TComponent>
+    public abstract class SensorComponent<TComponent> : MonoBehaviour, ISensor<TComponent>
     {
         public abstract IReadOnlyCollection<IDetection<TComponent>> Detections { get; }
 
@@ -20,11 +20,7 @@ namespace EggCentric.Sensors
         protected void NotifyDetectionLoss(IDetection<TComponent> detection) => OnDetectionLost?.Invoke(detection);
     }
 
-    public abstract class SensorComponent<TComponent> : Sensor<TComponent> where TComponent : Component
-    {
-    }
-
-    public abstract class TriggerSensor<TComponent, TSource> : SensorComponent<TComponent> where TComponent : Component where TSource : Component
+    public abstract class TriggerSensor<TComponent, TSource> : SensorComponent<TComponent> where TSource : Component
     {
         public override IReadOnlyCollection<IDetection<TComponent>> Detections => _detections;
 
@@ -45,7 +41,7 @@ namespace EggCentric.Sensors
             if (!source.TryGetComponentInParent(out TComponent component))
                 return;
 
-            var targetToRemove = _detections.FirstOrDefault(obj => obj.Source == source);
+            var targetToRemove = _detections.FirstOrDefault(obj => obj.Context == source);
             if (targetToRemove == null)
                 return;
 
@@ -54,164 +50,91 @@ namespace EggCentric.Sensors
         }
     }
 
-    public class CollisionSensor<TComponent, THit> : Sensor<TComponent>, ITickable where THit : struct
+    public abstract class ProbeSensor<TComponent, THit> : ISensor<TComponent>, ITickable where THit : struct
     {
-        public override IReadOnlyCollection<IDetection<TComponent>> Detections => _caster.Detections;
+        public float MaxDistance { get; set; }
+        public IReadOnlyCollection<IDetection<TComponent>> Detections => _detections.Items;
+
+        private IProbe<THit> _probe;
+        private Register<Detection<TComponent, THit>> _detections;
+        private List<Detection<TComponent, THit>> _detectionList;
 
         private IValueProvider<Vector3> _position;
-        private IValueProvider<Vector3> _velocity;
-        private ICastingSensor<TComponent, THit> _caster;
+        private IValueProvider<Vector3> _direction;
 
-        public event Action<THit> OnContact;
+        public event Action<IDetection<TComponent>> OnNewDetection;
+        public event Action<IDetection<TComponent>> OnDetectionLost;
 
-        public CollisionSensor(IValueProvider<Vector3> position, IValueProvider<Vector3> velocity, ICastingSensor<TComponent, THit> caster)
+        public ProbeSensor(IValueProvider<Vector3> positionProvider, IValueProvider<Vector3> directionProvider, IProbe<THit> probe)
         {
-            _position = position;
-            _velocity = velocity;
-            _caster = caster;
+            _position = positionProvider;
+            _direction = directionProvider;
+            _probe = probe;
+
+            _detections.OnItemEntry += OnNewDetection;
+            _detections.OnItemExit += OnDetectionLost;
         }
 
         public void Tick(float timeStep)
         {
-            if(!_caster.Cast(_position.Value, _velocity.Value.normalized, _velocity.Value.magnitude * timeStep, out var detection))
-                return;
-
-            OnContact?.Invoke(detection.Source.HitInfo);
-        }
-    }
-
-    public interface ICastingSensor<TComponent, THit> : ISensor<TComponent> where THit : struct
-    {
-        public bool Cast(Vector3 origin, Vector3 direction, float maxDistance, out Detection<TComponent, DetectionSource<THit>> detection);
-        public IReadOnlyCollection<Detection<TComponent, DetectionSource<THit>>> CastAll(Vector3 origin, Vector3 direction, float maxDistance);
-    }
-
-    public abstract class CastingSensor<TComponent, THit> : Sensor<TComponent>, ICastingSensor<TComponent, THit> where THit : struct
-    {
-        public override IReadOnlyCollection<IDetection<TComponent>> Detections => _detectionRegistry.Items;
-
-        private Register<Detection<TComponent, DetectionSource<THit>>> _detectionRegistry;
-
-        public CastingSensor()
-        {
-            _detectionRegistry = new Register<Detection<TComponent, DetectionSource<THit>>>();
-
-            _detectionRegistry.OnItemEntry += NotifyNewDetection;
-            _detectionRegistry.OnItemExit += NotifyDetectionLoss;
+            var hits = _probe.CastAll(_position.Value, _direction.Value, MaxDistance);
+            ConvertToDetections(hits);
+            _detections.ProcessEntry(_detectionList);
         }
 
-        public bool Cast(Vector3 origin, Vector3 direction, float maxDistance, out Detection<TComponent, DetectionSource<THit>> detection)
+        protected abstract bool TryCreateDetection(THit hit, out Detection<TComponent, THit> detection);
+
+        private Detection<TComponent, THit>[] ConvertToDetections(IReadOnlyCollection<THit> hits)
         {
-            var detections = CollectDetections(origin, direction, maxDistance);
-            _detectionRegistry.ProcessEntry(detections);
-
-            var wasSomethingDetected = _detectionRegistry.Items.Count > 0;
-            if (wasSomethingDetected)
-                detection = detections[0];
-            else
-                detection = default;
-
-            return wasSomethingDetected;
-        }
-
-        public IReadOnlyCollection<Detection<TComponent, DetectionSource<THit>>> CastAll(Vector3 origin, Vector3 direction, float maxDistance)
-        {
-            var detections = CollectDetections(origin, direction, maxDistance);
-            _detectionRegistry.ProcessEntry(detections);
-
-            return _detectionRegistry.Items;
-        }
-
-        protected abstract IEnumerable<THit> GetHits(Vector3 origin, Vector3 direction, float maxDistance);
-        protected abstract bool TryCreateDetection(THit hit, out Detection<TComponent, DetectionSource<THit>> detection);
-
-        private List<Detection<TComponent, DetectionSource<THit>>> CollectDetections(Vector3 origin, Vector3 direction, float maxDistance)
-        {
-            var hits = GetHits(origin, direction, maxDistance);
-            var currentDetections = new List<Detection<TComponent, DetectionSource<THit>>>();
+            _detectionList.Clear();
 
             foreach (var hit in hits)
             {
-                if (!TryCreateDetection(hit, out var newDetection))
+                if (!TryCreateDetection(hit, out var detection))
                     continue;
 
-                currentDetections.Add(newDetection);
+                _detectionList.Add(detection);
             }
 
-            return currentDetections;
+            return _detectionList.ToArray();
         }
     }
 
-    public class Raycast2DSensor<TComponent> : CastingSensor<TComponent, RaycastHit2D>
+    public class ProbeSensor2D<TComponent> : ProbeSensor<TComponent, RaycastHit2D>
     {
-        [SerializeField] private ContactFilter2D _contactFilter;
-
-        private readonly List<RaycastHit2D> _hits = new();
-
-        protected override IEnumerable<RaycastHit2D> GetHits(Vector3 origin, Vector3 direction, float distance)
+        public ProbeSensor2D(IValueProvider<Vector3> positionProvider, IValueProvider<Vector3> directionProvider, IProbe<RaycastHit2D> probe) : base(positionProvider, directionProvider, probe)
         {
-            _hits.Clear();
-            Physics2D.Raycast(origin, direction, _contactFilter, _hits, distance);
-
-            return _hits;
         }
 
-        protected override bool TryCreateDetection(RaycastHit2D hit, out Detection<TComponent, DetectionSource<RaycastHit2D>> detection)
+        protected override bool TryCreateDetection(RaycastHit2D hit, out Detection<TComponent, RaycastHit2D> detection)
         {
-            if (!hit.transform.TryGetComponentInHierarchy(out TComponent component))
-            {
-                detection = default;
-                return false;
-            }
-            var detectionSource = new DetectionSource<RaycastHit2D>(hit.transform, hit);
-            detection = new Detection<TComponent, DetectionSource<RaycastHit2D>>(component, detectionSource);
-            return true;
-        }
-    }
-
-    public class Raycast3DSensor<TComponent> : CastingSensor<TComponent, RaycastHit>
-    {
-        [SerializeField] private LayerMask _mask;
-        [SerializeField] private QueryTriggerInteraction _triggerInteraction;
-
-        private readonly RaycastHit[] _hits = new RaycastHit[32];
-
-        protected override IEnumerable<RaycastHit> GetHits(Vector3 origin, Vector3 direction, float distance)
-        {
-            int count = Physics.RaycastNonAlloc(origin, direction, _hits, distance, _mask, _triggerInteraction);
-
-            for (int i = 0; i < count; i++)
-                yield return _hits[i];
-        }
-
-        protected override bool TryCreateDetection(RaycastHit hit, out Detection<TComponent, DetectionSource<RaycastHit>> detection)
-        {
-            if (!hit.transform.TryGetComponentInHierarchy(out TComponent component))
+            if(!hit.transform.TryGetComponentInHierarchy<TComponent>(out var component))
             {
                 detection = default;
                 return false;
             }
 
-            var detectionSource = new DetectionSource<RaycastHit>(hit.transform, hit);
-            detection = new Detection<TComponent, DetectionSource<RaycastHit>>(component, detectionSource);
+            detection = new Detection<TComponent, RaycastHit2D>(component, hit);
             return true;
         }
     }
 
-    public struct DetectionSource<THitInfo>
+    public class ProbeSensor3D<TComponent> : ProbeSensor<TComponent, RaycastHit>
     {
-        public Transform HitObject;
-        public THitInfo HitInfo;
-
-        public DetectionSource(Transform hitObject, THitInfo hitInfo)
+        public ProbeSensor3D(IValueProvider<Vector3> positionProvider, IValueProvider<Vector3> directionProvider, IProbe<RaycastHit> probe) : base(positionProvider, directionProvider, probe)
         {
-            HitObject = hitObject;
-            HitInfo = hitInfo;
         }
 
-        public static bool operator ==(DetectionSource<THitInfo> lhs, DetectionSource<THitInfo> rhs) => lhs.HitObject == rhs.HitObject;
-        public static bool operator !=(DetectionSource<THitInfo> lhs, DetectionSource<THitInfo> rhs) => lhs.HitObject != rhs.HitObject;
+        protected override bool TryCreateDetection(RaycastHit hit, out Detection<TComponent, RaycastHit> detection)
+        {
+            if (!hit.transform.TryGetComponentInHierarchy<TComponent>(out var component))
+            {
+                detection = default;
+                return false;
+            }
 
-        public override bool Equals(object obj) => obj == HitObject;
+            detection = new Detection<TComponent, RaycastHit>(component, hit);
+            return true;
+        }
     }
 }
