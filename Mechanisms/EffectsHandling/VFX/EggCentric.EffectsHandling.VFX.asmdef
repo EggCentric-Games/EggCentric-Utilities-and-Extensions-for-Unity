@@ -1,0 +1,16 @@
+{
+    "name": "EggCentric.EffectsHandling.VFX",
+    "rootNamespace": "EggCentric.EffectsHandling.VFX",
+    "references": [
+        "GUID:29799cacad245234f8dc6b9476aa8dad"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

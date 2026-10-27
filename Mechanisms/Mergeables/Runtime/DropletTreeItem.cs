@@ -1,13 +1,15 @@
+using EggCentric.Entities;
 using EggCentric.LifeCycleHandling;
 using EggCentric.Sensors;
-using EggCentric.ValueProviders;
 using UnityEngine;
 
-public class DropletTreeItem : ITreeItem<DropletTreeItem>, ITickable
+public class DropletTreeItem : ITreeItem<DropletTreeItem>, IKinematicEntity, ITickable
 {
     public ITreeNode<DropletTreeItem> Parent { get; private set; }
     public Vector3 Position => _position;
+    public Vector3 Velocity => _velocity;
     public float Radius => Droplet.Radius;
+
 
     public readonly Droplet Droplet;
     private readonly Transform _transform;
@@ -24,7 +26,7 @@ public class DropletTreeItem : ITreeItem<DropletTreeItem>, ITickable
         _transform = Droplet.transform;
         _position = _transform.position;
 
-        _collisionProbe = new CollisionProbe<RaycastHit>(new RaycastProbe3D(probeSettings), new Getter<Vector3>(() => _position), new Getter<Vector3>(() => _velocity));
+        _collisionProbe = new CollisionProbe<RaycastHit>(this, new RaycastProbe3D(probeSettings));
         _collisionProbe.OnContact += HandleHit;
     }
 

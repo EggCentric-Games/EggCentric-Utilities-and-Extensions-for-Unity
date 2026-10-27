@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace EggCentric.Common.Behaviours
+namespace EggCentric.Entities
 {
-    public interface IGameEntity
+    public interface ISpatialEntity
     {
         public Vector3 Position { get; }
     }

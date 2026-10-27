@@ -1,0 +1,20 @@
+{
+    "name": "EggCentric.ContactProcessing",
+    "rootNamespace": "",
+    "references": [
+        "GUID:352ee40aa59f4f645b6e74ae58f0486f",
+        "GUID:29799cacad245234f8dc6b9476aa8dad",
+        "GUID:8273d3c34604e1548b460d33aad01ebf",
+        "GUID:0576d2b7fe110e5488ad715cb15ee1e0",
+        "GUID:5d7f8f5e9f0b2e84ca217cd8245efced"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

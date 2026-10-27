@@ -117,17 +117,40 @@ namespace EggCentric.QoL
                     targetValueRange.y,
                     Mathf.InverseLerp(oldMinValue, oldMaxValue, key.value));
 
-
-                if (key.weightedMode == WeightedMode.None)
-                {
-                    key.inTangent *= tangentScale;
-                    key.outTangent *= tangentScale;
-                }
+                key.inTangent *= tangentScale;
+                key.outTangent *= tangentScale;
 
                 keys[i] = key;
             }
 
             curve.keys = keys;
+        }
+
+        public static float GetCurveArea(this AnimationCurve curve, int stepCount = 100)
+        {
+            if(stepCount < 2)
+            {
+                Debug.LogWarning($"The minimal required step count for curve area calculation is 2. You've entered {stepCount}. Clamping.");
+                stepCount = 2;
+            }
+
+            var maxTime = curve.keys[curve.length - 1].time;
+            var stepLength = maxTime / stepCount;
+            var totalValue = 0f;
+
+            for(int i = 1; i < stepCount; i++)
+            {
+                var previousTime = (i - 1) * stepLength;
+                var currentTime = i * stepLength;
+
+                var previousValue = curve.Evaluate(previousTime);
+                var currentValue = curve.Evaluate(currentTime);
+                var averageValue = (currentValue + previousValue) * 0.5f;
+
+                totalValue += averageValue;
+            }
+
+            return totalValue / (stepCount - 1);
         }
     }
 }
