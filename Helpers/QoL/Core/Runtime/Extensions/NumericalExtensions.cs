@@ -54,5 +54,8 @@ namespace EggCentric.QoL
         public static float LowerQuantize(this float number, float step) => Mathf.Floor(number / step) * step;
         public static float Quantize(this float number, float step) => Mathf.Round(number / step) * step;
         public static float UpperQuantize(this float number, float step) => Mathf.Ceil(number / step) * step;
+
+        public static float RoundAwayFromZero(this float number) => number >= 0 ? Mathf.Ceil(number) : Mathf.Floor(number);
+        public static int RoundAwayFromZeroToInt(this float number) => number >= 0 ? Mathf.CeilToInt(number) : Mathf.FloorToInt(number);
     }
 }

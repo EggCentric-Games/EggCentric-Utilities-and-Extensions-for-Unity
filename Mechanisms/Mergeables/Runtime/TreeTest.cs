@@ -1,3 +1,5 @@
+using EggCentric.DataStructures;
+using EggCentric.DataStructures.Trees.Octree;
 using EggCentric.Sensors;
 using EggCentric.ValueProviders.DataContainers;
 using System.Collections.Generic;

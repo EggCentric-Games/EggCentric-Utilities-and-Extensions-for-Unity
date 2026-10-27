@@ -1,8 +1,11 @@
+using EggCentric.Entities;
 using TMPro;
 using UnityEngine;
 
-public class Droplet : MonoBehaviour
+public class Droplet : MonoBehaviour, ISpatialEntity
 {
+    public Vector3 Position => transform.position;
+
     public float Radius { get; private set; }
     public float Weight => _weight;
 
@@ -34,5 +37,6 @@ public class Droplet : MonoBehaviour
         _display.transform.parent.localPosition = Vector3.up * (Radius + 0.1f);
         _display.text = value.ToString("0.00");
     }
+
     private float GetSize(float weight) => Mathf.Sign(weight) * Mathf.Pow(Mathf.Abs(weight), 1f / 3f);
 }
