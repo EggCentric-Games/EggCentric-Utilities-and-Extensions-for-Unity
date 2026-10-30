@@ -54,7 +54,7 @@ public class TreeTest : MonoBehaviour
 
         foreach (var droplet in _droplets)
         {
-            droplet.Tick(Time.deltaTime);
+            droplet.Droplet.Tick(Time.deltaTime);
             _tree.Update(droplet);
         }
 

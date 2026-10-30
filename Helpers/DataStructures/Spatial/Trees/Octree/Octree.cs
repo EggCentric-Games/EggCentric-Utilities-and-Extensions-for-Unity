@@ -462,7 +462,6 @@ namespace EggCentric.DataStructures.Trees.Octree
         public ITreeNode<TSelf> Parent { get; }
         public Vector3 Position { get; }
 
-        public void MoveTo(Vector3 position);
         public void AssignTo(ITreeNode<TSelf> parent);
     }
 }

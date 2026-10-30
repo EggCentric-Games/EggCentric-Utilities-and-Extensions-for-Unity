@@ -45,6 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37c7c2e868521884ab48f25c1d0bb954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _raycastLayers:
+    Mask:
+      serializedVersion: 2
+      m_Bits: 1
+    TriggerInteraction: 0
   _model: {fileID: 9077854283230348715}
   _display: {fileID: 0}
 --- !u!1 &5663361260196181007
