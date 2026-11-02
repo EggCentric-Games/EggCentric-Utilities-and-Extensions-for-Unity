@@ -40,8 +40,9 @@ namespace EggCentric.DataStructures
             item.AssignTo(null);
         }
 
-        public bool IsInBounds(Vector3 point) => Bounds.Contains(point);
+        public bool Contains(Vector3 point) => Bounds.Contains(point);
         public float SqrDistance(Vector3 point) => Bounds.SqrDistance(point);
+        public float Distance(Vector3 point) => Mathf.Sqrt(Bounds.SqrDistance(point));
     }
 
     public interface IRecursiveNode<TNode, TItem> : IGridNode<TItem> where TNode : IRecursiveNode<TNode, TItem> where TItem : ISpatialEntity
@@ -87,7 +88,8 @@ namespace EggCentric.DataStructures
             item.AssignTo(null);
         }
 
-        public bool IsInBounds(Vector3 point) => Bounds.Contains(point);
+        public bool Contains(Vector3 point) => Bounds.Contains(point);
         public float SqrDistance(Vector3 point) => Bounds.SqrDistance(point);
+        public float Distance(Vector3 point) => Mathf.Sqrt(Bounds.SqrDistance(point));
     }
 }

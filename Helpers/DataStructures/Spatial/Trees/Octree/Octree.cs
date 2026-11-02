@@ -40,7 +40,7 @@ namespace EggCentric.DataStructures.Trees.Octree
             if (parent == null)
                 return false;
 
-            if (item.Parent.Bounds.Contains(item.Position))
+            if (parent.Bounds.Contains(item.Position))
                 return true;
 
             Remove(item);

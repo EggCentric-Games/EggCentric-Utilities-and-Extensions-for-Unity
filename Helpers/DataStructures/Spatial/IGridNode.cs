@@ -6,7 +6,9 @@ namespace EggCentric.DataStructures
 {
     public interface ISpatialNode<TItem> where TItem : ISpatialEntity
     {
-
+        public bool Contains(Vector3 point);
+        public float Distance(Vector3 point);
+        public float SqrDistance(Vector3 point);
     }
 
     public interface IGridNode<TItem> : ISpatialNode<TItem> where TItem : ISpatialEntity
@@ -17,7 +19,5 @@ namespace EggCentric.DataStructures
 
         public void Insert(GridEntryHandle<TItem> handle);
         public void Remove(GridEntryHandle<TItem> handle);
-        public bool IsInBounds(Vector3 point);
-        public float SqrDistance(Vector3 point);
     }
 }

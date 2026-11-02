@@ -67,19 +67,19 @@ namespace EggCentric.DataStructures
             return true;
         }
 
-        public void Update(TItem item)
+        public bool Update(TItem item)
         {
             if (!_registeredItems.TryGetValue(item, out var entry))
-                return;
+                return false;
 
-            if (entry.Parent == null)
+            if (entry.Host == null)
             {
                 _registeredItems.Remove(item);
-                return;
+                return false;
             }
 
-            if (entry.Parent.IsInBounds(entry.Item.Position))
-                return;
+            if (entry.Host.Contains(entry.Item.Position))
+                return true;
 
             var key = ToKey(entry.Item);
             var cell = RetrieveCell(key);
@@ -87,15 +87,17 @@ namespace EggCentric.DataStructures
             DetachItem(entry);
 
             cell.Insert(entry);
+            return true;
         }
 
-        public void Remove(TItem item)
+        public bool Remove(TItem item)
         {
             if (!_registeredItems.TryGetValue(item, out var entry))
-                return;
+                return false;
 
             _registeredItems.Remove(item);
             DetachItem(entry);
+            return true;
         }
 
         private UniformNode<TItem> RetrieveCell((int x, int y, int z) key)
@@ -134,7 +136,7 @@ namespace EggCentric.DataStructures
 
         private void DetachItem(GridEntryHandle<TItem> entryHandle)
         {
-            var parentCell = entryHandle.Parent;
+            var parentCell = entryHandle.Host;
             if (parentCell == null)
                 return;
 

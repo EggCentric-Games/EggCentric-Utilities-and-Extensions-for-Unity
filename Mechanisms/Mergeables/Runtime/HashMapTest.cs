@@ -186,7 +186,6 @@ public class HashMapTest : MonoBehaviour
     private void Remove(Droplet handle)
     {
         _grid.Remove(handle);
-        _droplets.Remove(handle);
         Destroy(handle.gameObject);
     }
 

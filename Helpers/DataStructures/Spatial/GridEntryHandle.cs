@@ -2,17 +2,10 @@ using EggCentric.Entities;
 
 namespace EggCentric.DataStructures
 {
-    public class GridEntryHandle<TItem> : IGridHandle<TItem> where TItem : ISpatialEntity
+    public class GridEntryHandle<TItem> : EntryHandle<IGridNode<TItem>, TItem>, IGridHandle<TItem> where TItem : ISpatialEntity
     {
-        public IGridNode<TItem> Parent { get; private set; }
-        public TItem Item { get; }
-
-        public GridEntryHandle(TItem item, IGridNode<TItem> parent = null)
+        public GridEntryHandle(TItem item, IGridNode<TItem> parent = null) : base(item, parent)
         {
-            Parent = parent;
-            Item = item;
         }
-
-        public void AssignTo(IGridNode<TItem> parent) => Parent = parent;
     }
 }
